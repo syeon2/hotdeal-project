@@ -1,0 +1,87 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'waterkite94/hotdeal'
+        DOCKERFILE_PATH = './devops/Dockerfile'
+    }
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                git branch: 'main', credentialsId: 'github_webhook_token',
+                url: 'https://github.com/syeon2/hotdeal-project.git'
+            }
+        }
+
+        stage('Build Project') {
+            steps {
+                sh "./gradlew clean build"
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def dockerfilePath = "${env.WORKSPACE}/${DOCKERFILE_PATH}"
+
+                    sh "docker build -f ${dockerfilePath} -t ${DOCKER_IMAGE} ${env.WORKSPACE}"
+                }
+            }
+        }
+
+        stage('Publish Image to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker_hub_access_token') {
+                        sh "docker push ${DOCKER_IMAGE}"
+                    }
+                }
+            }
+        }
+
+        stage('Server Deploy') {
+            steps {
+                sshPublisher(publishers: [
+                    sshPublisherDesc(
+                        configName: 'raspi-server',
+                        transfers: [
+                            sshTransfer(
+                                cleanRemote: false,
+                                excludes: '',
+                                execCommand: 'docker run -d -p 8000:8080 waterkite94/hotdeal',
+                                execTimeout: 120000,
+                                flatten: false,
+                                makeEmptyDirs: false,
+                                noDefaultExcludes: false,
+                                patternSeparator: '[, ]+',
+                                remoteDirectory: '.',
+                                remoteDirectorySDF: false,
+                                removePrefix: '',
+                                sourceFiles: ''
+                            )
+                        ],
+                        usePromotionTimestamp: false,
+                        useWorkspaceInPromotion: false,
+                        verbose: false
+                    )
+                ])
+
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+
+        failure {
+            echo 'The build has failed.'
+        }
+
+        success {
+            echo 'The build has succeeded.'
+        }
+    }
+}
