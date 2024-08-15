@@ -16,6 +16,13 @@ spring:
       hibernate:
         show_sql: true
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      authentication-code:
+        expire: 5
+
 logging:
   level:
     org.hibernate.SQL: debug
