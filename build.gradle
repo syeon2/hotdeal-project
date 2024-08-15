@@ -49,8 +49,10 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.testcontainers:mysql'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     // Util
+    implementation("org.springframework.boot:spring-boot-starter-security")
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
@@ -64,14 +66,11 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.testcontainers:junit-jupiter'
+
+    testImplementation("org.springframework.security:spring-security-test")
 }
 
-tasks.named('test') {
-    outputs.dir snippetsDir
-    useJUnitPlatform()
-}
-
-tasks.named("jar") {
+jar {
     enabled = false
 }
 
@@ -96,13 +95,13 @@ clean {
 }
 
 // Spring Rest Docs
-tasks.named('asciidoctor') {
-    inputs.dir snippetsDir
-    dependsOn test
-}
-
 ext {
     set('snippetsDir', file("build/generated-snippets"))
+}
+
+test {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
 }
 
 asciidoctor.doFirst {

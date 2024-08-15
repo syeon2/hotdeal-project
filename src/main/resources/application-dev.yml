@@ -16,6 +16,15 @@ spring:
       hibernate:
         show_sql: true
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  mail: # prod - cloud config
+    username: ${GOOGLE_SMTP_ACCOUNT}
+    password: ${GOOGLE_SMTP_PW}
+
 logging:
   level:
     org.hibernate.SQL: debug
