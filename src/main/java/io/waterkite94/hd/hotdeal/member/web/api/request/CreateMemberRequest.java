@@ -7,6 +7,7 @@ import io.waterkite94.hd.hotdeal.member.domain.Member;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -58,5 +59,20 @@ public class CreateMemberRequest {
 			.address(address)
 			.zipcode(zipcode)
 			.build();
+	}
+
+	@Builder
+	private CreateMemberRequest(String email, String password, String name, String phoneNumber, String city,
+		String state,
+		String address, String zipcode, String authenticationCode) {
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.city = city;
+		this.state = state;
+		this.address = address;
+		this.zipcode = zipcode;
+		this.authenticationCode = authenticationCode;
 	}
 }
