@@ -21,9 +21,16 @@ spring:
       host: localhost
       port: 6379
 
-  mail: # prod - cloud config
+  mail:
     username: ${GOOGLE_SMTP_ACCOUNT}
     password: ${GOOGLE_SMTP_PW}
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
 
 logging:
   level:
