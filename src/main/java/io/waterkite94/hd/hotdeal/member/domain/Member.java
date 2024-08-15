@@ -8,7 +8,14 @@ public class Member {
 
 	private Long id;
 
-	record MemberId(String memberId) {
+	@Getter
+	static class MemberId {
+
+		private String memberId;
+
+		public MemberId(String memberId) {
+			this.memberId = memberId;
+		}
 	}
 
 	private MemberId memberId;
@@ -22,7 +29,7 @@ public class Member {
 	private String phoneNumber;
 
 	@Builder
-	private Member(Long id, String memberId, String email, String name, String phoneNumber) {
+	private Member(Long id, String memberId, String email, String password, String name, String phoneNumber) {
 		this.id = id;
 		this.memberId = new MemberId(memberId);
 		this.email = email;
@@ -35,6 +42,20 @@ public class Member {
 	}
 
 	public String getMemberId() {
-		return memberId.memberId();
+		return memberId.getMemberId();
+	}
+
+	public Member initializeMember(String memberId, String password) {
+		return this
+			.withMemberId(memberId)
+			.withPassword(password);
+	}
+
+	private Member withMemberId(String memberId) {
+		return new Member(this.id, memberId, this.email, this.password, this.name, this.phoneNumber);
+	}
+
+	private Member withPassword(String password) {
+		return new Member(this.id, getMemberId(), this.email, password, this.name, this.phoneNumber);
 	}
 }
