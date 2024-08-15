@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.member.dao.entity;
+package io.waterkite94.hd.hotdeal.member.dao.persistence.entity;
 
 import io.waterkite94.hd.hotdeal.util.wrapper.BaseEntity;
 import jakarta.persistence.Column;

@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
-import io.waterkite94.hd.hotdeal.member.dao.AddressRepository;
-import io.waterkite94.hd.hotdeal.member.dao.MemberRepository;
-import io.waterkite94.hd.hotdeal.member.dao.entity.AddressEntity;
-import io.waterkite94.hd.hotdeal.member.dao.entity.MemberEntity;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressRepository;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberRepository;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.AddressEntity;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.MemberEntity;
 import io.waterkite94.hd.hotdeal.member.domain.Address;
 import io.waterkite94.hd.hotdeal.member.domain.Member;
 import jakarta.transaction.Transactional;

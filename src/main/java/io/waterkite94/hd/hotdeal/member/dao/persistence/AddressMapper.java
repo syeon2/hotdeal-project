@@ -1,8 +1,8 @@
-package io.waterkite94.hd.hotdeal.member.dao;
+package io.waterkite94.hd.hotdeal.member.dao.persistence;
 
 import org.springframework.stereotype.Component;
 
-import io.waterkite94.hd.hotdeal.member.dao.entity.AddressEntity;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.AddressEntity;
 import io.waterkite94.hd.hotdeal.member.domain.Address;
 
 @Component

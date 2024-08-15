@@ -6,10 +6,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.waterkite94.hd.hotdeal.member.dao.AddressMapper;
-import io.waterkite94.hd.hotdeal.member.dao.AddressRepository;
-import io.waterkite94.hd.hotdeal.member.dao.MemberMapper;
-import io.waterkite94.hd.hotdeal.member.dao.MemberRepository;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressMapper;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressRepository;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberMapper;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberRepository;
 import io.waterkite94.hd.hotdeal.member.domain.Address;
 import io.waterkite94.hd.hotdeal.member.domain.Member;
 import lombok.RequiredArgsConstructor;

@@ -1,11 +1,11 @@
-package io.waterkite94.hd.hotdeal.member.dao;
+package io.waterkite94.hd.hotdeal.member.dao.persistence;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import io.waterkite94.hd.hotdeal.member.dao.entity.MemberEntity;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.MemberEntity;
 
 public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
