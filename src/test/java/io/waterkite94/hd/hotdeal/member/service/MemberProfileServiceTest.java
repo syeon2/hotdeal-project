@@ -66,7 +66,7 @@ class MemberProfileServiceTest extends IntegrationTestSupport {
 		// when  // then
 		assertThatThrownBy(() -> memberProfileService.createMember(member, address))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessage("Email And Phone Number is already use");
+			.hasMessage("Email Or Phone Number is already use");
 	}
 
 	@Test
