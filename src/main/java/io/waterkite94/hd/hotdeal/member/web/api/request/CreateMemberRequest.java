@@ -39,6 +39,9 @@ public class CreateMemberRequest {
 	@NotBlank(message = "zipcode는 빈칸을 허용하지 않습니다.")
 	private String zipcode;
 
+	@NotBlank(message = "이메일 인증코드는 빈칸을 허용하지 않습니다.")
+	private String authenticationCode;
+
 	public Member toMemberDomain() {
 		return Member.builder()
 			.email(email)

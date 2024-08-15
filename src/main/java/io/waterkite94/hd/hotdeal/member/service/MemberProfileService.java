@@ -10,6 +10,7 @@ import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressMapper;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressRepository;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberMapper;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberRepository;
+import io.waterkite94.hd.hotdeal.member.dao.redis.AuthenticationCodeRedisAdapter;
 import io.waterkite94.hd.hotdeal.member.domain.Address;
 import io.waterkite94.hd.hotdeal.member.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +25,13 @@ public class MemberProfileService {
 	private final AddressRepository addressRepository;
 	private final AddressMapper addressMapper;
 
+	private final AuthenticationCodeRedisAdapter authenticationCodeRedisAdapter;
+
 	private final PasswordEncoder passwordEncoder;
 
 	@Transactional
-	public String createMember(Member member, Address address) {
-		// TODO: Check Email Authentication Code
-
+	public String createMember(Member member, Address address, String authenticationCode) {
+		validateEmailAuthenticationCode(member.getEmail(), authenticationCode);
 		validateEmailAndPhoneNumber(member.getEmail(), member.getPhoneNumber());
 
 		Member initedMember = member.initializeMember(
@@ -42,6 +44,14 @@ public class MemberProfileService {
 		addressRepository.save(addressMapper.toEntity(initedAddress));
 
 		return initedMember.getMemberId();
+	}
+
+	private void validateEmailAuthenticationCode(String email, String authenticationCode) {
+		String findCode = authenticationCodeRedisAdapter.getAuthenticationCode(email);
+
+		if (!findCode.equals(authenticationCode)) {
+			throw new IllegalArgumentException("Invalid email authentication code");
+		}
 	}
 
 	private void validateEmailAndPhoneNumber(String email, String phoneNumber) {

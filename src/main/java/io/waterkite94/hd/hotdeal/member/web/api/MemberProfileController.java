@@ -21,7 +21,11 @@ public class MemberProfileController {
 
 	@PostMapping
 	public ApiResponse<CreateMemberResponse> createMemberApi(@RequestBody @Valid CreateMemberRequest request) {
-		String memberId = memberProfileService.createMember(request.toMemberDomain(), request.toAddressDomain());
+		String memberId = memberProfileService.createMember(
+			request.toMemberDomain(),
+			request.toAddressDomain(),
+			request.getAuthenticationCode()
+		);
 
 		return ApiResponse.ok(new CreateMemberResponse(memberId));
 	}

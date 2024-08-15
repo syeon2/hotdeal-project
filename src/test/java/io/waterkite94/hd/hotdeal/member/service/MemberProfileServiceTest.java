@@ -1,17 +1,20 @@
 package io.waterkite94.hd.hotdeal.member.service;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.BDDMockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressRepository;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberRepository;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.AddressEntity;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.MemberEntity;
+import io.waterkite94.hd.hotdeal.member.dao.redis.AuthenticationCodeRedisAdapter;
 import io.waterkite94.hd.hotdeal.member.domain.Address;
 import io.waterkite94.hd.hotdeal.member.domain.Member;
 import jakarta.transaction.Transactional;
@@ -20,6 +23,9 @@ class MemberProfileServiceTest extends IntegrationTestSupport {
 
 	@Autowired
 	private MemberProfileService memberProfileService;
+
+	@MockBean
+	private AuthenticationCodeRedisAdapter authenticationCodeRedisAdapter;
 
 	@Autowired
 	private MemberRepository memberRepository;
@@ -38,11 +44,17 @@ class MemberProfileServiceTest extends IntegrationTestSupport {
 	@DisplayName(value = "회원정보를 통해 회원을 저장합니다.")
 	void createMember() {
 		// given
-		Member member = createMemberDomain("waterkite94@gmail.com", "00011112222", "password");
+		String email = "waterkite94@gmail.com";
+		String authenticationCode = "123456";
+
+		Member member = createMemberDomain(email, "00011112222", "password");
 		Address address = createAddressDomain();
 
 		// when
-		String memberId = memberProfileService.createMember(member, address);
+		given(authenticationCodeRedisAdapter.getAuthenticationCode(email))
+			.willReturn(authenticationCode);
+
+		String memberId = memberProfileService.createMember(member, address, authenticationCode);
 
 		// then
 		MemberEntity findMember = memberRepository.findByMemberId(memberId).orElse(null);
@@ -58,13 +70,18 @@ class MemberProfileServiceTest extends IntegrationTestSupport {
 	@Transactional
 	void createMember_duplicatedEmail() {
 		// given
-		Member member = createMemberDomain("waterkite94@gmail.com", "00011112222", "password");
+		String email = "waterkite94@gmail.com";
+		Member member = createMemberDomain(email, "00011112222", "password");
 		Address address = createAddressDomain();
+		String authenticationCode = "123456";
 
-		memberProfileService.createMember(member, address);
+		given(authenticationCodeRedisAdapter.getAuthenticationCode(email))
+			.willReturn(authenticationCode);
+
+		memberProfileService.createMember(member, address, authenticationCode);
 
 		// when  // then
-		assertThatThrownBy(() -> memberProfileService.createMember(member, address))
+		assertThatThrownBy(() -> memberProfileService.createMember(member, address, authenticationCode))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("Email Or Phone Number is already use");
 	}
@@ -74,10 +91,15 @@ class MemberProfileServiceTest extends IntegrationTestSupport {
 	@DisplayName(value = "회원 가입 시 입력한 비밀번호는 암호화됩니다.")
 	void createMember_encryptPassword() {
 		// given
-		Member member = createMemberDomain("waterkite94@gmail.com", "00011112222", "password");
+		String email = "waterkite94@gmail.com";
+		String authenticationCode = "123456";
+		Member member = createMemberDomain(email, "00011112222", "password");
 		Address address = createAddressDomain();
 
-		String savedMemberId = memberProfileService.createMember(member, address);
+		given(authenticationCodeRedisAdapter.getAuthenticationCode(email))
+			.willReturn(authenticationCode);
+
+		String savedMemberId = memberProfileService.createMember(member, address, authenticationCode);
 
 		// when
 		MemberEntity findMember = memberRepository.findByMemberId(savedMemberId).orElse(null);
