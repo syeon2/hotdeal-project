@@ -14,6 +14,7 @@ public class AddressMapper {
 			.state(address.getState())
 			.address(address.getAddress())
 			.zipcode(address.getZipcode())
+			.memberId(address.getMemberId())
 			.build();
 	}
 
@@ -24,6 +25,7 @@ public class AddressMapper {
 			.state(entity.getState())
 			.address(entity.getAddress())
 			.zipcode(entity.getZipcode())
+			.memberId(entity.getMemberId())
 			.build();
 	}
 }

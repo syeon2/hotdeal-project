@@ -36,16 +36,17 @@ public class MemberProfileService {
 			createUuid(),
 			encryptedPassword(member.getPassword())
 		);
-
 		memberRepository.save(memberMapper.toEntity(initedMember));
-		addressRepository.save(addressMapper.toEntity(address));
+
+		Address initedAddress = address.initialize(initedMember.getMemberId());
+		addressRepository.save(addressMapper.toEntity(initedAddress));
 
 		return initedMember.getMemberId();
 	}
 
 	private void validateEmailAndPhoneNumber(String email, String phoneNumber) {
 		if (!memberRepository.findByEmailAndPhoneNumber(email, phoneNumber).isEmpty()) {
-			throw new IllegalArgumentException("Email And Phone Number is already use");
+			throw new IllegalArgumentException("Email Or Phone Number is already use");
 		}
 	}
 

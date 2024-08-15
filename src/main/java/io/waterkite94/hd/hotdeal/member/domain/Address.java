@@ -16,12 +16,23 @@ public class Address {
 
 	private String address;
 
+	private String memberId;
+
 	@Builder
-	private Address(Long id, String city, String state, String zipcode, String address) {
+	private Address(Long id, String city, String state, String zipcode, String address, String memberId) {
 		this.id = id;
 		this.city = city;
 		this.state = state;
 		this.zipcode = zipcode;
 		this.address = address;
+		this.memberId = memberId;
+	}
+
+	public Address initialize(String memberId) {
+		return withMemberId(memberId);
+	}
+
+	private Address withMemberId(String memberId) {
+		return new Address(this.id, this.city, this.state, this.zipcode, this.address, memberId);
 	}
 }

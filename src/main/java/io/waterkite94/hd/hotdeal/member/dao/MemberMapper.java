@@ -13,6 +13,7 @@ public class MemberMapper {
 			.memberId(member.getMemberId())
 			.email(member.getEmail())
 			.password(member.getPassword())
+			.name(member.getName())
 			.phoneNumber(member.getPhoneNumber())
 			.build();
 	}

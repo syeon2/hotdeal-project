@@ -20,9 +20,10 @@ public class MemberEntity extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", columnDefinition = "bigint", nullable = false)
 	private Long id;
 
-	@Column(name = "memberId", columnDefinition = "varchar(60)", nullable = false, unique = true)
+	@Column(name = "member_id", columnDefinition = "varchar(60)", nullable = false, unique = true)
 	private String memberId;
 
 	@Column(name = "email", columnDefinition = "varchar(255)", nullable = false, unique = true)

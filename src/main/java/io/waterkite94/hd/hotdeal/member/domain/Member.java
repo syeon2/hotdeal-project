@@ -33,6 +33,7 @@ public class Member {
 		this.id = id;
 		this.memberId = new MemberId(memberId);
 		this.email = email;
+		this.password = password;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 	}
