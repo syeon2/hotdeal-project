@@ -49,7 +49,12 @@ pipeline {
                             sshTransfer(
                                 cleanRemote: false,
                                 excludes: '',
-                                execCommand: 'docker run -d -p 8000:8080 waterkite94/hotdeal',
+                                execCommand: '''
+                                    docker stop hotdeal-server || true;
+                                    docker rm hotdeal-server || true;
+                                    docker rmi waterkite94/hotdeal || true;
+                                    docker run -d -p 8000:8080 --name hotdeal-server waterkite94/hotdeal
+                                    ''',
                                 execTimeout: 120000,
                                 flatten: false,
                                 makeEmptyDirs: false,
@@ -66,7 +71,6 @@ pipeline {
                         verbose: false
                     )
                 ])
-
             }
         }
     }
