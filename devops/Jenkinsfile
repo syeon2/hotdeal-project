@@ -53,7 +53,7 @@ pipeline {
                                     docker stop hotdeal-server || true;
                                     docker rm hotdeal-server || true;
                                     docker rmi waterkite94/hotdeal || true;
-                                    docker run -d -p 8000:8080 --name hotdeal-server waterkite94/hotdeal
+                                    docker run -d -p 8000:8080 --name hotdeal-server --network hotdeal-network --env-file ./hotdeal/.env waterkite94/hotdeal
                                     ''',
                                 execTimeout: 120000,
                                 flatten: false,
