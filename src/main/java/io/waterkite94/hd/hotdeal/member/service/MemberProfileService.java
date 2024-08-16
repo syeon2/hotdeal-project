@@ -74,6 +74,22 @@ public class MemberProfileService {
 		addressEntity.changeAddress(address);
 	}
 
+	@Transactional
+	public void updateMemberEmail(String memberId, String email) {
+		Optional<MemberEntity> findMemberOptional = memberRepository.findByMemberId(memberId);
+
+		if (findMemberOptional.isEmpty()) {
+			throw new IllegalArgumentException("Member not found");
+		}
+
+		if (!memberRepository.findByEmail(email).isEmpty()) {
+			throw new IllegalArgumentException("Email already exists");
+		}
+
+		findMemberOptional.get()
+			.changeMemberEmail(email);
+	}
+
 	private void validatePhoneNumber(String phoneNumber) {
 		if (!memberRepository.findByPhoneNumber(phoneNumber).isEmpty()) {
 			throw new DuplicatedAccountException("Phone number already in use");

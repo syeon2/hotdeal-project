@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.member.service.MemberProfileService;
 import io.waterkite94.hd.hotdeal.member.web.api.request.CreateMemberRequest;
+import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateEmailRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateMemberRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.response.CreateMemberResponse;
 import jakarta.validation.Valid;
@@ -33,10 +34,18 @@ public class MemberProfileController {
 		return ApiResponse.ok(new CreateMemberResponse(memberId));
 	}
 
-	@PutMapping("/{memberId}")
+	@PutMapping("/{memberId}/info")
 	public ApiResponse<String> updateMemberApi(@PathVariable String memberId,
 		@RequestBody @Valid UpdateMemberRequest request) {
 		memberProfileService.updateMemberInfo(memberId, request.toUpdateMemberDto(), request.toAddressDomain());
+
+		return ApiResponse.ok("success");
+	}
+
+	@PutMapping("/{memberId}/email")
+	public ApiResponse<String> updateMemberEmail(@PathVariable String memberId,
+		@RequestBody @Valid UpdateEmailRequest request) {
+		memberProfileService.updateMemberEmail(memberId, request.getEmail());
 
 		return ApiResponse.ok("success");
 	}

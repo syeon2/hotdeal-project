@@ -51,4 +51,8 @@ public class MemberEntity extends BaseEntity {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 	}
+
+	public void changeMemberEmail(String email) {
+		this.email = email;
+	}
 }
