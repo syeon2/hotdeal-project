@@ -1,7 +1,7 @@
 ifndef::snippets[]
 :snippets: ../../build/generated_snippets
 endif::[]
-= Tosstock Rest API 문서
+= Hot-Deal Rest API 문서
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -13,3 +13,4 @@ endif::[]
 == Member API
 
 include::member/member-create.adoc[]
+include::member/member-send-authentication.adoc[]
