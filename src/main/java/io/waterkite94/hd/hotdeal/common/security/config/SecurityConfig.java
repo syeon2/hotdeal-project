@@ -2,6 +2,7 @@ package io.waterkite94.hd.hotdeal.common.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 
 	private final UserDetailsService userDetailsService;
+	private final Environment env;
 
 	@Bean
 	protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -46,7 +48,7 @@ public class SecurityConfig {
 	}
 
 	private AuthenticationFilter getAuthenticationFilter(AuthenticationManager authenticationManager) {
-		return new AuthenticationFilter(userDetailsService, authenticationManager);
+		return new AuthenticationFilter(userDetailsService, authenticationManager, env);
 	}
 
 	@Bean
