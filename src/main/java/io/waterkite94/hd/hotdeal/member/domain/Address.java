@@ -28,7 +28,7 @@ public class Address {
 		this.memberId = memberId;
 	}
 
-	public Address initialize(String memberId) {
+	public Address initializeForJoin(String memberId) {
 		return withMemberId(memberId);
 	}
 

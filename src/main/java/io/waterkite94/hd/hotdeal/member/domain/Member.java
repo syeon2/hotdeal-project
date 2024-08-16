@@ -8,17 +8,7 @@ public class Member {
 
 	private Long id;
 
-	@Getter
-	static class MemberId {
-
-		private String memberId;
-
-		public MemberId(String memberId) {
-			this.memberId = memberId;
-		}
-	}
-
-	private MemberId memberId;
+	private String memberId;
 
 	private String email;
 
@@ -34,7 +24,7 @@ public class Member {
 	private Member(Long id, String memberId, String email, String password, String name, String phoneNumber,
 		MemberRole role) {
 		this.id = id;
-		this.memberId = new MemberId(memberId);
+		this.memberId = memberId;
 		this.email = email;
 		this.password = password;
 		this.name = name;
@@ -42,19 +32,11 @@ public class Member {
 		this.role = role;
 	}
 
-	public void createMemberId(String memberId) {
-		this.memberId = new MemberId(memberId);
-	}
-
-	public String getMemberId() {
-		return memberId.getMemberId();
-	}
-
-	public Member initializeMember(String memberId, String password) {
+	public Member initializeForJoin(String uuid, String encryptedPassword) {
 		return this
-			.withMemberId(memberId)
-			.withPassword(password)
-			.withRole(MemberRole.USER_NORMAL);
+			.withMemberId(uuid)
+			.withPassword(encryptedPassword)
+			.withMemberRole(MemberRole.USER_NORMAL);
 	}
 
 	private Member withMemberId(String memberId) {
@@ -65,7 +47,7 @@ public class Member {
 		return new Member(this.id, getMemberId(), this.email, password, this.name, this.phoneNumber, this.role);
 	}
 
-	private Member withRole(MemberRole role) {
+	private Member withMemberRole(MemberRole role) {
 		return new Member(this.id, getMemberId(), this.email, this.password, this.name, this.phoneNumber, role);
 	}
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
-import io.waterkite94.hd.hotdeal.member.service.AuthenticationCodeEmailService;
+import io.waterkite94.hd.hotdeal.member.service.AuthenticationCodeService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -14,11 +14,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationCodeController {
 
-	private final AuthenticationCodeEmailService authenticationCodeEmailService;
+	private final AuthenticationCodeService authenticationCodeService;
 
 	@PostMapping("/emails-authentication/{email}")
 	public ApiResponse<String> sendEmailApi(@PathVariable String email) {
-		authenticationCodeEmailService.sendAuthenticationCodeToEmail(email);
+		authenticationCodeService.sendVerificationCodeToEmail(email);
 
 		return ApiResponse.ok("success");
 	}

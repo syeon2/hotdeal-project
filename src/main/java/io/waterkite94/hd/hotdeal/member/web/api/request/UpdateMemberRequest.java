@@ -4,6 +4,7 @@ import io.waterkite94.hd.hotdeal.member.domain.Address;
 import io.waterkite94.hd.hotdeal.member.domain.dto.UpdateMemberDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -27,6 +28,17 @@ public class UpdateMemberRequest {
 
 	@NotBlank(message = "zipcode는 빈칸을 허용하지 않습니다.")
 	private String zipcode;
+
+	@Builder
+	private UpdateMemberRequest(String name, String phoneNumber, String city, String state, String address,
+		String zipcode) {
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.city = city;
+		this.state = state;
+		this.address = address;
+		this.zipcode = zipcode;
+	}
 
 	public UpdateMemberDto toUpdateMemberDto() {
 		return UpdateMemberDto.builder()

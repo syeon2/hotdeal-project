@@ -8,12 +8,12 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class MailSmtp {
+public class VerificationCodeMailAdapter {
 
 	private final JavaMailSender mailSender;
 
-	public void sendEmail(String toEmail, String title, String content) {
-		SimpleMailMessage emailForm = createMessageForm(toEmail, title, content);
+	public void sendVerificationCodeToEmail(String toEmail, String title, String verificationCode) {
+		SimpleMailMessage emailForm = createMessageForm(toEmail, title, verificationCode);
 
 		mailSender.send(emailForm);
 	}

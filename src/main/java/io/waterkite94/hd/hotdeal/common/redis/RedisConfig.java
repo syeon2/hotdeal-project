@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.member.dao.redis;
+package io.waterkite94.hd.hotdeal.common.redis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

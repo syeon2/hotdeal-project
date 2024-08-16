@@ -56,16 +56,16 @@ public class MemberEntity extends BaseEntity {
 		this.role = role;
 	}
 
-	public void changeMemberInfo(String name, String phoneNumber) {
+	public void changeInfo(String name, String phoneNumber) {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 	}
 
-	public void changeMemberEmail(String email) {
+	public void changeEmail(String email) {
 		this.email = email;
 	}
 
-	public void changeMemberPassword(String password) {
+	public void changePassword(String password) {
 		this.password = password;
 	}
 }

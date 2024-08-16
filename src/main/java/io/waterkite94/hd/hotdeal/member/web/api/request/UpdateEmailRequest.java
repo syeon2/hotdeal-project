@@ -12,10 +12,10 @@ public class UpdateEmailRequest {
 	private String email;
 
 	@NotBlank(message = "이메일 인증코드는 빈칸을 허용하지 않습니다.")
-	private String authenticationCode;
+	private String verificationCode;
 
-	public UpdateEmailRequest(String email, String authenticationCode) {
+	public UpdateEmailRequest(String email, String verificationCode) {
 		this.email = email;
-		this.authenticationCode = authenticationCode;
+		this.verificationCode = verificationCode;
 	}
 }

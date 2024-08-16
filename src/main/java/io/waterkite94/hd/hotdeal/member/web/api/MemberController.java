@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
-import io.waterkite94.hd.hotdeal.member.service.MemberProfileService;
+import io.waterkite94.hd.hotdeal.member.service.MemberJoinService;
+import io.waterkite94.hd.hotdeal.member.service.MemberUpdateService;
 import io.waterkite94.hd.hotdeal.member.web.api.request.CreateMemberRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateEmailRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateMemberRequest;
@@ -20,16 +21,17 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/members")
 @RequiredArgsConstructor
-public class MemberProfileController {
+public class MemberController {
 
-	private final MemberProfileService memberProfileService;
+	private final MemberJoinService memberJoinService;
+	private final MemberUpdateService memberUpdateService;
 
 	@PostMapping
 	public ApiResponse<CreateMemberResponse> createMemberApi(@RequestBody @Valid CreateMemberRequest request) {
-		String memberId = memberProfileService.createMember(
+		String memberId = memberJoinService.joinMember(
 			request.toMemberDomain(),
 			request.toAddressDomain(),
-			request.getAuthenticationCode()
+			request.getVerificationCode()
 		);
 
 		return ApiResponse.ok(new CreateMemberResponse(memberId));
@@ -38,7 +40,7 @@ public class MemberProfileController {
 	@PutMapping("/{memberId}/info")
 	public ApiResponse<String> updateMemberApi(@PathVariable String memberId,
 		@RequestBody @Valid UpdateMemberRequest request) {
-		memberProfileService.updateMemberInfo(memberId, request.toUpdateMemberDto(), request.toAddressDomain());
+		memberUpdateService.updateMemberInfo(memberId, request.toUpdateMemberDto(), request.toAddressDomain());
 
 		return ApiResponse.ok("success");
 	}
@@ -46,7 +48,7 @@ public class MemberProfileController {
 	@PutMapping("/{memberId}/email")
 	public ApiResponse<String> updateMemberEmail(@PathVariable String memberId,
 		@RequestBody @Valid UpdateEmailRequest request) {
-		memberProfileService.updateMemberEmail(memberId, request.getEmail(), request.getAuthenticationCode());
+		memberUpdateService.updateMemberEmail(memberId, request.getEmail(), request.getVerificationCode());
 
 		return ApiResponse.ok("success");
 	}
@@ -54,7 +56,7 @@ public class MemberProfileController {
 	@PutMapping("/{memberId}/password")
 	public ApiResponse<String> updateMemberPassword(@PathVariable String memberId,
 		@RequestBody @Valid UpdatePasswordRequest request) {
-		memberProfileService.updateMemberPassword(memberId, request.getOldPassword(), request.getNewPassword());
+		memberUpdateService.updateMemberPassword(memberId, request.getCurrentPassword(), request.getNewPassword());
 
 		return ApiResponse.ok("success");
 	}
