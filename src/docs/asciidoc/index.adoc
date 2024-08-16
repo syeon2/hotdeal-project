@@ -12,5 +12,6 @@ endif::[]
 [[Member-API]]
 == Member API
 
-include::member/member-create.adoc[]
+include::member/member-join.adoc[]
 include::member/member-send-authentication.adoc[]
+include::member/member-update.adoc[]

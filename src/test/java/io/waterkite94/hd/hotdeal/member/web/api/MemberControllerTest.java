@@ -21,7 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
 import io.waterkite94.hd.hotdeal.member.service.MemberJoinService;
 import io.waterkite94.hd.hotdeal.member.service.MemberUpdateService;
-import io.waterkite94.hd.hotdeal.member.web.api.request.CreateMemberRequest;
+import io.waterkite94.hd.hotdeal.member.web.api.request.JoinMemberRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateEmailRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateMemberRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdatePasswordRequest;
@@ -38,9 +38,9 @@ class MemberControllerTest extends ControllerTestSupport {
 	@Test
 	@WithMockUser(roles = "USER")
 	@DisplayName(value = "회원 가입 API를 테스트합니다.")
-	void createMemberApi() throws Exception {
+	void joinMemberApi() throws Exception {
 		// given
-		CreateMemberRequest request = createRequest();
+		JoinMemberRequest request = createRequest();
 		String memberId = "memberId";
 
 		given(memberJoinService.joinMember(any(), any(), any())).willReturn(memberId);
@@ -55,7 +55,7 @@ class MemberControllerTest extends ControllerTestSupport {
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.data").exists())
 			.andExpect(jsonPath("$.data.memberId").isString())
-			.andDo(document("member-create",
+			.andDo(document("member-join",
 				preprocessRequest(prettyPrint()),
 				preprocessResponse(prettyPrint()),
 				requestFields(
@@ -197,8 +197,8 @@ class MemberControllerTest extends ControllerTestSupport {
 			.build();
 	}
 
-	private CreateMemberRequest createRequest() {
-		return CreateMemberRequest.builder()
+	private JoinMemberRequest createRequest() {
+		return JoinMemberRequest.builder()
 			.email("waterkite94@gmail.com")
 			.password("12345678")
 			.name("suyeon")

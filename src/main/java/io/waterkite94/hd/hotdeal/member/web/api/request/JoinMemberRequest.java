@@ -11,7 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class CreateMemberRequest {
+public class JoinMemberRequest {
 
 	@Email(message = "이메일은 이메일 형식으로 입력해야합니다..")
 	@NotBlank(message = "이메일은 빈칸을 허용하지 않습니다.")
@@ -62,7 +62,7 @@ public class CreateMemberRequest {
 	}
 
 	@Builder
-	private CreateMemberRequest(String email, String password, String name, String phoneNumber, String city,
+	private JoinMemberRequest(String email, String password, String name, String phoneNumber, String city,
 		String state,
 		String address, String zipcode, String verificationCode) {
 		this.email = email;

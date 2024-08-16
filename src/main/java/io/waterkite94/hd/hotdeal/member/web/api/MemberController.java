@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.member.service.MemberJoinService;
 import io.waterkite94.hd.hotdeal.member.service.MemberUpdateService;
-import io.waterkite94.hd.hotdeal.member.web.api.request.CreateMemberRequest;
+import io.waterkite94.hd.hotdeal.member.web.api.request.JoinMemberRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateEmailRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateMemberRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdatePasswordRequest;
-import io.waterkite94.hd.hotdeal.member.web.api.response.CreateMemberResponse;
+import io.waterkite94.hd.hotdeal.member.web.api.response.JoinMemberResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -27,14 +27,14 @@ public class MemberController {
 	private final MemberUpdateService memberUpdateService;
 
 	@PostMapping
-	public ApiResponse<CreateMemberResponse> createMemberApi(@RequestBody @Valid CreateMemberRequest request) {
+	public ApiResponse<JoinMemberResponse> joinMemberApi(@RequestBody @Valid JoinMemberRequest request) {
 		String memberId = memberJoinService.joinMember(
 			request.toMemberDomain(),
 			request.toAddressDomain(),
 			request.getVerificationCode()
 		);
 
-		return ApiResponse.ok(new CreateMemberResponse(memberId));
+		return ApiResponse.ok(new JoinMemberResponse(memberId));
 	}
 
 	@PutMapping("/{memberId}/info")
