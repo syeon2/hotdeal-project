@@ -1,6 +1,6 @@
 package io.waterkite94.hd.hotdeal.member.dao.persistence.entity;
 
-import io.waterkite94.hd.hotdeal.util.wrapper.BaseEntity;
+import io.waterkite94.hd.hotdeal.common.wrapper.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

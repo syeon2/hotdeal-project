@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
+import io.waterkite94.hd.hotdeal.common.error.exception.DuplicatedAccountException;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressRepository;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberRepository;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.AddressEntity;
@@ -71,18 +72,47 @@ class MemberProfileServiceTest extends IntegrationTestSupport {
 	void createMember_duplicatedEmail() {
 		// given
 		String email = "waterkite94@gmail.com";
-		Member member = createMemberDomain(email, "00011112222", "password");
+		String phoneNumber = "00011112222";
+
+		Member member = createMemberDomain(email, phoneNumber, "password");
 		Address address = createAddressDomain();
 		String authenticationCode = "123456";
 
-		given(authenticationCodeRedisAdapter.getAuthenticationCode(email))
+		given(authenticationCodeRedisAdapter.getAuthenticationCode(anyString()))
 			.willReturn(authenticationCode);
 
 		memberProfileService.createMember(member, address, authenticationCode);
 
+		Member newMember = createMemberDomain(email, "11122223333", "password");
+
 		// when  // then
-		assertThatThrownBy(() -> memberProfileService.createMember(member, address, authenticationCode))
-			.isInstanceOf(IllegalArgumentException.class)
+		assertThatThrownBy(() -> memberProfileService.createMember(newMember, address, authenticationCode))
+			.isInstanceOf(DuplicatedAccountException.class)
+			.hasMessage("Email Or Phone Number is already use");
+	}
+
+	@Test
+	@DisplayName(value = "회원 가입 시 중복된 전화번호가 존재하면 예외를 반환합니다.")
+	@Transactional
+	void createMember_duplicatedPhoneNumber() {
+		// given
+		String email = "waterkite94@gmail.com";
+		String phoneNumber = "00011112222";
+
+		Member member = createMemberDomain(email, phoneNumber, "password");
+		Address address = createAddressDomain();
+		String authenticationCode = "123456";
+
+		given(authenticationCodeRedisAdapter.getAuthenticationCode(anyString()))
+			.willReturn(authenticationCode);
+
+		memberProfileService.createMember(member, address, authenticationCode);
+
+		Member newMember = createMemberDomain("another@example.com", phoneNumber, "password");
+
+		// when  // then
+		assertThatThrownBy(() -> memberProfileService.createMember(newMember, address, authenticationCode))
+			.isInstanceOf(DuplicatedAccountException.class)
 			.hasMessage("Email Or Phone Number is already use");
 	}
 

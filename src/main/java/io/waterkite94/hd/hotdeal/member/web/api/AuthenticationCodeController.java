@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.member.service.AuthenticationCodeEmailService;
-import io.waterkite94.hd.hotdeal.util.wrapper.ApiResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController

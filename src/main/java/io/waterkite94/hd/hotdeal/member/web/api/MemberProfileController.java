@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.member.service.MemberProfileService;
 import io.waterkite94.hd.hotdeal.member.web.api.request.CreateMemberRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.response.CreateMemberResponse;
-import io.waterkite94.hd.hotdeal.util.wrapper.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

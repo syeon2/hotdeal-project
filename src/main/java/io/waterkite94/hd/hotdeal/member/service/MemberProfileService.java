@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.waterkite94.hd.hotdeal.common.error.exception.DuplicatedAccountException;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressMapper;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressRepository;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberMapper;
@@ -55,8 +56,8 @@ public class MemberProfileService {
 	}
 
 	private void validateEmailAndPhoneNumber(String email, String phoneNumber) {
-		if (!memberRepository.findByEmailAndPhoneNumber(email, phoneNumber).isEmpty()) {
-			throw new IllegalArgumentException("Email Or Phone Number is already use");
+		if (!memberRepository.findByEmailOrPhoneNumber(email, phoneNumber).isEmpty()) {
+			throw new DuplicatedAccountException("Email Or Phone Number is already use");
 		}
 	}
 
