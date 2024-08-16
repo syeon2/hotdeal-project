@@ -8,5 +8,5 @@ import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.AddressEntity;
 
 public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
 
-	Optional<AddressEntity> findByMemberId(String address);
+	Optional<AddressEntity> findByMemberId(String memberId);
 }

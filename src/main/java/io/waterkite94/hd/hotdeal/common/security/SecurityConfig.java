@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.util.security;
+package io.waterkite94.hd.hotdeal.common.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -15,6 +15,7 @@ public class MemberMapper {
 			.password(member.getPassword())
 			.name(member.getName())
 			.phoneNumber(member.getPhoneNumber())
+			.role(member.getRole())
 			.build();
 	}
 
@@ -25,6 +26,7 @@ public class MemberMapper {
 			.email(member.getEmail())
 			.name(member.getName())
 			.phoneNumber(member.getPhoneNumber())
+			.role(member.getRole())
 			.build();
 	}
 }

@@ -11,17 +11,17 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
 
-class MailSmtpTest extends IntegrationTestSupport {
+class VerificationCodeMailAdapterTest extends IntegrationTestSupport {
 
 	@MockBean
 	private JavaMailSender mailSender;
 
 	@Autowired
-	private MailSmtp mailSmtp;
+	private VerificationCodeMailAdapter verificationCodeMailAdapter;
 
 	@Test
 	@DisplayName(value = "이메일을 보냅니다.")
-	void sendEmail() {
+	void sendVerificationCodeToEmail() {
 		// given
 		String toEmail = "test@example.com";
 		String title = "title";
@@ -30,7 +30,7 @@ class MailSmtpTest extends IntegrationTestSupport {
 		doNothing().when(mailSender).send(any(SimpleMailMessage.class));
 
 		// when
-		mailSmtp.sendEmail(toEmail, title, content);
+		verificationCodeMailAdapter.sendVerificationCodeToEmail(toEmail, title, content);
 
 		// then
 		verify(mailSender, times(1)).send(any(SimpleMailMessage.class));

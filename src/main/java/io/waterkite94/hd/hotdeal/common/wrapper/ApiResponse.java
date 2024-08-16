@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.util.wrapper;
+package io.waterkite94.hd.hotdeal.common.wrapper;
 
 import org.springframework.http.HttpStatus;
 

@@ -41,7 +41,7 @@ public class CreateMemberRequest {
 	private String zipcode;
 
 	@NotBlank(message = "이메일 인증코드는 빈칸을 허용하지 않습니다.")
-	private String authenticationCode;
+	private String verificationCode;
 
 	public Member toMemberDomain() {
 		return Member.builder()
@@ -64,7 +64,7 @@ public class CreateMemberRequest {
 	@Builder
 	private CreateMemberRequest(String email, String password, String name, String phoneNumber, String city,
 		String state,
-		String address, String zipcode, String authenticationCode) {
+		String address, String zipcode, String verificationCode) {
 		this.email = email;
 		this.password = password;
 		this.name = name;
@@ -73,6 +73,6 @@ public class CreateMemberRequest {
 		this.state = state;
 		this.address = address;
 		this.zipcode = zipcode;
-		this.authenticationCode = authenticationCode;
+		this.verificationCode = verificationCode;
 	}
 }

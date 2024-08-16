@@ -19,13 +19,13 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
-import io.waterkite94.hd.hotdeal.member.service.AuthenticationCodeEmailService;
+import io.waterkite94.hd.hotdeal.member.service.AuthenticationCodeService;
 
 @WebMvcTest(AuthenticationCodeController.class)
 class AuthenticationCodeControllerTest extends ControllerTestSupport {
 
 	@MockBean
-	private AuthenticationCodeEmailService authenticationCodeEmailService;
+	private AuthenticationCodeService authenticationCodeService;
 
 	@Test
 	@WithMockUser(value = "USER")
@@ -34,7 +34,7 @@ class AuthenticationCodeControllerTest extends ControllerTestSupport {
 		// given
 		String email = "test@example.com";
 
-		doNothing().when(authenticationCodeEmailService).sendAuthenticationCodeToEmail(email);
+		doNothing().when(authenticationCodeService).sendVerificationCodeToEmail(email);
 
 		// when // then
 		mockMvc.perform(

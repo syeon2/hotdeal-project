@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.util.config;
+package io.waterkite94.hd.hotdeal.common.jpa;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
