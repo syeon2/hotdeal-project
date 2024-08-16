@@ -16,6 +16,17 @@ spring:
       hibernate:
         show_sql: true
 
+  mail:
+    username: ${GOOGLE_SMTP_ACCOUNT}
+    password: ${GOOGLE_SMTP_PW}
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+
   data:
     redis:
       host: localhost
