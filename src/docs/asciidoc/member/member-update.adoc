@@ -1,4 +1,4 @@
-[[Join-Member]]
+[[Update-Member-API]]
 === Update Member API
 
 ==== Update Member Info (name, phoneNumber, Address)

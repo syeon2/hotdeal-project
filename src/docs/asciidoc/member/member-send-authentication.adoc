@@ -1,4 +1,4 @@
-[[Join-Member]]
+[[Send-Authentication-Code-To-Email-For-Create-Member-API]]
 === Send Authentication Code To Email For Create Member API
 
 include::{snippets}/member-send-authentication/path-parameters.adoc[]
