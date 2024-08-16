@@ -55,4 +55,8 @@ public class MemberEntity extends BaseEntity {
 	public void changeMemberEmail(String email) {
 		this.email = email;
 	}
+
+	public void changeMemberPassword(String password) {
+		this.password = password;
+	}
 }

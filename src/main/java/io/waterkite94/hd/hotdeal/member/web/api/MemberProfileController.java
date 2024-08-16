@@ -12,6 +12,7 @@ import io.waterkite94.hd.hotdeal.member.service.MemberProfileService;
 import io.waterkite94.hd.hotdeal.member.web.api.request.CreateMemberRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateEmailRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateMemberRequest;
+import io.waterkite94.hd.hotdeal.member.web.api.request.UpdatePasswordRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.response.CreateMemberResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,15 @@ public class MemberProfileController {
 	@PutMapping("/{memberId}/email")
 	public ApiResponse<String> updateMemberEmail(@PathVariable String memberId,
 		@RequestBody @Valid UpdateEmailRequest request) {
-		memberProfileService.updateMemberEmail(memberId, request.getEmail());
+		memberProfileService.updateMemberEmail(memberId, request.getEmail(), request.getAuthenticationCode());
+
+		return ApiResponse.ok("success");
+	}
+
+	@PutMapping("/{memberId}/password")
+	public ApiResponse<String> updateMemberPassword(@PathVariable String memberId,
+		@RequestBody @Valid UpdatePasswordRequest request) {
+		memberProfileService.updateMemberPassword(memberId, request.getOldPassword(), request.getNewPassword());
 
 		return ApiResponse.ok("success");
 	}

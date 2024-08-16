@@ -75,7 +75,7 @@ public class MemberProfileService {
 	}
 
 	@Transactional
-	public void updateMemberEmail(String memberId, String email) {
+	public void updateMemberEmail(String memberId, String email, String authenticationCode) {
 		Optional<MemberEntity> findMemberOptional = memberRepository.findByMemberId(memberId);
 
 		if (findMemberOptional.isEmpty()) {
@@ -86,8 +86,25 @@ public class MemberProfileService {
 			throw new IllegalArgumentException("Email already exists");
 		}
 
+		validateEmailAuthenticationCode(email, authenticationCode);
+
 		findMemberOptional.get()
 			.changeMemberEmail(email);
+	}
+
+	@Transactional
+	public void updateMemberPassword(String memberId, String oldPassword, String newPassword) {
+		Optional<MemberEntity> findMemberOptional = memberRepository.findByMemberId(memberId);
+		if (findMemberOptional.isEmpty()) {
+			throw new IllegalArgumentException("Member not found");
+		}
+		MemberEntity memberEntity = findMemberOptional.get();
+
+		if (!matchPassword(oldPassword, memberEntity.getPassword())) {
+			throw new IllegalArgumentException("Wrong Password");
+		}
+
+		memberEntity.changeMemberPassword(encryptedPassword(newPassword));
 	}
 
 	private void validatePhoneNumber(String phoneNumber) {
@@ -116,5 +133,9 @@ public class MemberProfileService {
 
 	private String encryptedPassword(String password) {
 		return passwordEncoder.encode(password);
+	}
+
+	private boolean matchPassword(String password, String currentPassword) {
+		return passwordEncoder.matches(password, currentPassword);
 	}
 }
