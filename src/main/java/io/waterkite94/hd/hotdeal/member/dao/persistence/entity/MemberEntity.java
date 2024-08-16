@@ -1,8 +1,11 @@
 package io.waterkite94.hd.hotdeal.member.dao.persistence.entity;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.BaseEntity;
+import io.waterkite94.hd.hotdeal.member.domain.MemberRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,13 +41,19 @@ public class MemberEntity extends BaseEntity {
 	@Column(name = "phone_number", columnDefinition = "varchar(30)", nullable = false, unique = true)
 	private String phoneNumber;
 
+	@Enumerated(value = EnumType.STRING)
+	@Column(name = "role", columnDefinition = "varchar(30)", nullable = false)
+	private MemberRole role;
+
 	@Builder
-	private MemberEntity(String memberId, String email, String password, String name, String phoneNumber) {
+	private MemberEntity(String memberId, String email, String password, String name, String phoneNumber,
+		MemberRole role) {
 		this.memberId = memberId;
 		this.email = email;
 		this.password = password;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
+		this.role = role;
 	}
 
 	public void changeMemberInfo(String name, String phoneNumber) {

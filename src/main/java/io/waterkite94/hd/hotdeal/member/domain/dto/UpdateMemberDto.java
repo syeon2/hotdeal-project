@@ -12,7 +12,6 @@ public class UpdateMemberDto {
 
 	@Builder
 	private UpdateMemberDto(String name, String phoneNumber) {
-		;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 	}

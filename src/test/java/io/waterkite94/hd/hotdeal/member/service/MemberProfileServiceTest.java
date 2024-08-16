@@ -20,6 +20,7 @@ import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.MemberEntity;
 import io.waterkite94.hd.hotdeal.member.dao.redis.AuthenticationCodeRedisAdapter;
 import io.waterkite94.hd.hotdeal.member.domain.Address;
 import io.waterkite94.hd.hotdeal.member.domain.Member;
+import io.waterkite94.hd.hotdeal.member.domain.MemberRole;
 import io.waterkite94.hd.hotdeal.member.domain.dto.UpdateMemberDto;
 import jakarta.transaction.Transactional;
 
@@ -156,7 +157,6 @@ class MemberProfileServiceTest extends IntegrationTestSupport {
 
 		// when
 		UpdateMemberDto updateMemberDto = UpdateMemberDto.builder()
-			.email("change@example.com")
 			.name("changeName")
 			.phoneNumber("11122223333")
 			.build();
@@ -174,8 +174,8 @@ class MemberProfileServiceTest extends IntegrationTestSupport {
 		Optional<MemberEntity> findMemberOptional = memberRepository.findByMemberId(memberId);
 		assertThat(findMemberOptional).isPresent()
 			.get()
-			.extracting("email", "name", "phoneNumber")
-			.contains(updateMemberDto.getEmail(), updateMemberDto.getName(), updateMemberDto.getPhoneNumber());
+			.extracting("name", "phoneNumber")
+			.contains(updateMemberDto.getName(), updateMemberDto.getPhoneNumber());
 
 		Optional<AddressEntity> findAddressOptional = addressRepository.findByMemberId(memberId);
 		assertThat(findAddressOptional).isPresent()
@@ -211,6 +211,7 @@ class MemberProfileServiceTest extends IntegrationTestSupport {
 			.password(password)
 			.name("suyeon")
 			.phoneNumber(phoneNumber)
+			.role(MemberRole.USER_NORMAL)
 			.build();
 	}
 
@@ -221,6 +222,7 @@ class MemberProfileServiceTest extends IntegrationTestSupport {
 			.password("password")
 			.name(name)
 			.phoneNumber(phoneNumber)
+			.role(MemberRole.USER_NORMAL)
 			.build();
 	}
 }
