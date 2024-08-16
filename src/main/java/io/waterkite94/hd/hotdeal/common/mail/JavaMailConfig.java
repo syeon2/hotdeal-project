@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.member.dao.smtp;
+package io.waterkite94.hd.hotdeal.common.mail;
 
 import java.util.Properties;
 

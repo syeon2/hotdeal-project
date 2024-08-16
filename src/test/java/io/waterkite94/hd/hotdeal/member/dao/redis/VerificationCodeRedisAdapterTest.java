@@ -2,6 +2,8 @@ package io.waterkite94.hd.hotdeal.member.dao.redis;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,10 +12,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
 
-class AuthenticationCodeRedisAdapterTest extends IntegrationTestSupport {
+class VerificationCodeRedisAdapterTest extends IntegrationTestSupport {
 
 	@Autowired
-	private AuthenticationCodeRedisAdapter authenticationCodeRedisAdapter;
+	private VerificationCodeRedisAdapter verificationCodeRedisAdapter;
 
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
@@ -25,18 +27,19 @@ class AuthenticationCodeRedisAdapterTest extends IntegrationTestSupport {
 
 	@Test
 	@DisplayName(value = "이메일 인증번호를 Redis에 저장합니다.")
-	void saveAuthenticationCode() {
+	void saveVerificationCode() {
 		// given
 		String email = "test@example.com";
-		String authenticationCode = "123456";
+		String verificationCode = "123456";
 
 		// when
-		authenticationCodeRedisAdapter.saveAuthenticationCode(email, authenticationCode);
+		verificationCodeRedisAdapter.saveVerificationCode(email, verificationCode);
 
 		// then
 
-		String findAuthenticationCode = authenticationCodeRedisAdapter.getAuthenticationCode(email);
+		Optional<String> findVerificationOptional = verificationCodeRedisAdapter.getVerificationCode(email);
 
-		assertThat(findAuthenticationCode).isEqualTo(authenticationCode);
+		assertThat(findVerificationOptional).isPresent()
+			.get().isEqualTo(verificationCode);
 	}
 }
