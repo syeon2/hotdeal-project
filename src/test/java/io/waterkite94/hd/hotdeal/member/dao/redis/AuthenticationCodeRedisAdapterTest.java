@@ -3,6 +3,7 @@ package io.waterkite94.hd.hotdeal.member.dao.redis;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,7 +24,8 @@ class AuthenticationCodeRedisAdapterTest extends IntegrationTestSupport {
 	}
 
 	@Test
-	void name() {
+	@DisplayName(value = "이메일 인증번호를 Redis에 저장합니다.")
+	void saveAuthenticationCode() {
 		// given
 		String email = "test@example.com";
 		String authenticationCode = "123456";
