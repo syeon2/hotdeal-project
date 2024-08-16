@@ -1,5 +1,6 @@
 package io.waterkite94.hd.hotdeal.member.service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,9 +12,12 @@ import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressMapper;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressRepository;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberMapper;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberRepository;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.AddressEntity;
+import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.MemberEntity;
 import io.waterkite94.hd.hotdeal.member.dao.redis.AuthenticationCodeRedisAdapter;
 import io.waterkite94.hd.hotdeal.member.domain.Address;
 import io.waterkite94.hd.hotdeal.member.domain.Member;
+import io.waterkite94.hd.hotdeal.member.domain.dto.UpdateMemberDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -45,6 +49,35 @@ public class MemberProfileService {
 		addressRepository.save(addressMapper.toEntity(initedAddress));
 
 		return initedMember.getMemberId();
+	}
+
+	@Transactional
+	public void updateMemberInfo(String memberId, UpdateMemberDto updateMemberDto, Address address) {
+		Optional<MemberEntity> findMemberOptional = memberRepository.findByMemberId(memberId);
+		if (findMemberOptional.isEmpty()) {
+			throw new IllegalArgumentException("Member not found");
+		}
+
+		MemberEntity memberEntity = findMemberOptional.get();
+		if (!memberEntity.getPhoneNumber().equals(updateMemberDto.getPhoneNumber())) {
+			validatePhoneNumber(updateMemberDto.getPhoneNumber());
+		}
+
+		memberEntity.changeMemberInfo(updateMemberDto.getName(), updateMemberDto.getPhoneNumber());
+
+		Optional<AddressEntity> findAddressOptional = addressRepository.findByMemberId(memberId);
+		if (findAddressOptional.isEmpty()) {
+			throw new IllegalArgumentException("Address not found");
+		}
+
+		AddressEntity addressEntity = findAddressOptional.get();
+		addressEntity.changeAddress(address);
+	}
+
+	private void validatePhoneNumber(String phoneNumber) {
+		if (!memberRepository.findByPhoneNumber(phoneNumber).isEmpty()) {
+			throw new DuplicatedAccountException("Phone number already in use");
+		}
 	}
 
 	private void validateEmailAuthenticationCode(String email, String authenticationCode) {

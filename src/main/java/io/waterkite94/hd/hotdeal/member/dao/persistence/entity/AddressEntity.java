@@ -1,5 +1,6 @@
 package io.waterkite94.hd.hotdeal.member.dao.persistence.entity;
 
+import io.waterkite94.hd.hotdeal.member.domain.Address;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,5 +49,12 @@ public class AddressEntity {
 		this.zipcode = zipcode;
 		this.address = address;
 		this.memberId = memberId;
+	}
+
+	public void changeAddress(Address address) {
+		this.city = address.getCity();
+		this.state = address.getState();
+		this.address = address.getAddress();
+		this.zipcode = address.getZipcode();
 	}
 }
