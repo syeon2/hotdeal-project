@@ -1,0 +1,7 @@
+[[Join-Member]]
+=== Send Authentication Code To Email For Create Member API
+
+include::{snippets}/member-send-authentication/path-parameters.adoc[]
+
+include::{snippets}/member-send-authentication/http-response.adoc[]
+include::{snippets}/member-send-authentication/response-fields.adoc[]
