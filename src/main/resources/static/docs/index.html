@@ -452,7 +452,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Join-Member">Join Member API</a></li>
 <li><a href="#Send-Authentication-Code-To-Email-For-Create-Member-API">Send Authentication Code To Email For Create Member API</a></li>
 <li><a href="#Update-Member-API">Update Member API</a></li>
-<li><a href="#Join-Member">Access Member API</a></li>
+<li><a href="#Access-Member">Access Member API</a></li>
+</ul>
+</li>
+<li><a href="#Item-API">Item API</a>
+<ul class="sectlevel2">
+<li><a href="#Category">Category API</a></li>
 </ul>
 </li>
 </ul>
@@ -466,7 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="Join-Member"><a class="link" href="#Join-Member">Join Member API</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/members?_csrf=D6A7FrRo3G476xaa6blC5udbZwfRbDq1RJ3ykKhf7WakUIOyaZkOJINfvV4Wii-s2JR20YNvSj61Xg2Ycf-Q9Zk81VOSNubR HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/members?_csrf=erp-pqFX6epfsypYF93RG6YckqCfxSEK-OGlwrRQLmwhmJgtGNwakJlji9Jy0hg-J_DlKZMkv8Gp9BMnydiR99BlGQ8QrKtI HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 242
 Host: localhost:8080
@@ -702,7 +707,7 @@ Content-Length: 62
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/info?_csrf=DTEJ2j5OdikpGIAhwsLsNDRkFnJ4eaJ_6ksZaayLiByC-iQxOVVs6V96RBsEfrdC9u_YUFUGO0oZG5RS03IpUZm66iiyyRNX HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/info?_csrf=e3ZI4ruxcN2VRq9EtQLw6Z5PMapcCbyBRrnObNi7Yv5IuUOsTxRwh4mFQe-4Isp8jS_Ej_x4HJI_b9mscditWu7aU8wp3HOZ HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 158
 Host: localhost:8080
@@ -840,7 +845,7 @@ Content-Length: 62
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/email?_csrf=vD32LjoLTQlzh30glpdLeyTpwhhbzkQulFbN4W6zJsusTEkbjQ3BHQw8L2pe4RtBp7p_TRWI7yFp_HQDpWX9g16HH_ufKHgi HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/email?_csrf=qpKr1V7IFurXegxVS4ye_fz44Ao5ps77vwzi6NAWnSCX_jmHnKHN4Gz-It76Sz1gfaGqn5qZzTJfxP3WhmqE27J3_BSizQm2 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 71
 Host: localhost:8080
@@ -954,7 +959,7 @@ Content-Length: 62
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/password?_csrf=mKMv4TV7hW8LET2pYzgYC0swgbj_jaA2DNm8XvwCwWAAwbj7_cUZhQFP4VcmIAyfVBUsbioBrIHPupQbOOmOaMVnolA0p4zN HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/password?_csrf=pZOs4pk6fIWEVwTVcuEaiE_aJUkkFw_Jmo5O1K30U5vzhJXYkffP2_sDSrGpNTXsEMwu6Xi7CChCcjfk-O97sZ_HZaPAtPTg HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 76
 Host: localhost:8080
@@ -1047,7 +1052,7 @@ Content-Length: 62
 </div>
 </div>
 <div class="sect2">
-<h3 id="Join-Member"><a class="link" href="#Join-Member">Access Member API</a></h3>
+<h3 id="Access-Member"><a class="link" href="#Access-Member">Access Member API</a></h3>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 5. /api/v1/members/{memberId}</caption>
 <colgroup>
@@ -1069,7 +1074,7 @@ Content-Length: 62
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/members/memberId?_csrf=N14aXC-859UG7sLs8SNacYBBQdJz9qyrFvSfdvbGetqI6QpvAG0saRiL0bYri_eNlQ5uQOIibOpDz8mGIZKoQMX-SOO5jTlb HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/members/memberId?_csrf=NvFK2Dk9oaGWSvykceNnujS-4wKsB7maxnL71RxBGnoFUbIkAMl8vVwPxZO7c5idQ85Tg1WPzjuaYou39ELD5igkKB9kYoYd HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Host: localhost:8080</code></pre>
 </div>
@@ -1182,11 +1187,179 @@ Content-Length: 333
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="Item-API"><a class="link" href="#Item-API">Item API</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="Category"><a class="link" href="#Category">Category API</a></h3>
+<div class="sect3">
+<h4 id="_category_add_api"><a class="link" href="#_category_add_api">Category Add API</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /admin/category?_csrf=1JG8i7ltI7yDbTqY6xVoM5KvNgG5FyZZUGCnruxUIUYEWhY0sKffuYlfE9quCQuq3jhcVauZG2DfchR0ZgHDmNRnEndiY3UF HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 21
+Host: localhost:8080
+
+{
+  "name" : "name"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">카테고리 이름</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 54
+
+{
+  "status" : 200,
+  "message" : null,
+  "data" : 1
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청 상태 코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청 결과 메시지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">카테고리 아이디</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_category_find_all_api"><a class="link" href="#_category_find_all_api">Category Find All API</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/v1/categories?_csrf=USNAsu7goK2uWW20C5bB5Ci9cff3zf7hvTBQDDMm7EJ9G7z3ZRRw1ovTlpSDbQ-Eb7v11h3ZXM7CqZrM3glhNABAiSMcKNiR HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 96
+
+{
+  "status" : 200,
+  "message" : null,
+  "data" : [ {
+    "id" : 1,
+    "name" : "name"
+  } ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청 상태 코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청 결과 메시지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">카테고리 아이디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">카테고리 이름</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2024-08-17 15:25:50 +0900
+Last updated 2024-08-17 20:11:03 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
