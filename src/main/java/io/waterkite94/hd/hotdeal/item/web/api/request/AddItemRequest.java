@@ -1,5 +1,7 @@
 package io.waterkite94.hd.hotdeal.item.web.api.request;
 
+import java.time.LocalDateTime;
+
 import io.waterkite94.hd.hotdeal.item.domain.Item;
 import io.waterkite94.hd.hotdeal.item.domain.ItemType;
 import jakarta.validation.constraints.Min;
@@ -27,6 +29,16 @@ public class AddItemRequest {
 
 	private ItemType type;
 
+	private Integer year;
+
+	private Integer month;
+
+	private Integer date;
+
+	private Integer hour;
+
+	private Integer minute;
+
 	@NotBlank(message = "회원 아이디는 빈칸을 허용하지 않습니다.")
 	private String memberId;
 
@@ -34,13 +46,19 @@ public class AddItemRequest {
 	private Long categoryId;
 
 	@Builder
-	public AddItemRequest(String name, Integer price, Integer discount, String introduction, ItemType type,
-		String memberId, Long categoryId) {
+	private AddItemRequest(String name, Integer price, Integer discount, String introduction, ItemType type,
+		Integer year,
+		Integer month, Integer date, Integer hour, Integer minute, String memberId, Long categoryId) {
 		this.name = name;
 		this.price = price;
 		this.discount = discount;
 		this.introduction = introduction;
 		this.type = type;
+		this.year = year;
+		this.month = month;
+		this.date = date;
+		this.hour = hour;
+		this.minute = minute;
 		this.memberId = memberId;
 		this.categoryId = categoryId;
 	}
@@ -52,6 +70,7 @@ public class AddItemRequest {
 			.discount(discount)
 			.introduction(introduction)
 			.type(type)
+			.preOrderTime(LocalDateTime.of(year, month, date, hour, minute))
 			.memberId(memberId)
 			.categoryId(categoryId)
 			.build();

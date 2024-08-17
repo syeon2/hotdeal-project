@@ -57,7 +57,12 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 					fieldWithPath("discount").type(JsonFieldType.NUMBER).description("할인 금액"),
 					fieldWithPath("introduction").type(JsonFieldType.STRING).description("상품 소개"),
 					fieldWithPath("type").type(JsonFieldType.STRING).description("상품 타입"),
-					fieldWithPath("memberId").type(JsonFieldType.STRING).description("회원 아이디"),
+					fieldWithPath("year").type(JsonFieldType.NUMBER).description("예약 주문 (연도)"),
+					fieldWithPath("month").type(JsonFieldType.NUMBER).description("예약 주문 (월)"),
+					fieldWithPath("date").type(JsonFieldType.NUMBER).description("예약 주문 (일)"),
+					fieldWithPath("hour").type(JsonFieldType.NUMBER).description("예약 주문 (시간)"),
+					fieldWithPath("minute").type(JsonFieldType.NUMBER).description("예약 주문 (분)"),
+					fieldWithPath("memberId").type(JsonFieldType.STRING).description("회원 (아이디)"),
 					fieldWithPath("categoryId").type(JsonFieldType.NUMBER).description("카테고리 아이디")
 				),
 				responseFields(
@@ -104,6 +109,11 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 			.discount(0)
 			.introduction("introduction")
 			.type(ItemType.PRE_ORDER)
+			.year(2024)
+			.month(12)
+			.date(31)
+			.hour(10)
+			.minute(6)
 			.memberId("memberId")
 			.categoryId(1L)
 			.build();

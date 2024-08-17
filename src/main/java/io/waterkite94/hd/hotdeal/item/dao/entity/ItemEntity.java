@@ -1,5 +1,9 @@
 package io.waterkite94.hd.hotdeal.item.dao.entity;
 
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.waterkite94.hd.hotdeal.common.wrapper.BaseEntity;
 import io.waterkite94.hd.hotdeal.item.domain.ItemType;
 import jakarta.persistence.Column;
@@ -45,6 +49,10 @@ public class ItemEntity extends BaseEntity {
 	@Column(name = "type", columnDefinition = "varchar(60)", nullable = false)
 	private ItemType type;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "Asia/Seoul")
+	@Column(name = "pre_order_time", columnDefinition = "timestamp", nullable = false)
+	private LocalDateTime preOrderTime;
+
 	@Column(name = "category_id", columnDefinition = "bigint", nullable = false)
 	private Long categoryId;
 
@@ -53,7 +61,7 @@ public class ItemEntity extends BaseEntity {
 
 	@Builder
 	private ItemEntity(Long id, String itemId, String name, Integer price, Integer discount, String introduction,
-		ItemType type, Long categoryId, String memberId) {
+		ItemType type, LocalDateTime preOrderTime, Long categoryId, String memberId) {
 		this.id = id;
 		this.itemId = itemId;
 		this.name = name;
@@ -61,6 +69,7 @@ public class ItemEntity extends BaseEntity {
 		this.discount = discount;
 		this.introduction = introduction;
 		this.type = type;
+		this.preOrderTime = preOrderTime;
 		this.categoryId = categoryId;
 		this.memberId = memberId;
 	}

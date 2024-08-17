@@ -16,6 +16,7 @@ public class ItemMapper {
 			.discount(item.getDiscount())
 			.introduction(item.getIntroduction())
 			.type(item.getType())
+			.preOrderTime(item.getPreOrderTime())
 			.memberId(item.getMemberId())
 			.categoryId(item.getCategoryId())
 			.build();
@@ -29,6 +30,7 @@ public class ItemMapper {
 			.discount(item.getDiscount())
 			.introduction(item.getIntroduction())
 			.type(item.getType())
+			.preOrderTime(item.getPreOrderTime())
 			.memberId(item.getMemberId())
 			.categoryId(item.getCategoryId())
 			.build();
