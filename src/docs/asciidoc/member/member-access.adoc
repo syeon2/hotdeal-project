@@ -1,4 +1,4 @@
-[[Join-Member]]
+[[Access-Member]]
 === Access Member API
 
 include::{snippets}/member-access/path-parameters.adoc[]
