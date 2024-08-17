@@ -4,6 +4,8 @@ import io.waterkite94.hd.hotdeal.common.wrapper.BaseEntity;
 import io.waterkite94.hd.hotdeal.item.domain.ItemType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +27,7 @@ public class ItemEntity extends BaseEntity {
 	private Long id;
 
 	@Column(name = "item_id", columnDefinition = "varchar(60)", nullable = false)
-	private Long itemId;
+	private String itemId;
 
 	@Column(name = "name", columnDefinition = "varchar(60)", nullable = false)
 	private String name;
@@ -39,6 +41,7 @@ public class ItemEntity extends BaseEntity {
 	@Column(name = "introduction", columnDefinition = "varchar(255)", nullable = false)
 	private String introduction;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "type", columnDefinition = "varchar(60)", nullable = false)
 	private ItemType type;
 
@@ -49,7 +52,7 @@ public class ItemEntity extends BaseEntity {
 	private String memberId;
 
 	@Builder
-	private ItemEntity(Long id, Long itemId, String name, Integer price, Integer discount, String introduction,
+	private ItemEntity(Long id, String itemId, String name, Integer price, Integer discount, String introduction,
 		ItemType type, Long categoryId, String memberId) {
 		this.id = id;
 		this.itemId = itemId;
