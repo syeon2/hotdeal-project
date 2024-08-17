@@ -19,6 +19,9 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
+import io.waterkite94.hd.hotdeal.member.domain.MemberRole;
+import io.waterkite94.hd.hotdeal.member.domain.dto.AccessMemberDto;
+import io.waterkite94.hd.hotdeal.member.service.MemberAccessService;
 import io.waterkite94.hd.hotdeal.member.service.MemberJoinService;
 import io.waterkite94.hd.hotdeal.member.service.MemberUpdateService;
 import io.waterkite94.hd.hotdeal.member.web.api.request.JoinMemberRequest;
@@ -34,6 +37,9 @@ class MemberControllerTest extends ControllerTestSupport {
 
 	@MockBean
 	private MemberUpdateService memberUpdateService;
+
+	@MockBean
+	private MemberAccessService memberAccessService;
 
 	@Test
 	@WithMockUser(roles = "USER")
@@ -186,6 +192,58 @@ class MemberControllerTest extends ControllerTestSupport {
 			));
 	}
 
+	@Test
+	@WithMockUser(value = "USER")
+	@DisplayName(value = "회원 아이디를 통해 회원 정보를 조회합니다.")
+	void accessMemberInfo() throws Exception {
+		// given
+		String memberId = "memberId";
+
+		AccessMemberDto accessMemberDto = createAccessMemberDto(memberId);
+		given(memberAccessService.accessMember(memberId))
+			.willReturn(accessMemberDto);
+
+		// when // then
+		mockMvc.perform(
+				get("/api/v1/members/{memberId}", memberId)
+					.with(csrf())
+					.contentType(MediaType.APPLICATION_JSON)
+			).andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.status").isNumber())
+			.andExpect(jsonPath("$.message").isEmpty())
+			.andExpect(jsonPath("$.data").exists())
+			.andExpect(jsonPath("$.data.memberId").isString())
+			.andExpect(jsonPath("$.data.email").isString())
+			.andExpect(jsonPath("$.data.name").isString())
+			.andExpect(jsonPath("$.data.phoneNumber").isString())
+			.andExpect(jsonPath("$.data.role").isString())
+			.andExpect(jsonPath("$.data.address.city").isString())
+			.andExpect(jsonPath("$.data.address.state").isString())
+			.andExpect(jsonPath("$.data.address.address").isString())
+			.andExpect(jsonPath("$.data.address.zipcode").isString())
+			.andDo(document("member-access",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				pathParameters(
+					parameterWithName("memberId").description("회원 아이디")
+				),
+				responseFields(
+					fieldWithPath("status").type(JsonFieldType.NUMBER).description("요청 상태 코드"),
+					fieldWithPath("message").type(JsonFieldType.NULL).description("요청 결과 메시지"),
+					fieldWithPath("data.memberId").type(JsonFieldType.STRING).description("회원 아이디"),
+					fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
+					fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
+					fieldWithPath("data.phoneNumber").type(JsonFieldType.STRING).description("전화번호"),
+					fieldWithPath("data.role").type(JsonFieldType.STRING).description("회원 등급"),
+					fieldWithPath("data.address.city").type(JsonFieldType.STRING).description("주소 (도시)"),
+					fieldWithPath("data.address.state").type(JsonFieldType.STRING).description("주소 (도)"),
+					fieldWithPath("data.address.address").type(JsonFieldType.STRING).description("주소 (세부 주소)"),
+					fieldWithPath("data.address.zipcode").type(JsonFieldType.STRING).description("우편 번호")
+				)
+			));
+	}
+
 	private UpdateMemberRequest createUpdateMemberInfoRequest() {
 		return UpdateMemberRequest.builder()
 			.name("changeName")
@@ -208,6 +266,20 @@ class MemberControllerTest extends ControllerTestSupport {
 			.address("address")
 			.zipcode("123456")
 			.verificationCode("000111")
+			.build();
+	}
+
+	private static AccessMemberDto createAccessMemberDto(String memberId) {
+		return AccessMemberDto.builder()
+			.memberId(memberId)
+			.email("test@example.com")
+			.name("name")
+			.phoneNumber("00011122222")
+			.role(MemberRole.USER_NORMAL)
+			.city("city")
+			.state("state")
+			.address("address")
+			.zipcode("123456")
 			.build();
 	}
 }

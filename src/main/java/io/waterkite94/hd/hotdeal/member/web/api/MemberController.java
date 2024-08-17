@@ -1,5 +1,6 @@
 package io.waterkite94.hd.hotdeal.member.web.api;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -8,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
+import io.waterkite94.hd.hotdeal.member.domain.dto.AccessMemberDto;
+import io.waterkite94.hd.hotdeal.member.service.MemberAccessService;
 import io.waterkite94.hd.hotdeal.member.service.MemberJoinService;
 import io.waterkite94.hd.hotdeal.member.service.MemberUpdateService;
 import io.waterkite94.hd.hotdeal.member.web.api.request.JoinMemberRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateEmailRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdateMemberRequest;
 import io.waterkite94.hd.hotdeal.member.web.api.request.UpdatePasswordRequest;
+import io.waterkite94.hd.hotdeal.member.web.api.response.AccessMemberInfoResponse;
 import io.waterkite94.hd.hotdeal.member.web.api.response.JoinMemberResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +29,7 @@ public class MemberController {
 
 	private final MemberJoinService memberJoinService;
 	private final MemberUpdateService memberUpdateService;
+	private final MemberAccessService memberAccessService;
 
 	@PostMapping
 	public ApiResponse<JoinMemberResponse> joinMemberApi(@RequestBody @Valid JoinMemberRequest request) {
@@ -35,6 +40,13 @@ public class MemberController {
 		);
 
 		return ApiResponse.ok(new JoinMemberResponse(memberId));
+	}
+
+	@GetMapping("/{memberId}")
+	private ApiResponse<AccessMemberInfoResponse> accessMemberInfoApi(@PathVariable String memberId) {
+		AccessMemberDto findMember = memberAccessService.accessMember(memberId);
+
+		return ApiResponse.ok(AccessMemberInfoResponse.of(findMember));
 	}
 
 	@PutMapping("/{memberId}/info")
