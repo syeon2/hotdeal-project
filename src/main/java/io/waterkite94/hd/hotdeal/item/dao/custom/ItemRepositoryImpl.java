@@ -41,6 +41,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 				.where(QItemEntity.itemEntity.categoryId.eq(categoryId))
 				.offset(itemOffset)
 				.limit(10)
+				.orderBy(QItemEntity.itemEntity.id.desc())
 				.fetch();
 		} else if (itemType.equals(ItemType.PRE_ORDER)) {
 			return queryFactory.select(Projections.constructor(ItemBoardDto.class,
@@ -62,6 +63,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 				)
 				.offset(itemOffset)
 				.limit(10)
+				.orderBy(QItemEntity.itemEntity.id.desc())
 				.fetch();
 		} else {
 			return queryFactory.select(Projections.constructor(ItemBoardDto.class,
@@ -83,7 +85,34 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 				)
 				.offset(itemOffset)
 				.limit(10)
+				.orderBy(QItemEntity.itemEntity.id.desc())
 				.fetch();
 		}
+	}
+
+	@Override
+	public List<ItemBoardDto> searchItemsContainsWord(String word, Long itemOffset) {
+		BooleanExpression itemTypeCondition = new CaseBuilder()
+			.when(QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)).then(true)
+			.otherwise(false);
+
+		return queryFactory.select(Projections.constructor(ItemBoardDto.class,
+				QItemEntity.itemEntity.id,
+				QItemEntity.itemEntity.name,
+				QItemEntity.itemEntity.price,
+				QItemEntity.itemEntity.discount,
+				QItemEntity.itemEntity.introduction,
+				itemTypeCondition.as("isPreOrderItem"),
+				QItemEntity.itemEntity.preOrderTime,
+				QMemberEntity.memberEntity.name.as("sellerName"),
+				QMemberEntity.memberEntity.memberId.as("sellerId")
+			)).from(QItemEntity.itemEntity)
+			.leftJoin(QMemberEntity.memberEntity)
+			.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
+			.where(QItemEntity.itemEntity.name.contains(word))
+			.offset(itemOffset)
+			.limit(10)
+			.orderBy(QItemEntity.itemEntity.id.desc())
+			.fetch();
 	}
 }

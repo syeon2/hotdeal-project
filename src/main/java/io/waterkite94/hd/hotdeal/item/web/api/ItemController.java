@@ -40,4 +40,11 @@ public class ItemController {
 
 		return ApiResponse.ok(findItems);
 	}
+
+	@GetMapping("/search")
+	public ApiResponse<List<ItemBoardDto>> searchItems(@RequestParam String word, @RequestParam Long offset) {
+		List<ItemBoardDto> findItems = itemService.searchItemsToWord(word, offset);
+
+		return ApiResponse.ok(findItems);
+	}
 }

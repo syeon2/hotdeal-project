@@ -18,4 +18,8 @@ public class ItemService {
 	public List<ItemBoardDto> searchItemsMain(Long categoryId, ItemType itemType, Long itemOffset) {
 		return itemRepository.searchItemsByCategoryId(categoryId, itemType, itemOffset);
 	}
+
+	public List<ItemBoardDto> searchItemsToWord(String word, Long itemOffset) {
+		return itemRepository.searchItemsContainsWord(word, itemOffset);
+	}
 }
