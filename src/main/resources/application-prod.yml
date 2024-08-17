@@ -23,3 +23,6 @@ spring:
             enable: true
             required: true
           auth: true
+
+jwt:
+  secret: ${JWT_SECRET}

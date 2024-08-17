@@ -450,8 +450,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Member-API">Member API</a>
 <ul class="sectlevel2">
 <li><a href="#Join-Member">Join Member API</a></li>
-<li><a href="#Join-Member">Send Authentication Code To Email For Create Member API</a></li>
-<li><a href="#Join-Member">Update Member API</a></li>
+<li><a href="#Send-Authentication-Code-To-Email-For-Create-Member-API">Send Authentication Code To Email For Create Member API</a></li>
+<li><a href="#Update-Member-API">Update Member API</a></li>
 </ul>
 </li>
 </ul>
@@ -465,7 +465,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="Join-Member"><a class="link" href="#Join-Member">Join Member API</a></h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/members?_csrf=fX97H_Pbke7Kvb398-CKbfVC_qVNnMH_-cX-7ZjG-8gpV9asTRlNesXqotbniNnJxs2-D8Uj05wvq6fSwP2b1fnxy_gYNbSf HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/members?_csrf=kFN3Jh_l-Hrt70pT-f4_tDNq38ljDTdS5zetGnZQBzZ6kFmapDUUHizXzhnA2SxmnNMLgwEP8vEBawZ_3gGZLhVpYldLoDyu HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 242
 Host: localhost:8080
@@ -601,7 +601,7 @@ Content-Length: 86
 </table>
 </div>
 <div class="sect2">
-<h3 id="Join-Member"><a class="link" href="#Join-Member">Send Authentication Code To Email For Create Member API</a></h3>
+<h3 id="Send-Authentication-Code-To-Email-For-Create-Member-API"><a class="link" href="#Send-Authentication-Code-To-Email-For-Create-Member-API">Send Authentication Code To Email For Create Member API</a></h3>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. /api/v1/members/emails-authentication/{email}</caption>
 <colgroup>
@@ -677,7 +677,7 @@ Content-Length: 62
 </table>
 </div>
 <div class="sect2">
-<h3 id="Join-Member"><a class="link" href="#Join-Member">Update Member API</a></h3>
+<h3 id="Update-Member-API"><a class="link" href="#Update-Member-API">Update Member API</a></h3>
 <div class="sect3">
 <h4 id="_update_member_info_name_phonenumber_address"><a class="link" href="#_update_member_info_name_phonenumber_address">Update Member Info (name, phoneNumber, Address)</a></h4>
 <table class="tableblock frame-all grid-all stretch">
@@ -701,7 +701,7 @@ Content-Length: 62
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/info?_csrf=2xnYTlGw9d31_wuPMyJRW8f-GVzv35RsFbj8rUX6FSmPw17K7Hi9e2WGwurYyT69Vg9lY6XIND7a6PVBcdrOnXCYJx-_om78 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/info?_csrf=W2awmVKm3QGFJyQCmGiu-fx1gZZZi8MqPrGT-XhDcGj9qqKaaFOEq2rF6DGoEBFhq0Wan8lDrPc6vPIHCIemzxx1RlGZmZP- HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 158
 Host: localhost:8080
@@ -839,7 +839,7 @@ Content-Length: 62
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/email?_csrf=baNGzZe5sk-kLkTFL_DLrLE1OcObUsM94fzpeKteJVHjWk4RXpon_6CNiiyJTXH1S93_yYcHFKGqNKcQg5mLQMk4QDSGOy0n HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/email?_csrf=RTx_9aQjjXzA2YhKcaW7Ty229xQ2h5zrzfM0aIihbHhmFZSXJ1hLw5UR6U7t7O18EIiPekzT2ixUsaXG_cUDCenADU1QcPav HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 71
 Host: localhost:8080
@@ -953,7 +953,7 @@ Content-Length: 62
 </table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/password?_csrf=w4JNIisFeW4-vW4lzCFt198Yl4KBXV1r-rsnA77JuQQJCY-upuEvFxpnHwgTjA1E9QxZtOZ6uruxPjtGyYwfMofx32E5PbvI HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PUT /api/v1/members/memberId/password?_csrf=acBLF38-jigUQZ_uX7SfpwnNV1Be7jMmjW99sIca1Jkr_oBRXKQqckwH6Eo5c6yNOpmrljupejJt3FYLvg1KgOV-tvxPz7li HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 76
 Host: localhost:8080
@@ -1051,7 +1051,7 @@ Content-Length: 62
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2024-08-16 19:12:28 +0900
+Last updated 2024-08-16 21:43:11 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -1,0 +1,8 @@
+[[Join-Member]]
+=== Access Member API
+
+include::{snippets}/member-access/path-parameters.adoc[]
+include::{snippets}/member-access/http-request.adoc[]
+
+include::{snippets}/member-access/http-response.adoc[]
+include::{snippets}/member-access/response-fields.adoc[]
