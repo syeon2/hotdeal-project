@@ -24,7 +24,7 @@ public class AddItemRequest {
 
 	@NotBlank(message = "상품 설명은 빈칸을 허용하지 않습니다.")
 	private String introduction;
-	
+
 	private ItemType type;
 
 	@NotBlank(message = "회원 아이디는 빈칸을 허용하지 않습니다.")
