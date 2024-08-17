@@ -20,27 +20,70 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 
 	@Override
 	public List<ItemBoardDto> searchItemsByCategoryId(Long categoryId, ItemType itemType, Long itemOffset) {
-
 		BooleanExpression itemTypeCondition = new CaseBuilder()
-			.when(QItemEntity.itemEntity.type.eq(itemType)).then(true)
+			.when(QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)).then(true)
 			.otherwise(false);
 
-		return queryFactory.select(Projections.constructor(ItemBoardDto.class,
-				QItemEntity.itemEntity.id,
-				QItemEntity.itemEntity.name,
-				QItemEntity.itemEntity.price,
-				QItemEntity.itemEntity.discount,
-				QItemEntity.itemEntity.introduction,
-				itemTypeCondition.as("isPreOrderItem"),
-				QItemEntity.itemEntity.preOrderTime,
-				QMemberEntity.memberEntity.name.as("sellerName"),
-				QMemberEntity.memberEntity.memberId.as("sellerId")
-			)).from(QItemEntity.itemEntity)
-			.leftJoin(QMemberEntity.memberEntity)
-			.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
-			.where(QItemEntity.itemEntity.categoryId.eq(categoryId))
-			.offset(itemOffset)
-			.limit(30)
-			.fetch();
+		if (itemType.equals(ItemType.NONE)) {
+			return queryFactory.select(Projections.constructor(ItemBoardDto.class,
+					QItemEntity.itemEntity.id,
+					QItemEntity.itemEntity.name,
+					QItemEntity.itemEntity.price,
+					QItemEntity.itemEntity.discount,
+					QItemEntity.itemEntity.introduction,
+					itemTypeCondition.as("isPreOrderItem"),
+					QItemEntity.itemEntity.preOrderTime,
+					QMemberEntity.memberEntity.name.as("sellerName"),
+					QMemberEntity.memberEntity.memberId.as("sellerId")
+				)).from(QItemEntity.itemEntity)
+				.leftJoin(QMemberEntity.memberEntity)
+				.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
+				.where(QItemEntity.itemEntity.categoryId.eq(categoryId))
+				.offset(itemOffset)
+				.limit(10)
+				.fetch();
+		} else if (itemType.equals(ItemType.PRE_ORDER)) {
+			return queryFactory.select(Projections.constructor(ItemBoardDto.class,
+					QItemEntity.itemEntity.id,
+					QItemEntity.itemEntity.name,
+					QItemEntity.itemEntity.price,
+					QItemEntity.itemEntity.discount,
+					QItemEntity.itemEntity.introduction,
+					itemTypeCondition.as("isPreOrderItem"),
+					QItemEntity.itemEntity.preOrderTime,
+					QMemberEntity.memberEntity.name.as("sellerName"),
+					QMemberEntity.memberEntity.memberId.as("sellerId")
+				)).from(QItemEntity.itemEntity)
+				.leftJoin(QMemberEntity.memberEntity)
+				.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
+				.where(
+					QItemEntity.itemEntity.categoryId.eq(categoryId),
+					QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)
+				)
+				.offset(itemOffset)
+				.limit(10)
+				.fetch();
+		} else {
+			return queryFactory.select(Projections.constructor(ItemBoardDto.class,
+					QItemEntity.itemEntity.id,
+					QItemEntity.itemEntity.name,
+					QItemEntity.itemEntity.price,
+					QItemEntity.itemEntity.discount,
+					QItemEntity.itemEntity.introduction,
+					itemTypeCondition.as("isPreOrderItem"),
+					QItemEntity.itemEntity.preOrderTime,
+					QMemberEntity.memberEntity.name.as("sellerName"),
+					QMemberEntity.memberEntity.memberId.as("sellerId")
+				)).from(QItemEntity.itemEntity)
+				.leftJoin(QMemberEntity.memberEntity)
+				.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
+				.where(
+					QItemEntity.itemEntity.categoryId.eq(categoryId),
+					QItemEntity.itemEntity.type.eq(ItemType.NORMAL_ORDER)
+				)
+				.offset(itemOffset)
+				.limit(10)
+				.fetch();
+		}
 	}
 }
