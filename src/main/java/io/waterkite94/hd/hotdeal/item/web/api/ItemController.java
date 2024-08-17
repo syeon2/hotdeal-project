@@ -3,6 +3,7 @@ package io.waterkite94.hd.hotdeal.item.web.api;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,5 +47,12 @@ public class ItemController {
 		List<ItemBoardDto> findItems = itemService.searchItemsToWord(word, offset);
 
 		return ApiResponse.ok(findItems);
+	}
+
+	@GetMapping("/item/{itemId}")
+	public ApiResponse<ItemBoardDto> searchItems(@PathVariable Long itemId) {
+		ItemBoardDto itemDetail = itemService.findItemDetail(itemId);
+
+		return ApiResponse.ok(itemDetail);
 	}
 }

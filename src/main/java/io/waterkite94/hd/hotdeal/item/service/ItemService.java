@@ -22,4 +22,8 @@ public class ItemService {
 	public List<ItemBoardDto> searchItemsToWord(String word, Long itemOffset) {
 		return itemRepository.searchItemsContainsWord(word, itemOffset);
 	}
+
+	public ItemBoardDto findItemDetail(Long itemId) {
+		return itemRepository.findItemDetail(itemId);
+	}
 }

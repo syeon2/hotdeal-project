@@ -10,4 +10,6 @@ public interface ItemRepositoryCustom {
 	List<ItemBoardDto> searchItemsByCategoryId(Long categoryId, ItemType itemType, Long itemOffset);
 
 	List<ItemBoardDto> searchItemsContainsWord(String word, Long itemOffset);
+
+	ItemBoardDto findItemDetail(Long itemId);
 }

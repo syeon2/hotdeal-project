@@ -115,4 +115,27 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 			.orderBy(QItemEntity.itemEntity.id.desc())
 			.fetch();
 	}
+
+	@Override
+	public ItemBoardDto findItemDetail(Long itemId) {
+		BooleanExpression itemTypeCondition = new CaseBuilder()
+			.when(QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)).then(true)
+			.otherwise(false);
+
+		return queryFactory.select(Projections.constructor(ItemBoardDto.class,
+				QItemEntity.itemEntity.id,
+				QItemEntity.itemEntity.name,
+				QItemEntity.itemEntity.price,
+				QItemEntity.itemEntity.discount,
+				QItemEntity.itemEntity.introduction,
+				itemTypeCondition.as("isPreOrderItem"),
+				QItemEntity.itemEntity.preOrderTime,
+				QMemberEntity.memberEntity.name.as("sellerName"),
+				QMemberEntity.memberEntity.memberId.as("sellerId")
+			)).from(QItemEntity.itemEntity)
+			.leftJoin(QMemberEntity.memberEntity)
+			.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
+			.where(QItemEntity.itemEntity.id.eq(itemId))
+			.fetchFirst();
+	}
 }
