@@ -1,0 +1,15 @@
+[[Admin-Item]]
+=== Admin Item API
+
+==== Add Item API
+include::{snippets}/item-add/http-request.adoc[]
+include::{snippets}/item-add/request-fields.adoc[]
+
+include::{snippets}/item-add/http-response.adoc[]
+include::{snippets}/item-add/response-fields.adoc[]
+
+==== Delete Item API
+include::{snippets}/item-delete/http-request.adoc[]
+
+include::{snippets}/item-delete/http-response.adoc[]
+include::{snippets}/item-delete/response-fields.adoc[]
