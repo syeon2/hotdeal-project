@@ -82,10 +82,6 @@ pipeline {
     }
 
     post {
-        always {
-            cleanWs()
-        }
-
         failure {
             echo 'The build has failed.'
         }
