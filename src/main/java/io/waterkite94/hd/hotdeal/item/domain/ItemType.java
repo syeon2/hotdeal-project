@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum ItemType {
+	NONE("none"),
 	PRE_ORDER("preOrder"),
 	NORMAL_ORDER("normalOrder");
 
