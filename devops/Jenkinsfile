@@ -16,30 +16,7 @@ pipeline {
 
         stage('Move .env file') {
             steps {
-                sshPublisher(publishers: [
-                    sshPublisherDesc(
-                        configName: 'raspi-server',
-                        transfers: [
-                            sshTransfer(
-                                cleanRemote: false,
-                                excludes: '',
-                                execCommand: 'cp /root/hotdeal/.env /var/jenkins_home/hotdeal-project/hot-deal/.env',
-                                execTimeout: 120000,
-                                flatten: false,
-                                makeEmptyDirs: false,
-                                noDefaultExcludes: false,
-                                patternSeparator: '[, ]+',
-                                remoteDirectory: '.',
-                                remoteDirectorySDF: false,
-                                removePrefix: '',
-                                sourceFiles: ''
-                            )
-                        ],
-                        usePromotionTimestamp: false,
-                        useWorkspaceInPromotion: false,
-                        verbose: false
-                    )
-                ])
+                sh "cp /root/hotdeal/.env /var/jenkins_home/hotdeal-project/hot-deal/.env"
             }
         }
 
