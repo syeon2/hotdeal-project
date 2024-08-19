@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.web.api;
+package io.waterkite94.hd.hotdeal.item.web.api.admin;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
-import io.waterkite94.hd.hotdeal.item.service.CategoryService;
+import io.waterkite94.hd.hotdeal.item.service.admin.CategoryService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddCategoryRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

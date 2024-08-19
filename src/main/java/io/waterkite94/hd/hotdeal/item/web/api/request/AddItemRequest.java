@@ -39,16 +39,13 @@ public class AddItemRequest {
 
 	private Integer minute;
 
-	@NotBlank(message = "회원 아이디는 빈칸을 허용하지 않습니다.")
-	private String memberId;
-
 	@NotNull(message = "카테고리 아이디는 빈칸을 허용하지 않습니다.")
 	private Long categoryId;
 
 	@Builder
 	private AddItemRequest(String name, Integer price, Integer discount, String introduction, ItemType type,
 		Integer year,
-		Integer month, Integer date, Integer hour, Integer minute, String memberId, Long categoryId) {
+		Integer month, Integer date, Integer hour, Integer minute, Long categoryId) {
 		this.name = name;
 		this.price = price;
 		this.discount = discount;
@@ -59,7 +56,6 @@ public class AddItemRequest {
 		this.date = date;
 		this.hour = hour;
 		this.minute = minute;
-		this.memberId = memberId;
 		this.categoryId = categoryId;
 	}
 
@@ -71,7 +67,6 @@ public class AddItemRequest {
 			.introduction(introduction)
 			.type(type)
 			.preOrderTime(LocalDateTime.of(year, month, date, hour, minute))
-			.memberId(memberId)
 			.categoryId(categoryId)
 			.build();
 	}

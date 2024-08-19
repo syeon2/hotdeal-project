@@ -44,16 +44,23 @@ public class Item {
 		this.categoryId = categoryId;
 	}
 
-	public Item initialize(String itemId) {
+	public Item initialize(String memberId, String itemId) {
 		if (preOrderTime == null) {
 			preOrderTime = LocalDateTime.now();
 		}
 
-		return this.withItemId(itemId);
+		return this
+			.withItemId(itemId)
+			.withMemberId(memberId);
 	}
 
 	private Item withItemId(String itemId) {
 		return new Item(this.id, itemId, this.name, this.price, this.discount, this.introduction, this.type,
 			this.preOrderTime, this.memberId, this.categoryId);
+	}
+
+	private Item withMemberId(String memberId) {
+		return new Item(this.id, this.itemId, this.name, this.price, this.discount, this.introduction, this.type,
+			this.preOrderTime, memberId, this.categoryId);
 	}
 }

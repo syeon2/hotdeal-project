@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.web.api;
+package io.waterkite94.hd.hotdeal.item.web.api.admin;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.item.domain.Category;
-import io.waterkite94.hd.hotdeal.item.service.CategoryService;
+import io.waterkite94.hd.hotdeal.item.service.admin.CategoryService;
 import lombok.RequiredArgsConstructor;
 
 @RestController

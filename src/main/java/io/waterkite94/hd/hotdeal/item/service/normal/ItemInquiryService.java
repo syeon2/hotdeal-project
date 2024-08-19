@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.service;
+package io.waterkite94.hd.hotdeal.item.service.normal;
 
 import java.util.List;
 

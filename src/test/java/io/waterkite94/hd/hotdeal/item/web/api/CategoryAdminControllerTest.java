@@ -19,7 +19,8 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
-import io.waterkite94.hd.hotdeal.item.service.CategoryService;
+import io.waterkite94.hd.hotdeal.item.service.admin.CategoryService;
+import io.waterkite94.hd.hotdeal.item.web.api.admin.CategoryAdminController;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddCategoryRequest;
 
 @WebMvcTest(CategoryAdminController.class)

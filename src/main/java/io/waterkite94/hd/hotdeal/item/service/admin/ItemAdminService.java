@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.service;
+package io.waterkite94.hd.hotdeal.item.service.admin;
 
 import java.util.UUID;
 
@@ -17,9 +17,9 @@ public class ItemAdminService {
 	private final ItemRepository itemRepository;
 	private final ItemMapper itemMapper;
 
-	public String addItem(Item item) {
+	public String addItem(String memberId, Item item) {
 		ItemEntity savedItem = itemRepository.save(
-			itemMapper.toEntity(item.initialize(createUuid()))
+			itemMapper.toEntity(item.initialize(memberId, createUuid()))
 		);
 
 		return savedItem.getItemId();

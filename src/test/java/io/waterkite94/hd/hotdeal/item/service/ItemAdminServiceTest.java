@@ -15,6 +15,7 @@ import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.Item;
 import io.waterkite94.hd.hotdeal.item.domain.ItemType;
+import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
 
 class ItemAdminServiceTest extends IntegrationTestSupport {
 

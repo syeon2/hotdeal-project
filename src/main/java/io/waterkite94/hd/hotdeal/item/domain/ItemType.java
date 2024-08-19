@@ -3,6 +3,9 @@ package io.waterkite94.hd.hotdeal.item.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import lombok.Getter;
+
+@Getter
 public enum ItemType {
 	NONE("none"),
 	PRE_ORDER("preOrder"),

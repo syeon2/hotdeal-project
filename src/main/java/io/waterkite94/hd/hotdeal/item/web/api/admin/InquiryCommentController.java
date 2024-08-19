@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.web.api;
+package io.waterkite94.hd.hotdeal.item.web.api.admin;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.item.domain.dto.InquiryCommentDto;
-import io.waterkite94.hd.hotdeal.item.service.InquiryCommentService;
+import io.waterkite94.hd.hotdeal.item.service.admin.InquiryCommentService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddInquiryCommentRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.DeleteInquiryCommentRequest;
 import lombok.RequiredArgsConstructor;

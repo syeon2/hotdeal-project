@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.service;
+package io.waterkite94.hd.hotdeal.item.service.admin;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -15,6 +15,7 @@ import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
 import io.waterkite94.hd.hotdeal.item.dao.CategoryRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.CategoryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.Category;
+import io.waterkite94.hd.hotdeal.item.service.admin.CategoryService;
 
 class CategoryServiceTest extends IntegrationTestSupport {
 

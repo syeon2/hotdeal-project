@@ -17,6 +17,7 @@ import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemInquiryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.ItemInquiry;
 import io.waterkite94.hd.hotdeal.item.domain.ItemType;
+import io.waterkite94.hd.hotdeal.item.service.normal.ItemInquiryService;
 
 class ItemInquiryServiceTest extends IntegrationTestSupport {
 

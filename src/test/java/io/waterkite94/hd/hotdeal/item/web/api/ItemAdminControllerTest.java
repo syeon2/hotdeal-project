@@ -21,7 +21,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
 import io.waterkite94.hd.hotdeal.item.domain.Item;
 import io.waterkite94.hd.hotdeal.item.domain.ItemType;
-import io.waterkite94.hd.hotdeal.item.service.ItemAdminService;
+import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
+import io.waterkite94.hd.hotdeal.item.web.api.admin.ItemAdminController;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemRequest;
 
 @WebMvcTest(ItemAdminController.class)
