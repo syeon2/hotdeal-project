@@ -11,5 +11,5 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Long>, ItemRep
 
 	@Modifying(clearAutomatically = true)
 	@Transactional
-	void deleteByItemId(String itemId);
+	void deleteByUuid(String uuid);
 }

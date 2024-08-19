@@ -1,34 +1,26 @@
 package io.waterkite94.hd.hotdeal.item.domain;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 import lombok.Getter;
 
 @Getter
 public enum ItemType {
-	NONE("none"),
-	PRE_ORDER("preOrder"),
-	NORMAL_ORDER("normalOrder");
+	NONE("일반 판매 상품"),
+	PRE_ORDER("예약 판매 상품"),
+	NORMAL_ORDER("일반 판매 상품");
 
-	private final String value;
+	private final String description;
 
-	ItemType(String value) {
-		this.value = value;
+	ItemType(String description) {
+		this.description = description;
 	}
 
-	@JsonCreator
-	public static ItemType fromString(String string) {
+	public static ItemType fromString(String value) {
 		for (ItemType itemType : ItemType.values()) {
-			if (itemType.getValue().equals(string)) {
+			if (itemType.name().equalsIgnoreCase(value)) {
 				return itemType;
 			}
 		}
+		
 		return null;
-	}
-
-	@JsonValue
-	public String getValue() {
-		return value;
 	}
 }

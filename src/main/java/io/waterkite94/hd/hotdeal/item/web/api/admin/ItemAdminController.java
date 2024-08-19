@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.response.AddItemResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -22,13 +23,13 @@ public class ItemAdminController {
 	private final ItemAdminService itemAdminService;
 
 	@PostMapping
-	public ApiResponse<String> addItemApi(
+	public ApiResponse<AddItemResponse> addItemApi(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		@RequestBody @Valid AddItemRequest request
 	) {
-		String savedItemId = itemAdminService.addItem(memberId, request.toDomain());
+		Long savedItemId = itemAdminService.addItemWithMemberId(memberId, request.toServiceDto());
 
-		return ApiResponse.ok(savedItemId);
+		return ApiResponse.ok(new AddItemResponse(savedItemId));
 	}
 
 	@DeleteMapping("/{itemId}")

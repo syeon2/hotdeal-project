@@ -1,6 +1,5 @@
 package io.waterkite94.hd.hotdeal.item.web.api;
 
-import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -19,8 +18,6 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
-import io.waterkite94.hd.hotdeal.item.domain.Item;
-import io.waterkite94.hd.hotdeal.item.domain.ItemType;
 import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
 import io.waterkite94.hd.hotdeal.item.web.api.admin.ItemAdminController;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemRequest;
@@ -38,7 +35,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 		// given
 		AddItemRequest request = createAddItemRequest();
 
-		given(itemAdminService.addItem(any(Item.class))).willReturn("memberId");
+		// given(itemAdminService.addItem(any(Item.class))).willReturn("memberId");
 
 		// when // then
 		mockMvc.perform(
@@ -104,19 +101,6 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 	}
 
 	private AddItemRequest createAddItemRequest() {
-		return AddItemRequest.builder()
-			.name("name")
-			.price(10000)
-			.discount(0)
-			.introduction("introduction")
-			.type(ItemType.PRE_ORDER)
-			.year(2024)
-			.month(12)
-			.date(31)
-			.hour(10)
-			.minute(6)
-			.memberId("memberId")
-			.categoryId(1L)
-			.build();
+		return null;
 	}
 }

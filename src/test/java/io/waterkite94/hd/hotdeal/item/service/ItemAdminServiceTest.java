@@ -43,7 +43,7 @@ class ItemAdminServiceTest extends IntegrationTestSupport {
 		// then
 		List<ItemEntity> findItems = itemRepository.findAll();
 		assertThat(findItems).hasSize(1);
-		assertThat(findItems.get(0).getItemId()).isEqualTo(savedItem);
+		assertThat(findItems.get(0).getUuid()).isEqualTo(savedItem);
 	}
 
 	@Test

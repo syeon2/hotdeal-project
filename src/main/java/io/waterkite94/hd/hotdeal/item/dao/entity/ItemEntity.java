@@ -30,8 +30,8 @@ public class ItemEntity extends BaseEntity {
 	@Column(name = "id", columnDefinition = "bigint", nullable = false)
 	private Long id;
 
-	@Column(name = "item_id", columnDefinition = "varchar(60)", nullable = false)
-	private String itemId;
+	@Column(name = "uuid", columnDefinition = "varchar(60)", nullable = false)
+	private String uuid;
 
 	@Column(name = "name", columnDefinition = "varchar(60)", nullable = false)
 	private String name;
@@ -60,10 +60,10 @@ public class ItemEntity extends BaseEntity {
 	private String memberId;
 
 	@Builder
-	private ItemEntity(Long id, String itemId, String name, Integer price, Integer discount, String introduction,
+	private ItemEntity(Long id, String uuid, String name, Integer price, Integer discount, String introduction,
 		ItemType type, LocalDateTime preOrderTime, Long categoryId, String memberId) {
 		this.id = id;
-		this.itemId = itemId;
+		this.uuid = uuid;
 		this.name = name;
 		this.price = price;
 		this.discount = discount;
