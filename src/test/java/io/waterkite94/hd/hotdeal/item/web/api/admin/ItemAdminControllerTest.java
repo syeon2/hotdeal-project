@@ -80,29 +80,35 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 
 	@Test
 	@WithMockUser(value = "USER")
-	@DisplayName(value = "상품을 삭제합니다.")
-	void deleteItemApi() throws Exception {
+	@DisplayName(value = "상품을 비활성화합니다.")
+	void changeItemStatusInactiveApi() throws Exception {
 		// given
+		Long itemId = 1L;
 		String memberId = "memberId";
 
 		// when // then
 		mockMvc.perform(
-				delete("/admin/items/{memberId}", memberId)
+				put("/api/v1/admin/items/{itemId}", itemId)
 					.with(csrf())
+					.header("X-MEMBER-ID", memberId)
 					.contentType(MediaType.APPLICATION_JSON)
 			).andDo(print())
 			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.data").isString())
+			.andExpect(jsonPath("$.data").exists())
+			.andExpect(jsonPath("$.data.message").isString())
 			.andDo(document("item-delete",
 				preprocessRequest(prettyPrint()),
 				preprocessResponse(prettyPrint()),
+				requestHeaders(
+					headerWithName("X-MEMBER-ID").description("회원 아이디")
+				),
 				pathParameters(
-					parameterWithName("memberId").description("상품 아이디")
+					parameterWithName("itemId").description("상품 아이디")
 				),
 				responseFields(
 					fieldWithPath("status").type(JsonFieldType.NUMBER).description("요청 상태 코드"),
 					fieldWithPath("message").type(JsonFieldType.NULL).description("요청 결과 메시지"),
-					fieldWithPath("data").type(JsonFieldType.STRING).description("요청 성공 여부 메시지")
+					fieldWithPath("data.message").type(JsonFieldType.STRING).description("요청 성공 여부 메시지")
 				)
 			));
 	}

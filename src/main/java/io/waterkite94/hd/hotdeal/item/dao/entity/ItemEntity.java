@@ -79,4 +79,8 @@ public class ItemEntity extends BaseEntity {
 		this.categoryId = categoryId;
 		this.memberId = memberId;
 	}
+
+	public void changeStatusInactive() {
+		this.status = ItemStatus.INACTIVE;
+	}
 }

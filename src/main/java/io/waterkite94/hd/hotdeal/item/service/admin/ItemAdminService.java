@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.item.dao.ItemMapper;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
+import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
 import lombok.RequiredArgsConstructor;
 
@@ -29,8 +30,20 @@ public class ItemAdminService {
 		return itemRepository.save(itemMapper.toEntity(initializeDto, preOrderSchedule)).getId();
 	}
 
-	public void deleteItem(String uuid) {
-		itemRepository.deleteByUuid(uuid);
+	@Transactional
+	public void changeItemStatusInactive(String memberId, Long itemId) {
+		ItemEntity findItem = itemRepository.findById(itemId)
+			.orElseThrow(() -> new IllegalArgumentException("item not found"));
+
+		verificationMemberId(memberId, findItem.getMemberId());
+
+		findItem.changeStatusInactive();
+	}
+
+	private void verificationMemberId(String memberId, String storedMemberId) {
+		if (!storedMemberId.equals(memberId)) {
+			throw new IllegalArgumentException("Unauthorized member Id");
+		}
 	}
 
 	private static String createUuid() {
