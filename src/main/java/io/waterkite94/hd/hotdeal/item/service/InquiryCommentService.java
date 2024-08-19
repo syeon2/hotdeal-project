@@ -9,6 +9,7 @@ import io.waterkite94.hd.hotdeal.item.dao.ItemInquiryRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.InquiryCommentEntity;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemInquiryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.InquiryComment;
+import io.waterkite94.hd.hotdeal.item.domain.dto.InquiryCommentDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -40,5 +41,11 @@ public class InquiryCommentService {
 		}
 
 		inquiryCommentRepository.deleteById(inquiryCommentId);
+	}
+
+	@Transactional
+	public InquiryCommentDto searchInquiryCommentByItemInquiryId(Long itemInquiryId) {
+		return inquiryCommentRepository.findInquiryCommentDto(itemInquiryId)
+			.orElseThrow(() -> new IllegalArgumentException("Inquiry Comment Not Found"));
 	}
 }

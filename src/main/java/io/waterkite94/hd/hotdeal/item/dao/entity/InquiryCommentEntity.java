@@ -8,7 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -32,7 +32,7 @@ public class InquiryCommentEntity extends BaseEntity {
 	@Column(name = "member_id", columnDefinition = "varchar(60)", nullable = false)
 	private String memberId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_inquiry_id", referencedColumnName = "id", columnDefinition = "bigint")
 	private ItemInquiryEntity itemInquiry;
 
