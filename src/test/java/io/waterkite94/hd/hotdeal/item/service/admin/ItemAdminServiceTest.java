@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
-import io.waterkite94.hd.hotdeal.item.domain.AddItemServiceDto;
 import io.waterkite94.hd.hotdeal.item.domain.Item;
-import io.waterkite94.hd.hotdeal.item.domain.ItemType;
+import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.item.domain.vo.PreOrderSchedule;
 
 class ItemAdminServiceTest extends IntegrationTestSupport {

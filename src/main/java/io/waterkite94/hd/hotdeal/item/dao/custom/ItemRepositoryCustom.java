@@ -2,8 +2,8 @@ package io.waterkite94.hd.hotdeal.item.dao.custom;
 
 import java.util.List;
 
-import io.waterkite94.hd.hotdeal.item.domain.ItemType;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemBoardDto;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 
 public interface ItemRepositoryCustom {
 

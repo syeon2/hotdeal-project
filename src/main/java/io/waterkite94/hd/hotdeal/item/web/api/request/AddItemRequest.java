@@ -2,9 +2,9 @@ package io.waterkite94.hd.hotdeal.item.web.api.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.waterkite94.hd.hotdeal.item.domain.AddItemServiceDto;
-import io.waterkite94.hd.hotdeal.item.domain.ItemType;
+import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.item.domain.vo.PreOrderSchedule;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

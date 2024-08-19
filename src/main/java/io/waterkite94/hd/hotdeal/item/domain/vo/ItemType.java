@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.domain;
+package io.waterkite94.hd.hotdeal.item.domain.vo;
 
 import lombok.Getter;
 
@@ -20,7 +20,7 @@ public enum ItemType {
 				return itemType;
 			}
 		}
-		
+
 		return null;
 	}
 }

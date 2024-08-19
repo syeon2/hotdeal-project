@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
-import io.waterkite94.hd.hotdeal.item.domain.AddItemServiceDto;
 import io.waterkite94.hd.hotdeal.item.domain.Item;
+import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
 
 @Component
 public class ItemMapper {
@@ -21,6 +21,7 @@ public class ItemMapper {
 			.type(addItemServiceDto.getType())
 			.preOrderTime(preOrderSchedule)
 			.memberId(addItemServiceDto.getMemberId())
+			.status(addItemServiceDto.getStatus())
 			.categoryId(addItemServiceDto.getCategoryId())
 			.build();
 	}

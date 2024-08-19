@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
-import io.waterkite94.hd.hotdeal.item.domain.ItemType;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemBoardDto;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.item.service.normal.ItemService;
 import lombok.RequiredArgsConstructor;
 

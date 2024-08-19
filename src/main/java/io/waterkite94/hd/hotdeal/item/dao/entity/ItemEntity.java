@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.BaseEntity;
-import io.waterkite94.hd.hotdeal.item.domain.ItemType;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemStatus;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -53,6 +54,10 @@ public class ItemEntity extends BaseEntity {
 	@Column(name = "pre_order_time", columnDefinition = "timestamp", nullable = false)
 	private LocalDateTime preOrderTime;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", columnDefinition = "varchar(30)", nullable = false)
+	private ItemStatus status;
+
 	@Column(name = "category_id", columnDefinition = "bigint", nullable = false)
 	private Long categoryId;
 
@@ -61,7 +66,7 @@ public class ItemEntity extends BaseEntity {
 
 	@Builder
 	private ItemEntity(Long id, String uuid, String name, Integer price, Integer discount, String introduction,
-		ItemType type, LocalDateTime preOrderTime, Long categoryId, String memberId) {
+		ItemType type, LocalDateTime preOrderTime, ItemStatus status, Long categoryId, String memberId) {
 		this.id = id;
 		this.uuid = uuid;
 		this.name = name;
@@ -70,6 +75,7 @@ public class ItemEntity extends BaseEntity {
 		this.introduction = introduction;
 		this.type = type;
 		this.preOrderTime = preOrderTime;
+		this.status = status;
 		this.categoryId = categoryId;
 		this.memberId = memberId;
 	}

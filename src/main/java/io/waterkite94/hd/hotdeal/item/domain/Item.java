@@ -2,6 +2,7 @@ package io.waterkite94.hd.hotdeal.item.domain;
 
 import java.time.LocalDateTime;
 
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import lombok.Builder;
 import lombok.Getter;
 

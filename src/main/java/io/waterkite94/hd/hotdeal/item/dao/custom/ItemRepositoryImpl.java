@@ -8,8 +8,8 @@ import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import io.waterkite94.hd.hotdeal.item.dao.entity.QItemEntity;
-import io.waterkite94.hd.hotdeal.item.domain.ItemType;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemBoardDto;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.QMemberEntity;
 import lombok.RequiredArgsConstructor;
 

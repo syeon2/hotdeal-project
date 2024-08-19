@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
-import io.waterkite94.hd.hotdeal.item.domain.ItemType;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemBoardDto;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import lombok.RequiredArgsConstructor;
 
 @Service

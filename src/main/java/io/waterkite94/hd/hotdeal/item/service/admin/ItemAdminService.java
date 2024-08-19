@@ -1,6 +1,6 @@
 package io.waterkite94.hd.hotdeal.item.service.admin;
 
-import static io.waterkite94.hd.hotdeal.item.domain.ItemType.*;
+import static io.waterkite94.hd.hotdeal.item.domain.vo.ItemType.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.item.dao.ItemMapper;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
-import io.waterkite94.hd.hotdeal.item.domain.AddItemServiceDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
