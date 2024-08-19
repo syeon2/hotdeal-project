@@ -64,7 +64,7 @@ public class AddItemRequest {
 	}
 
 	@Getter
-	private static class CostRequest {
+	public static class CostRequest {
 
 		@JsonProperty("price")
 		@NotNull(message = "가격은 필수 값입니다.")
@@ -84,7 +84,7 @@ public class AddItemRequest {
 	}
 
 	@Getter
-	private static class PreOrderScheduleRequest {
+	public static class PreOrderScheduleRequest {
 
 		@Min(value = 2020, message = "예약 스케줄 연도는 2020 미만이 될 수 없습니다.")
 		@Max(value = 2100, message = "예약 스케줄 연도는 2100 초과가 될 수 없습니다.")

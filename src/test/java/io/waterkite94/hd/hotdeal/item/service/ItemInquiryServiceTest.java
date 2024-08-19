@@ -2,7 +2,6 @@ package io.waterkite94.hd.hotdeal.item.service;
 
 import static org.assertj.core.api.Assertions.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +15,6 @@ import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemInquiryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.ItemInquiry;
-import io.waterkite94.hd.hotdeal.item.domain.ItemType;
 import io.waterkite94.hd.hotdeal.item.service.normal.ItemInquiryService;
 
 class ItemInquiryServiceTest extends IntegrationTestSupport {
@@ -63,16 +61,6 @@ class ItemInquiryServiceTest extends IntegrationTestSupport {
 	}
 
 	private ItemEntity createItemEntity() {
-		return ItemEntity.builder()
-			.itemId("itemUUID")
-			.name("name")
-			.price(10000)
-			.discount(0)
-			.introduction("introduction")
-			.type(ItemType.PRE_ORDER)
-			.preOrderTime(LocalDateTime.now())
-			.memberId("memberId")
-			.categoryId(1L)
-			.build();
+		return null;
 	}
 }
