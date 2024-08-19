@@ -29,4 +29,16 @@ public class ItemInquiryService {
 
 		return savedItemInquiry.getId();
 	}
+
+	@Transactional
+	public void deleteItemInquiry(Long itemInquiryId, String memberId) {
+		ItemInquiryEntity findItemInquiry = itemInquiryRepository.findById(itemInquiryId).orElseThrow(() ->
+			new IllegalArgumentException("ItemInquiry not found"));
+
+		if (!findItemInquiry.getMemberId().equals(memberId)) {
+			throw new IllegalArgumentException("Unauthorized access");
+		}
+
+		itemInquiryRepository.deleteById(itemInquiryId);
+	}
 }
