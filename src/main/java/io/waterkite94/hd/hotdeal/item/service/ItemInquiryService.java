@@ -1,5 +1,7 @@
 package io.waterkite94.hd.hotdeal.item.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,6 +11,7 @@ import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemInquiryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.ItemInquiry;
+import io.waterkite94.hd.hotdeal.item.domain.dto.ItemInquiryBoardDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -40,5 +43,10 @@ public class ItemInquiryService {
 		}
 
 		itemInquiryRepository.deleteById(itemInquiryId);
+	}
+
+	@Transactional
+	public List<ItemInquiryBoardDto> searchItemInquiries(Long itemId, Long offset) {
+		return itemInquiryRepository.findItemInquiries(itemId, offset);
 	}
 }

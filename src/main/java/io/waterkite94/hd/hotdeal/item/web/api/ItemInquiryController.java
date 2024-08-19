@@ -1,35 +1,50 @@
 package io.waterkite94.hd.hotdeal.item.web.api;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
+import io.waterkite94.hd.hotdeal.item.domain.dto.ItemInquiryBoardDto;
 import io.waterkite94.hd.hotdeal.item.service.ItemInquiryService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemInquiryRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.DeleteItemInquiryRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/items")
+@RequestMapping("/api/v1/items/item-inquiry")
 @RequiredArgsConstructor
 public class ItemInquiryController {
 
 	private final ItemInquiryService itemInquiryService;
 
-	@PostMapping("/item-inquiry")
+	@PostMapping
 	public ApiResponse<Long> addItemInquiry(@RequestBody AddItemInquiryRequest request) {
 		Long savedItemInquiryId = itemInquiryService.addItemInquiry(request.toDomain());
 
 		return ApiResponse.ok(savedItemInquiryId);
 	}
 
-	@DeleteMapping("/item-inquiry")
+	@DeleteMapping
 	public ApiResponse<String> deleteItemInquiry(@RequestBody DeleteItemInquiryRequest request) {
 		itemInquiryService.deleteItemInquiry(request.getItemInquiryId(), request.getMemberId());
 
 		return ApiResponse.ok("success");
+	}
+
+	@GetMapping
+	public ApiResponse<List<ItemInquiryBoardDto>> findItemInquiriesApi(
+		@RequestParam Long itemId,
+		@RequestParam Long offset
+	) {
+		List<ItemInquiryBoardDto> findItemInquiries = itemInquiryService.searchItemInquiries(itemId, offset);
+
+		return ApiResponse.ok(findItemInquiries);
 	}
 }
