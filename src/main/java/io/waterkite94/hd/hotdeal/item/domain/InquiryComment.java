@@ -6,28 +6,25 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class ItemInquiry {
-
-	private Long id;
+public class InquiryComment {
 
 	private String comment;
+
+	private String memberId;
 
 	private LocalDateTime createdAt;
 
 	private LocalDateTime updatedAt;
 
-	private String memberId;
-
-	private Long itemId;
+	private Long itemInquiryId;
 
 	@Builder
-	private ItemInquiry(Long id, String comment, LocalDateTime createdAt, LocalDateTime updatedAt, String memberId,
-		Long itemId) {
-		this.id = id;
+	private InquiryComment(String comment, String memberId, LocalDateTime createdAt, LocalDateTime updatedAt,
+		Long itemInquiryId) {
 		this.comment = comment;
+		this.memberId = memberId;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.memberId = memberId;
-		this.itemId = itemId;
+		this.itemInquiryId = itemInquiryId;
 	}
 }
