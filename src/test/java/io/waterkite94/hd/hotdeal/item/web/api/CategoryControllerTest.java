@@ -22,7 +22,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
 import io.waterkite94.hd.hotdeal.item.domain.Category;
 import io.waterkite94.hd.hotdeal.item.service.admin.CategoryService;
-import io.waterkite94.hd.hotdeal.item.web.api.admin.CategoryController;
+import io.waterkite94.hd.hotdeal.item.web.api.normal.CategoryController;
 
 @WebMvcTest(CategoryController.class)
 class CategoryControllerTest extends ControllerTestSupport {

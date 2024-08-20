@@ -18,7 +18,7 @@ public class AddCategoryRequest {
 		this.name = name;
 	}
 
-	public Category toCategoryDomain() {
+	public Category toServiceDto() {
 		return Category.builder()
 			.name(name)
 			.build();
