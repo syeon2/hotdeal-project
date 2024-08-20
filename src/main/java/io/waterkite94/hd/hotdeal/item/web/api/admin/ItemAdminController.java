@@ -31,7 +31,7 @@ public class ItemAdminController {
 	private final ItemAdminService itemAdminService;
 
 	@PostMapping
-	public ApiResponse<AddItemResponse> registerItemApi(
+	public ApiResponse<AddItemResponse> registerItem(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		@RequestBody @Valid AddItemRequest request
 	) {
@@ -41,7 +41,7 @@ public class ItemAdminController {
 	}
 
 	@PutMapping("/{itemId}/inactive")
-	public ApiResponse<ItemSuccessResponse> deactivateItemApi(
+	public ApiResponse<ItemSuccessResponse> deactivateItem(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		@PathVariable Long itemId
 	) {
@@ -51,7 +51,7 @@ public class ItemAdminController {
 	}
 
 	@GetMapping
-	public ApiResponse<CustomPage<FindAdminItemResponse>> findAdminItemsApi(
+	public ApiResponse<CustomPage<FindAdminItemResponse>> retrieveRegisteredItems(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		Pageable pageable
 	) {
@@ -62,7 +62,7 @@ public class ItemAdminController {
 	}
 
 	@PutMapping("/{itemId}/info")
-	public ApiResponse<ItemSuccessResponse> changeItemInfoApi(
+	public ApiResponse<ItemSuccessResponse> editItemInfo(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		@PathVariable Long itemId,
 		@RequestBody ChangeItemInfoRequest request

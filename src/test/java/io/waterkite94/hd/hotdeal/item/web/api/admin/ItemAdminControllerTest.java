@@ -43,7 +43,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 	@Test
 	@WithMockUser(value = "USER")
 	@DisplayName(value = "상품을 추가하는 Api를 호출합니다.")
-	void registerItemApi() throws Exception {
+	void registerItem() throws Exception {
 		// given
 		String memberId = "memberId";
 		AddItemRequest request = createAddItemRequest();
@@ -91,7 +91,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 	@Test
 	@WithMockUser(value = "USER")
 	@DisplayName(value = "상품을 비활성화합니다.")
-	void deactivateItemApi() throws Exception {
+	void deactivateItem() throws Exception {
 		// given
 		Long itemId = 1L;
 		String memberId = "memberId";
