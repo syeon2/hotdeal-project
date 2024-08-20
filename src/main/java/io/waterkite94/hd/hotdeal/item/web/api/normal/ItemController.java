@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.common.wrapper.CustomPage;
-import io.waterkite94.hd.hotdeal.item.domain.dto.FindItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.SearchItemListDto;
 import io.waterkite94.hd.hotdeal.item.service.normal.ItemService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.ItemTypeRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.response.ItemDetailResponse;
 import io.waterkite94.hd.hotdeal.item.web.api.response.SearchItemBoardResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -43,9 +44,9 @@ public class ItemController {
 	}
 
 	@GetMapping("/item/{itemId}")
-	public ApiResponse<FindItemDto> searchItems(@PathVariable Long itemId) {
-		FindItemDto itemDetail = itemService.findItemDetail(itemId);
+	public ApiResponse<ItemDetailResponse> searchItems(@PathVariable Long itemId) {
+		ItemDetailDto findItemDetail = itemService.findItemDetail(itemId);
 
-		return ApiResponse.ok(itemDetail);
+		return ApiResponse.ok(ItemDetailResponse.of(findItemDetail));
 	}
 }

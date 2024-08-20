@@ -17,7 +17,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.waterkite94.hd.hotdeal.item.dao.entity.QCategoryEntity;
 import io.waterkite94.hd.hotdeal.item.dao.entity.QItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
-import io.waterkite94.hd.hotdeal.item.domain.dto.FindItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.SearchItemListDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemStatus;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
@@ -73,19 +73,20 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	}
 
 	@Override
-	public FindItemDto findItemDetail(Long itemId) {
+	public ItemDetailDto findItemDetail(Long itemId) {
 		BooleanExpression itemTypeCondition = new CaseBuilder()
 			.when(QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)).then(true)
 			.otherwise(false);
 
-		return queryFactory.select(Projections.constructor(FindItemDto.class,
-				QItemEntity.itemEntity.id,
-				QItemEntity.itemEntity.name,
+		return queryFactory.select(Projections.constructor(ItemDetailDto.class,
+				QItemEntity.itemEntity.id.as("itemId"),
+				QItemEntity.itemEntity.name.as("itemName"),
 				QItemEntity.itemEntity.price,
 				QItemEntity.itemEntity.discount,
 				QItemEntity.itemEntity.introduction,
 				itemTypeCondition.as("isPreOrderItem"),
 				QItemEntity.itemEntity.preOrderTime,
+				QItemEntity.itemEntity.createdAt.as("createdAt"),
 				QMemberEntity.memberEntity.name.as("sellerName"),
 				QMemberEntity.memberEntity.memberId.as("sellerId")
 			)).from(QItemEntity.itemEntity)
