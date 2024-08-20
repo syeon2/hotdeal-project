@@ -20,7 +20,7 @@ public class CategoryAdminController {
 	private final CategoryService categoryService;
 
 	@PostMapping
-	public ApiResponse<AddCategoryResponse> addCategoryApi(@RequestBody @Valid AddCategoryRequest request) {
+	public ApiResponse<AddCategoryResponse> addCategory(@RequestBody @Valid AddCategoryRequest request) {
 		Long savedCategoryId = categoryService.saveCategory(request.toServiceDto());
 
 		return ApiResponse.ok(new AddCategoryResponse(savedCategoryId));

@@ -32,7 +32,7 @@ class CategoryControllerTest extends ControllerTestSupport {
 	@Test
 	@WithMockUser(value = "USER")
 	@DisplayName(value = "카테고리를 조회하는 API를 호출합니다.")
-	void findAllCategoriesApi() throws Exception {
+	void retrieveAllCategories() throws Exception {
 		// given
 		Category category = createCategory();
 		given(categoryService.findAllCategories()).willReturn(List.of(category));
