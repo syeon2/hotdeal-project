@@ -13,3 +13,16 @@ include::{snippets}/item-retrieve/query-parameters.adoc[]
 include::{snippets}/item-retrieve/http-response.adoc[]
 include::{snippets}/item-retrieve/response-body.adoc[]
 include::{snippets}/item-retrieve/response-fields.adoc[]
+
+===== Retrieve Item Detail API
+
+===== Request
+
+include::{snippets}/item-retrieve-detail/path-parameters.adoc[]
+include::{snippets}/item-retrieve-detail/httpie-request.adoc[]
+
+===== Response
+
+include::{snippets}/item-retrieve-detail/http-response.adoc[]
+include::{snippets}/item-retrieve-detail/response-body.adoc[]
+include::{snippets}/item-retrieve-detail/response-fields.adoc[]
