@@ -5,6 +5,8 @@ import static io.waterkite94.hd.hotdeal.item.domain.vo.ItemType.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +14,7 @@ import io.waterkite94.hd.hotdeal.item.dao.ItemMapper;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -38,6 +41,11 @@ public class ItemAdminService {
 		verificationMemberId(memberId, findItem.getMemberId());
 
 		findItem.changeStatusInactive();
+	}
+
+	@Transactional
+	public Page<FindAdminItemDto> findAdminItems(String memberId, Pageable pageable) {
+		return itemRepository.findAdminItems(memberId, pageable);
 	}
 
 	private void verificationMemberId(String memberId, String storedMemberId) {

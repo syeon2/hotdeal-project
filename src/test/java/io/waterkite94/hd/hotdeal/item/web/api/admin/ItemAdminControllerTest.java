@@ -23,6 +23,8 @@ import io.waterkite94.hd.hotdeal.ControllerTestSupport;
 import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.ItemTypeRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.request.vo.CostRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.request.vo.PreOrderScheduleRequest;
 
 @WebMvcTest(ItemAdminController.class)
 class ItemAdminControllerTest extends ControllerTestSupport {
@@ -116,13 +118,13 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 	private AddItemRequest createAddItemRequest() {
 		return AddItemRequest.builder()
 			.name("name")
-			.costRequest(AddItemRequest.CostRequest.builder()
+			.costRequest(CostRequest.builder()
 				.price(10000)
 				.discount(1000)
 				.build())
 			.introduction("introduction")
 			.type(ItemTypeRequest.PRE_ORDER)
-			.preOrderSchedule(AddItemRequest.PreOrderScheduleRequest.builder()
+			.preOrderSchedule(PreOrderScheduleRequest.builder()
 				.year(2024)
 				.month(10)
 				.date(15)
