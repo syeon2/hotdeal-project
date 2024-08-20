@@ -50,7 +50,7 @@ public class ItemAdminController {
 	}
 
 	@GetMapping
-	public ApiResponse<CustomPage<FindAdminItemResponse>> findAdminItems(
+	public ApiResponse<CustomPage<FindAdminItemResponse>> findAdminItemsApi(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		Pageable pageable
 	) {

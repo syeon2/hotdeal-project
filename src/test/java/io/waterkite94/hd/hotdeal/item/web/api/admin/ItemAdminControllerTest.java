@@ -11,15 +11,23 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
+import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.ItemTypeRequest;
@@ -113,6 +121,104 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 					fieldWithPath("data.message").type(JsonFieldType.STRING).description("요청 성공 여부 메시지")
 				)
 			));
+	}
+
+	@Test
+	@WithMockUser(value = "USER")
+	@DisplayName(value = "관리자가 등록한 상품들을 조회하는 Api를 호출합니다.")
+	void findAdminItems() throws Exception {
+		// given
+		String memberId = "memberId";
+		PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "createdAt"));
+
+		FindAdminItemDto findAdminItemDto = createFindAdminItemDto();
+		long totalCount = 1L;
+
+		given(itemAdminService.findAdminItems(any(), any()))
+			.willReturn(new PageImpl<>(List.of(findAdminItemDto), pageRequest, totalCount));
+
+		// when // then
+		mockMvc.perform(
+				get("/api/v1/admin/items")
+					.with(csrf())
+					.header("X-MEMBER-ID", memberId)
+					.param("offset", "0")
+					.param("size", "10")
+					.param("sort", "createdAt,desc")
+					.contentType(MediaType.APPLICATION_JSON)
+			).andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.data.content").isArray())
+			.andExpect(jsonPath("$.data.total_count").isNumber())
+			.andExpect(jsonPath("$.data.content[0].item_id").isNumber())
+			.andExpect(jsonPath("$.data.content[0].item_uuid").isString())
+			.andExpect(jsonPath("$.data.content[0].name").isString())
+			.andExpect(jsonPath("$.data.content[0].cost.price").isNumber())
+			.andExpect(jsonPath("$.data.content[0].cost.discount").isNumber())
+			.andExpect(jsonPath("$.data.content[0].item_type").isString())
+			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.year").isNumber())
+			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.month").isNumber())
+			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.date").isNumber())
+			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.hour").isNumber())
+			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.minute").isNumber())
+			.andExpect(jsonPath("$.data.content[0].created_at").isString())
+			.andExpect(jsonPath("$.data.content[0].category_id").isNumber())
+			.andExpect(jsonPath("$.data.content[0].category_name").isString())
+			.andDo(document("item-admin-get-items",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestHeaders(
+					headerWithName("X-MEMBER-ID").description("회원 아이디")
+				),
+				queryParameters(
+					parameterWithName("offset").description("페이지 순서"),
+					parameterWithName("size").description("페이지 컨텐츠 개수"),
+					parameterWithName("sort").description("페이지 정렬 기준 [(name, createdAt),(asc, desc)]"),
+					parameterWithName("_csrf").description("")
+				),
+				responseFields(
+					fieldWithPath("status").type(JsonFieldType.NUMBER).description("요청 상태 코드"),
+					fieldWithPath("message").type(JsonFieldType.NULL).description("요청 결과 메시지"),
+					fieldWithPath("data.total_count").type(JsonFieldType.NUMBER).description("총 데이터 개수"),
+					fieldWithPath("data.content").type(JsonFieldType.ARRAY).description("조회한 데이터 배열"),
+					fieldWithPath("data.content[0].item_id").type(JsonFieldType.NUMBER).description("상품 아이디"),
+					fieldWithPath("data.content[0].item_uuid").type(JsonFieldType.STRING).description("상품 UUID"),
+					fieldWithPath("data.content[0].name").type(JsonFieldType.STRING).description("상품 이름"),
+					fieldWithPath("data.content[0].cost.price").type(JsonFieldType.NUMBER).description("상품 가격"),
+					fieldWithPath("data.content[0].cost.discount").type(JsonFieldType.NUMBER).description("상품 할인 금액"),
+					fieldWithPath("data.content[0].item_type").type(JsonFieldType.STRING).description("상품 타입"),
+					fieldWithPath("data.content[0].pre_order_schedule.year").type(JsonFieldType.NUMBER)
+						.description("상품 예약 구매 연도"),
+					fieldWithPath("data.content[0].pre_order_schedule.month").type(JsonFieldType.NUMBER)
+						.description("상품 예약 구매 월"),
+					fieldWithPath("data.content[0].pre_order_schedule.date").type(JsonFieldType.NUMBER)
+						.description("상품 예약 구매 일"),
+					fieldWithPath("data.content[0].pre_order_schedule.hour").type(JsonFieldType.NUMBER)
+						.description("상품 예약 구매 시간"),
+					fieldWithPath("data.content[0].pre_order_schedule.minute").type(JsonFieldType.NUMBER)
+						.description("상품 예약 구매 분"),
+					fieldWithPath("data.content[0].pre_order_schedule.minute").type(JsonFieldType.NUMBER)
+						.description("상품 예약 구매 분"),
+					fieldWithPath("data.content[0].created_at").type(JsonFieldType.STRING).description("상품 등록일"),
+					fieldWithPath("data.content[0].category_id").type(JsonFieldType.NUMBER).description("상품 카테고리 아이디"),
+					fieldWithPath("data.content[0].category_name").type(JsonFieldType.STRING).description("상품 카테고리 이름")
+				)
+			));
+	}
+
+	private FindAdminItemDto createFindAdminItemDto() {
+		return FindAdminItemDto.builder()
+			.itemId(1L)
+			.itemUuid("uuid")
+			.itemName("itemName")
+			.price(10000)
+			.discount(1000)
+			.itemType(ItemType.PRE_ORDER)
+			.preOrderSchedule(LocalDateTime.now())
+			.createdAt(LocalDateTime.now())
+			.categoryId(1L)
+			.categoryName("categoryName")
+			.build();
 	}
 
 	private AddItemRequest createAddItemRequest() {
