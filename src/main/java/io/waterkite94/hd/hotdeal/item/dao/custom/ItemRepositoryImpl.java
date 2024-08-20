@@ -19,7 +19,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.waterkite94.hd.hotdeal.item.dao.entity.QCategoryEntity;
 import io.waterkite94.hd.hotdeal.item.dao.entity.QItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
-import io.waterkite94.hd.hotdeal.item.domain.dto.ItemBoardDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.FindItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.SearchItemListDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemStatus;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.QMemberEntity;
@@ -31,84 +32,53 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public List<ItemBoardDto> searchItemsByCategoryId(Long categoryId, ItemType itemType, Long itemOffset) {
+	public Page<SearchItemListDto> searchItemsByCategoryId(Long categoryId, ItemType type, Pageable pageable) {
 		BooleanExpression itemTypeCondition = new CaseBuilder()
 			.when(QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)).then(true)
 			.otherwise(false);
 
-		if (itemType.equals(ItemType.NONE)) {
-			return queryFactory.select(Projections.constructor(ItemBoardDto.class,
-					QItemEntity.itemEntity.id,
-					QItemEntity.itemEntity.name,
+		JPAQuery<SearchItemListDto> contentQuery = queryFactory.select(
+				Projections.constructor(SearchItemListDto.class,
+					QItemEntity.itemEntity.id.as("itemId"),
+					QItemEntity.itemEntity.name.as("itemName"),
 					QItemEntity.itemEntity.price,
 					QItemEntity.itemEntity.discount,
-					QItemEntity.itemEntity.introduction,
 					itemTypeCondition.as("isPreOrderItem"),
 					QItemEntity.itemEntity.preOrderTime,
-					QMemberEntity.memberEntity.name.as("sellerName"),
-					QMemberEntity.memberEntity.memberId.as("sellerId")
+					QMemberEntity.memberEntity.memberId.as("sellerId"),
+					QMemberEntity.memberEntity.name.as("sellerName")
 				)).from(QItemEntity.itemEntity)
-				.leftJoin(QMemberEntity.memberEntity)
-				.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
-				.where(QItemEntity.itemEntity.categoryId.eq(categoryId))
-				.offset(itemOffset)
-				.limit(10)
-				.orderBy(QItemEntity.itemEntity.id.desc())
-				.fetch();
-		} else if (itemType.equals(ItemType.PRE_ORDER)) {
-			return queryFactory.select(Projections.constructor(ItemBoardDto.class,
-					QItemEntity.itemEntity.id,
-					QItemEntity.itemEntity.name,
-					QItemEntity.itemEntity.price,
-					QItemEntity.itemEntity.discount,
-					QItemEntity.itemEntity.introduction,
-					itemTypeCondition.as("isPreOrderItem"),
-					QItemEntity.itemEntity.preOrderTime,
-					QMemberEntity.memberEntity.name.as("sellerName"),
-					QMemberEntity.memberEntity.memberId.as("sellerId")
-				)).from(QItemEntity.itemEntity)
-				.leftJoin(QMemberEntity.memberEntity)
-				.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
-				.where(
-					QItemEntity.itemEntity.categoryId.eq(categoryId),
-					QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)
-				)
-				.offset(itemOffset)
-				.limit(10)
-				.orderBy(QItemEntity.itemEntity.id.desc())
-				.fetch();
-		} else {
-			return queryFactory.select(Projections.constructor(ItemBoardDto.class,
-					QItemEntity.itemEntity.id,
-					QItemEntity.itemEntity.name,
-					QItemEntity.itemEntity.price,
-					QItemEntity.itemEntity.discount,
-					QItemEntity.itemEntity.introduction,
-					itemTypeCondition.as("isPreOrderItem"),
-					QItemEntity.itemEntity.preOrderTime,
-					QMemberEntity.memberEntity.name.as("sellerName"),
-					QMemberEntity.memberEntity.memberId.as("sellerId")
-				)).from(QItemEntity.itemEntity)
-				.leftJoin(QMemberEntity.memberEntity)
-				.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
-				.where(
-					QItemEntity.itemEntity.categoryId.eq(categoryId),
-					QItemEntity.itemEntity.type.eq(ItemType.NORMAL_ORDER)
-				)
-				.offset(itemOffset)
-				.limit(10)
-				.orderBy(QItemEntity.itemEntity.id.desc())
-				.fetch();
-		}
+			.leftJoin(QMemberEntity.memberEntity)
+			.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
+			.where(
+				QItemEntity.itemEntity.categoryId.eq(categoryId),
+				QItemEntity.itemEntity.status.eq(ItemStatus.ACTIVE),
+				type.equals(ItemType.PRE_ORDER) ? QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)
+					: type.equals(ItemType.NORMAL_ORDER) ? QItemEntity.itemEntity.type.eq(ItemType.NORMAL_ORDER)
+					: null
+			)
+			.offset(pageable.getOffset())
+			.limit(pageable.getPageSize());
+
+		pageable.getSort().stream().forEach(sort -> {
+			Order order = sort.isAscending() ? Order.ASC : Order.DESC;
+			String property = sort.getProperty();
+
+			Path<Object> target = Expressions.path(Object.class, QItemEntity.itemEntity, property);
+			OrderSpecifier<?> orderSpecifier = new OrderSpecifier(order, target);
+			contentQuery.orderBy(orderSpecifier);
+		});
+
+		return new PageImpl<>(contentQuery.fetch(), pageable, 0L);
 	}
 
 	@Override
-	public List<ItemBoardDto> searchItemsContainsWord(String word, Long itemOffset) {
+	public List<FindItemDto> searchItemsContainsWord(String word, Long itemOffset) {
 		BooleanExpression itemTypeCondition = new CaseBuilder()
 			.when(QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)).then(true)
 			.otherwise(false);
 
-		return queryFactory.select(Projections.constructor(ItemBoardDto.class,
+		return queryFactory.select(Projections.constructor(FindItemDto.class,
 				QItemEntity.itemEntity.id,
 				QItemEntity.itemEntity.name,
 				QItemEntity.itemEntity.price,
@@ -129,12 +99,12 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	}
 
 	@Override
-	public ItemBoardDto findItemDetail(Long itemId) {
+	public FindItemDto findItemDetail(Long itemId) {
 		BooleanExpression itemTypeCondition = new CaseBuilder()
 			.when(QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)).then(true)
 			.otherwise(false);
 
-		return queryFactory.select(Projections.constructor(ItemBoardDto.class,
+		return queryFactory.select(Projections.constructor(FindItemDto.class,
 				QItemEntity.itemEntity.id,
 				QItemEntity.itemEntity.name,
 				QItemEntity.itemEntity.price,

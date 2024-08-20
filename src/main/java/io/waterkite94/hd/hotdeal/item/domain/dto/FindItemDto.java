@@ -4,11 +4,9 @@ import java.time.LocalDateTime;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-public class ItemBoardDto {
+public class FindItemDto {
 
 	private Long id;
 
@@ -18,9 +16,7 @@ public class ItemBoardDto {
 
 	private Integer discount;
 
-	private String introduction;
-
-	private boolean isPreOrderItem;
+	private Boolean isPreOrderItem;
 
 	private LocalDateTime preOrderTime;
 
@@ -29,13 +25,12 @@ public class ItemBoardDto {
 	private String sellerId;
 
 	@Builder
-	public ItemBoardDto(Long id, String name, Integer price, Integer discount, String introduction,
+	public FindItemDto(Long id, String name, Integer price, Integer discount,
 		boolean isPreOrderItem, LocalDateTime preOrderTime, String sellerName, String sellerId) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.discount = discount;
-		this.introduction = introduction;
 		this.isPreOrderItem = isPreOrderItem;
 		this.preOrderTime = preOrderTime;
 		this.sellerName = sellerName;

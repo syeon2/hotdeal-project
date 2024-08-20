@@ -6,16 +6,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
-import io.waterkite94.hd.hotdeal.item.domain.dto.ItemBoardDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.FindItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.SearchItemListDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 
 public interface ItemRepositoryCustom {
 
-	List<ItemBoardDto> searchItemsByCategoryId(Long categoryId, ItemType itemType, Long itemOffset);
+	Page<SearchItemListDto> searchItemsByCategoryId(Long categoryId, ItemType type, Pageable pageable);
 
-	List<ItemBoardDto> searchItemsContainsWord(String word, Long itemOffset);
+	List<FindItemDto> searchItemsContainsWord(String word, Long itemOffset);
 
-	ItemBoardDto findItemDetail(Long itemId);
+	FindItemDto findItemDetail(Long itemId);
 
 	Page<FindAdminItemDto> findAdminItems(String memberId, Pageable pageable);
 }
