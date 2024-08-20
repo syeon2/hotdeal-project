@@ -26,10 +26,6 @@ public class ChangeItemInfoDto {
 	}
 
 	public void changeInfo(ItemEntity itemEntity) {
-		if (cost.getPrice() < cost.getDiscount()) {
-			throw new IllegalArgumentException("할인 금액은 정상 금액보다 낮아야합니다");
-		}
-
 		itemEntity.changeName(name);
 		itemEntity.changeIntroduction(introduction);
 		itemEntity.changePrice(cost.getPrice());

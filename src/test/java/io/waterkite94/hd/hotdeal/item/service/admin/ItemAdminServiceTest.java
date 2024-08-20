@@ -18,6 +18,7 @@ import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.ChangeItemInfoDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemStatus;
@@ -90,6 +91,37 @@ class ItemAdminServiceTest extends IntegrationTestSupport {
 		assertThat(findItems.getContent()).hasSize(1);
 		assertThat(findItems.getTotalElements()).isEqualTo(1);
 		assertThat(findItems.getContent().get(0).getItemId()).isEqualTo(savedItemId);
+	}
+
+	@Test
+	@Transactional
+	@DisplayName(value = "상품의 정보를 변경합니다.")
+	void changeItemInfo() {
+		// given
+		String memberId = "memberId";
+		AddItemServiceDto addItemServiceDto = createAddItemServiceDto();
+		Long savedItemId = itemAdminService.addItemWithMemberId(memberId, addItemServiceDto);
+
+		ChangeItemInfoDto changeItemInfoDto = createChangeItemInfoDto();
+
+		// when
+		itemAdminService.changeItemInfo(memberId, savedItemId, changeItemInfoDto);
+
+		// then
+		Optional<ItemEntity> findItemOptional = itemRepository.findById(savedItemId);
+		assertThat(findItemOptional).isPresent();
+		assertThat(findItemOptional.get()).extracting("name", "introduction")
+			.containsExactlyInAnyOrder(changeItemInfoDto.getName(), changeItemInfoDto.getIntroduction());
+	}
+
+	private ChangeItemInfoDto createChangeItemInfoDto() {
+		return ChangeItemInfoDto.builder()
+			.name("changeName")
+			.introduction("changeIntroduction")
+			.cost(Cost.of(10000, 1000))
+			.preOrderSchedule(PreOrderSchedule.of(2024, 10, 10, 10, 10))
+			.categoryId(1L)
+			.build();
 	}
 
 	private AddItemServiceDto createAddItemServiceDto() {
