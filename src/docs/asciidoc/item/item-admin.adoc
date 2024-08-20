@@ -9,7 +9,7 @@ include::{snippets}/item-register/http-response.adoc[]
 include::{snippets}/item-register/response-fields.adoc[]
 
 ==== Delete Item API
-include::{snippets}/item-delete/http-request.adoc[]
+include::{snippets}/item-deactivate/http-request.adoc[]
 
-include::{snippets}/item-delete/http-response.adoc[]
-include::{snippets}/item-delete/response-fields.adoc[]
+include::{snippets}/item-deactivate/http-response.adoc[]
+include::{snippets}/item-deactivate/response-fields.adoc[]

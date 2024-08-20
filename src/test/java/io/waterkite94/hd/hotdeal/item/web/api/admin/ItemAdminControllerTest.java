@@ -98,7 +98,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 
 		// when // then
 		mockMvc.perform(
-				put("/api/v1/admin/items/{itemId}/account", itemId)
+				put("/api/v1/admin/items/{itemId}/inactive", itemId)
 					.with(csrf())
 					.header("X-MEMBER-ID", memberId)
 					.contentType(MediaType.APPLICATION_JSON)
@@ -106,7 +106,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.data").exists())
 			.andExpect(jsonPath("$.data.message").isString())
-			.andDo(document("item-delete",
+			.andDo(document("item-deactivate",
 				preprocessRequest(prettyPrint()),
 				preprocessResponse(prettyPrint()),
 				requestHeaders(
