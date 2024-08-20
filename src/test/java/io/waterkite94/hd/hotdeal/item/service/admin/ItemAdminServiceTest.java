@@ -9,12 +9,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemStatus;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
@@ -83,6 +87,26 @@ class ItemAdminServiceTest extends IntegrationTestSupport {
 		Optional<ItemEntity> findItemOptional = itemRepository.findById(savedItemId);
 		assertThat(findItemOptional).isPresent();
 		assertThat(findItemOptional.get().getStatus()).isEqualTo(ItemStatus.INACTIVE);
+	}
+
+	@Test
+	@Transactional
+	@DisplayName(value = "회원이 등록한 상품을 조회합니다.")
+	void findAdminItems() {
+		// given
+		String memberId = "memberId";
+		AddItemServiceDto addItemServiceDto = createAddItemServiceDto(10000, 1000);
+		Long savedItemId = itemAdminService.addItemWithMemberId(memberId, addItemServiceDto);
+
+		PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "createdAt"));
+
+		// when
+		Page<FindAdminItemDto> findItems = itemAdminService.findAdminItems(memberId, pageRequest);
+
+		// then
+		assertThat(findItems.getContent()).hasSize(1);
+		assertThat(findItems.getTotalElements()).isEqualTo(1);
+		assertThat(findItems.getContent().get(0).getItemId()).isEqualTo(savedItemId);
 	}
 
 	private AddItemServiceDto createAddItemServiceDto(int price, int discount) {
