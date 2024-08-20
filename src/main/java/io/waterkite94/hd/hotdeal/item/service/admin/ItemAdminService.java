@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.waterkite94.hd.hotdeal.common.error.exception.UnauthorizedMemberException;
 import io.waterkite94.hd.hotdeal.common.util.UuidUtil;
 import io.waterkite94.hd.hotdeal.item.dao.ItemMapper;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
@@ -37,9 +38,9 @@ public class ItemAdminService {
 	@Transactional
 	public void changeItemStatusInactive(String memberId, Long itemId) {
 		ItemEntity findItem = itemRepository.findById(itemId)
-			.orElseThrow(() -> new IllegalArgumentException("item not found"));
+			.orElseThrow(() -> new IllegalArgumentException("Item not found"));
 
-		verificationMemberId(memberId, findItem.getMemberId());
+		validateMemberId(memberId, findItem.getMemberId());
 
 		findItem.changeStatusInactive();
 	}
@@ -52,11 +53,9 @@ public class ItemAdminService {
 	@Transactional
 	public void changeItemInfo(String memberId, Long itemId, ChangeItemInfoDto changeItemInfoDto) {
 		ItemEntity findItem = itemRepository.findById(itemId)
-			.orElseThrow(() -> new IllegalArgumentException("item not found"));
+			.orElseThrow(() -> new IllegalArgumentException("Item not found"));
 
-		if (!findItem.getMemberId().equals(memberId)) {
-			throw new IllegalArgumentException("Unauthorized member id");
-		}
+		validateMemberId(memberId, findItem.getMemberId());
 
 		changeItemInfoDto.changeInfo(findItem);
 	}
@@ -65,9 +64,9 @@ public class ItemAdminService {
 		return serviceDto.initialize(memberId, UuidUtil.createUuid());
 	}
 
-	private void verificationMemberId(String memberId, String storedMemberId) {
+	private void validateMemberId(String memberId, String storedMemberId) {
 		if (!storedMemberId.equals(memberId)) {
-			throw new IllegalArgumentException("Unauthorized member Id");
+			throw new UnauthorizedMemberException("Unauthorized Member Id");
 		}
 	}
 

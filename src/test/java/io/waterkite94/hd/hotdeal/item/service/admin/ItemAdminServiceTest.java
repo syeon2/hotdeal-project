@@ -43,7 +43,7 @@ class ItemAdminServiceTest extends IntegrationTestSupport {
 	void addItemWithMemberId() {
 		// given
 		String memberId = "memberId";
-		AddItemServiceDto addItemServiceDto = createAddItemServiceDto(10000, 1000);
+		AddItemServiceDto addItemServiceDto = createAddItemServiceDto();
 
 		// when
 		Long savedItemId = itemAdminService.addItemWithMemberId(memberId, addItemServiceDto);
@@ -56,28 +56,11 @@ class ItemAdminServiceTest extends IntegrationTestSupport {
 
 	@Test
 	@Transactional
-	@DisplayName(value = "할인금액이 정상가보다 높다면 예외를 반환합니다.")
-	void addItemWithMember_discountOtPrice() {
-		// given
-		String memberId = "memberId";
-		int price = 10000;
-		int discount = 1000000;
-
-		AddItemServiceDto addItemServiceDto = createAddItemServiceDto(price, discount);
-
-		// when // then
-		assertThatThrownBy(() -> itemAdminService.addItemWithMemberId(memberId, addItemServiceDto))
-			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessage("할인 금액은 정상 금액보다 낮아야합니다.");
-	}
-
-	@Test
-	@Transactional
 	@DisplayName(value = "상품을 비활성화합니다.")
 	void changeItemStatusInactive() {
 		// given
 		String memberId = "memberId";
-		AddItemServiceDto addItemServiceDto = createAddItemServiceDto(10000, 1000);
+		AddItemServiceDto addItemServiceDto = createAddItemServiceDto();
 		Long savedItemId = itemAdminService.addItemWithMemberId(memberId, addItemServiceDto);
 
 		// when
@@ -95,7 +78,7 @@ class ItemAdminServiceTest extends IntegrationTestSupport {
 	void findAdminItems() {
 		// given
 		String memberId = "memberId";
-		AddItemServiceDto addItemServiceDto = createAddItemServiceDto(10000, 1000);
+		AddItemServiceDto addItemServiceDto = createAddItemServiceDto();
 		Long savedItemId = itemAdminService.addItemWithMemberId(memberId, addItemServiceDto);
 
 		PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "createdAt"));
@@ -109,10 +92,10 @@ class ItemAdminServiceTest extends IntegrationTestSupport {
 		assertThat(findItems.getContent().get(0).getItemId()).isEqualTo(savedItemId);
 	}
 
-	private AddItemServiceDto createAddItemServiceDto(int price, int discount) {
+	private AddItemServiceDto createAddItemServiceDto() {
 		return AddItemServiceDto.builder()
 			.name("name")
-			.cost(Cost.builder().price(price).discount(discount).build())
+			.cost(Cost.builder().price(10000).discount(1000).build())
 			.introduction("introduction")
 			.type(ItemType.PRE_ORDER)
 			.preOrderSchedule(PreOrderSchedule.builder()

@@ -40,14 +40,14 @@ public class ItemAdminController {
 		return ApiResponse.ok(new AddItemResponse(savedItemId));
 	}
 
-	@PutMapping("/{itemId}/account")
-	public ApiResponse<ItemSuccessResponse> changeItemStatusInactiveApi(
+	@PutMapping("/{itemId}/inactive")
+	public ApiResponse<ItemSuccessResponse> deactivateItemApi(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		@PathVariable Long itemId
 	) {
 		itemAdminService.changeItemStatusInactive(memberId, itemId);
 
-		return ApiResponse.ok(new ItemSuccessResponse("delete item successfully"));
+		return ApiResponse.ok(new ItemSuccessResponse("The Item Status changed to inactive successfully"));
 	}
 
 	@GetMapping

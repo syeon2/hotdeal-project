@@ -91,7 +91,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 	@Test
 	@WithMockUser(value = "USER")
 	@DisplayName(value = "상품을 비활성화합니다.")
-	void changeItemStatusInactiveApi() throws Exception {
+	void deactivateItemApi() throws Exception {
 		// given
 		Long itemId = 1L;
 		String memberId = "memberId";
