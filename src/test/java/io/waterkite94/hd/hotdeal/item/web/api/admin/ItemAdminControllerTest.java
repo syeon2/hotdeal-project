@@ -27,6 +27,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemId;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemRequest;
@@ -126,7 +128,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 	@Test
 	@WithMockUser(value = "USER")
 	@DisplayName(value = "관리자가 등록한 상품들을 조회하는 Api를 호출합니다.")
-	void findAdminItems() throws Exception {
+	void retrieveRegisteredItems() throws Exception {
 		// given
 		String memberId = "memberId";
 		PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "createdAt"));
@@ -164,7 +166,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 			.andExpect(jsonPath("$.data.content[0].created_at").isString())
 			.andExpect(jsonPath("$.data.content[0].category_id").isNumber())
 			.andExpect(jsonPath("$.data.content[0].category_name").isString())
-			.andDo(document("item-admin-get-items",
+			.andDo(document("item-admin-retrieve-items",
 				preprocessRequest(prettyPrint()),
 				preprocessResponse(prettyPrint()),
 				requestHeaders(
@@ -208,11 +210,9 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 
 	private RetrieveRegisteredItemDto createFindAdminItemDto() {
 		return RetrieveRegisteredItemDto.builder()
-			.itemId(1L)
-			.itemUuid("uuid")
+			.itemId(new ItemId(1L, "member-uuid"))
 			.itemName("itemName")
-			.price(10000)
-			.discount(1000)
+			.cost(Cost.of(10000, 1000))
 			.itemType(ItemType.PRE_ORDER)
 			.preOrderSchedule(LocalDateTime.now())
 			.createdAt(LocalDateTime.now())

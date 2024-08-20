@@ -1,15 +1,43 @@
 [[Admin-Item]]
 === Admin Item API
 
-==== Add Item API
+==== Register Item API
+
+===== Request
+
 include::{snippets}/item-register/http-request.adoc[]
+include::{snippets}/item-register/request-headers.adoc[]
+include::{snippets}/item-register/request-body.adoc[]
 include::{snippets}/item-register/request-fields.adoc[]
+
+===== Response
 
 include::{snippets}/item-register/http-response.adoc[]
 include::{snippets}/item-register/response-fields.adoc[]
 
-==== Delete Item API
+==== Deactivate Item API
+
+===== Request
+
+include::{snippets}/item-deactivate/path-parameters.adoc[]
 include::{snippets}/item-deactivate/http-request.adoc[]
+include::{snippets}/item-deactivate/request-headers.adoc[]
+
+===== Response
 
 include::{snippets}/item-deactivate/http-response.adoc[]
 include::{snippets}/item-deactivate/response-fields.adoc[]
+
+==== Retrieve Registered Items API
+
+===== Request
+
+include::{snippets}/item-admin-retrieve-items/http-request.adoc[]
+include::{snippets}/item-admin-retrieve-items/request-headers.adoc[]
+include::{snippets}/item-admin-retrieve-items/query-parameters.adoc[]
+
+===== Response
+
+include::{snippets}/item-admin-retrieve-items/http-response.adoc[]
+include::{snippets}/item-admin-retrieve-items/response-body.adoc[]
+include::{snippets}/item-admin-retrieve-items/response-fields.adoc[]
