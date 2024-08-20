@@ -16,6 +16,7 @@ import io.waterkite94.hd.hotdeal.common.wrapper.CustomPage;
 import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
 import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.request.ChangeItemInfoRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.response.AddItemResponse;
 import io.waterkite94.hd.hotdeal.item.web.api.response.FindAdminItemResponse;
 import io.waterkite94.hd.hotdeal.item.web.api.response.ItemSuccessResponse;
@@ -39,7 +40,7 @@ public class ItemAdminController {
 		return ApiResponse.ok(new AddItemResponse(savedItemId));
 	}
 
-	@PutMapping("/{itemId}")
+	@PutMapping("/{itemId}/account")
 	public ApiResponse<ItemSuccessResponse> changeItemStatusInactiveApi(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		@PathVariable Long itemId
@@ -58,6 +59,17 @@ public class ItemAdminController {
 		CustomPage<FindAdminItemResponse> convertResponseDto = convertDtoToResponse(findItemsWithPage);
 
 		return ApiResponse.ok(convertResponseDto);
+	}
+
+	@PutMapping("/{itemId}/info")
+	public ApiResponse<ItemSuccessResponse> changeItemInfoApi(
+		@RequestHeader("X-MEMBER-ID") String memberId,
+		@PathVariable Long itemId,
+		@RequestBody ChangeItemInfoRequest request
+	) {
+		itemAdminService.changeItemInfo(memberId, itemId, request.toServiceDto());
+
+		return ApiResponse.ok(new ItemSuccessResponse("update item successfully"));
 	}
 
 	private CustomPage<FindAdminItemResponse> convertDtoToResponse(Page<FindAdminItemDto> findItemsWithPage) {

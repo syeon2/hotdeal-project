@@ -14,6 +14,7 @@ import io.waterkite94.hd.hotdeal.item.dao.ItemMapper;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.ChangeItemInfoDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
 import lombok.RequiredArgsConstructor;
 
@@ -46,6 +47,18 @@ public class ItemAdminService {
 	@Transactional
 	public Page<FindAdminItemDto> findAdminItems(String memberId, Pageable pageable) {
 		return itemRepository.findAdminItems(memberId, pageable);
+	}
+
+	@Transactional
+	public void changeItemInfo(String memberId, Long itemId, ChangeItemInfoDto changeItemInfoDto) {
+		ItemEntity findItem = itemRepository.findById(itemId)
+			.orElseThrow(() -> new IllegalArgumentException("item not found"));
+
+		if (!findItem.getMemberId().equals(memberId)) {
+			throw new IllegalArgumentException("Unauthorized member id");
+		}
+
+		changeItemInfoDto.changeInfo(findItem);
 	}
 
 	private void verificationMemberId(String memberId, String storedMemberId) {

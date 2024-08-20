@@ -83,4 +83,28 @@ public class ItemEntity extends BaseEntity {
 	public void changeStatusInactive() {
 		this.status = ItemStatus.INACTIVE;
 	}
+
+	public void changeName(String name) {
+		this.name = name;
+	}
+
+	public void changePrice(Integer price) {
+		this.price = price;
+	}
+
+	public void changeDiscount(Integer discount) {
+		this.discount = discount;
+	}
+
+	public void changeIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
+	public void changePreOrderTime(LocalDateTime preOrderTime) {
+		this.preOrderTime = preOrderTime;
+	}
+
+	public void changeCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
 }
