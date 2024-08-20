@@ -69,7 +69,7 @@ public class ItemDetailResponse {
 			.introduction(itemDetailDto.getIntroduction())
 			.isPreOrderItem(itemDetailDto.getIsPreOrderItem())
 			.preOrderTime(
-				PreOrderScheduleRequest.convertLocalDateTimeToPreOrderScheduleRequest(itemDetailDto.getPreOrderTime()))
+				PreOrderScheduleRequest.fromLocalDateTime(itemDetailDto.getPreOrderTime()))
 			.createdAt(itemDetailDto.getCreatedAt())
 			.sellerId(itemDetailDto.getSellerId())
 			.sellerName(itemDetailDto.getSellerName())

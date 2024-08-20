@@ -54,7 +54,7 @@ public class SearchItemBoardResponse {
 				.build()
 			)
 			.isPreOrderItem(searchItemListDto.getIsPreOrderItem())
-			.preOrderSchedule(PreOrderScheduleRequest.convertLocalDateTimeToPreOrderScheduleRequest(
+			.preOrderSchedule(PreOrderScheduleRequest.fromLocalDateTime(
 				searchItemListDto.getPreOrderTime()))
 			.sellerId(searchItemListDto.getSellerId())
 			.sellerName(searchItemListDto.getSellerName())

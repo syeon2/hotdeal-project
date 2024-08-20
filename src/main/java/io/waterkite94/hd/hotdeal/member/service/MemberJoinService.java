@@ -1,13 +1,13 @@
 package io.waterkite94.hd.hotdeal.member.service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.common.error.exception.DuplicatedAccountException;
+import io.waterkite94.hd.hotdeal.common.util.UuidUtil;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressMapper;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.AddressRepository;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.MemberMapper;
@@ -61,17 +61,13 @@ public class MemberJoinService {
 
 	private Member initializeMemberDomainForJoin(Member member) {
 		return member.initializeForJoin(
-			createUuid(),
+			UuidUtil.createUuid(),
 			encryptedPassword(member.getPassword())
 		);
 	}
 
 	private static Address initializeAddressDomainForJoin(Address address, String memberId) {
 		return address.initializeForJoin(memberId);
-	}
-
-	private String createUuid() {
-		return UUID.randomUUID().toString();
 	}
 
 	private String encryptedPassword(String password) {

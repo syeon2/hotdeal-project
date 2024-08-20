@@ -31,7 +31,7 @@ public class ItemAdminController {
 	private final ItemAdminService itemAdminService;
 
 	@PostMapping
-	public ApiResponse<AddItemResponse> addItemApi(
+	public ApiResponse<AddItemResponse> registerItemApi(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		@RequestBody @Valid AddItemRequest request
 	) {

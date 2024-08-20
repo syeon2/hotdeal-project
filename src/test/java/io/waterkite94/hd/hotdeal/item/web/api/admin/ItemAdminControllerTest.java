@@ -43,7 +43,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 	@Test
 	@WithMockUser(value = "USER")
 	@DisplayName(value = "상품을 추가하는 Api를 호출합니다.")
-	void addItemApi() throws Exception {
+	void registerItemApi() throws Exception {
 		// given
 		String memberId = "memberId";
 		AddItemRequest request = createAddItemRequest();
@@ -98,7 +98,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 
 		// when // then
 		mockMvc.perform(
-				put("/api/v1/admin/items/{itemId}", itemId)
+				put("/api/v1/admin/items/{itemId}/account", itemId)
 					.with(csrf())
 					.header("X-MEMBER-ID", memberId)
 					.contentType(MediaType.APPLICATION_JSON)

@@ -3,13 +3,13 @@ package io.waterkite94.hd.hotdeal.item.service.admin;
 import static io.waterkite94.hd.hotdeal.item.domain.vo.ItemType.*;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.waterkite94.hd.hotdeal.common.util.UuidUtil;
 import io.waterkite94.hd.hotdeal.item.dao.ItemMapper;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
@@ -27,9 +27,9 @@ public class ItemAdminService {
 
 	@Transactional
 	public Long addItemWithMemberId(String memberId, AddItemServiceDto serviceDto) {
-		AddItemServiceDto initializeDto = serviceDto.initialize(memberId, createUuid());
+		AddItemServiceDto initializeDto = createInitializedDto(memberId, serviceDto);
 
-		LocalDateTime preOrderSchedule = convertedPreOrderSchedule(serviceDto);
+		LocalDateTime preOrderSchedule = convertPreOrderSchedule(serviceDto);
 
 		return itemRepository.save(itemMapper.toEntity(initializeDto, preOrderSchedule)).getId();
 	}
@@ -61,17 +61,17 @@ public class ItemAdminService {
 		changeItemInfoDto.changeInfo(findItem);
 	}
 
+	private static AddItemServiceDto createInitializedDto(String memberId, AddItemServiceDto serviceDto) {
+		return serviceDto.initialize(memberId, UuidUtil.createUuid());
+	}
+
 	private void verificationMemberId(String memberId, String storedMemberId) {
 		if (!storedMemberId.equals(memberId)) {
 			throw new IllegalArgumentException("Unauthorized member Id");
 		}
 	}
 
-	private static String createUuid() {
-		return UUID.randomUUID().toString();
-	}
-
-	private static LocalDateTime convertedPreOrderSchedule(AddItemServiceDto serviceDto) {
+	private LocalDateTime convertPreOrderSchedule(AddItemServiceDto serviceDto) {
 		return serviceDto.getType().equals(PRE_ORDER) ? serviceDto.getPreOrderSchedule().toLocalDateTime() :
 			LocalDateTime.now();
 	}

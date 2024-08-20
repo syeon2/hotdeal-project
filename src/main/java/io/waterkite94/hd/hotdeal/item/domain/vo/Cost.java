@@ -11,6 +11,8 @@ public class Cost {
 
 	@Builder
 	private Cost(Integer price, Integer discount) {
+		validateCost(price, discount);
+		
 		this.price = price;
 		this.discount = discount;
 	}
@@ -19,7 +21,9 @@ public class Cost {
 		return new Cost(price, discount);
 	}
 
-	public boolean isCorrectCost() {
-		return discount <= price;
+	private void validateCost(Integer price, Integer discount) {
+		if (discount > price || price < 0 || discount < 0) {
+			throw new IllegalArgumentException("Invalid cost");
+		}
 	}
 }

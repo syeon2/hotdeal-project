@@ -69,7 +69,7 @@ public class FindAdminItemResponse {
 			)
 			.itemType(ItemTypeRequest.from(itemDto.getItemType().name()))
 			.preOrderSchedule(
-				PreOrderScheduleRequest.convertLocalDateTimeToPreOrderScheduleRequest(itemDto.getPreOrderSchedule()))
+				PreOrderScheduleRequest.fromLocalDateTime(itemDto.getPreOrderSchedule()))
 			.createdAt(itemDto.getCreatedAt())
 			.categoryId(itemDto.getCategoryId())
 			.categoryName(itemDto.getCategoryName())

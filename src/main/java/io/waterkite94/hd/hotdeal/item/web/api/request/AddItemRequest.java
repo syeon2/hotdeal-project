@@ -3,9 +3,6 @@ package io.waterkite94.hd.hotdeal.item.web.api.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
-import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
-import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
-import io.waterkite94.hd.hotdeal.item.domain.vo.PreOrderSchedule;
 import io.waterkite94.hd.hotdeal.item.web.api.request.vo.CostRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.vo.PreOrderScheduleRequest;
 import jakarta.validation.constraints.NotBlank;
@@ -16,7 +13,6 @@ import lombok.Getter;
 @Getter
 public class AddItemRequest {
 
-	@JsonProperty("name")
 	@NotBlank(message = "이름은 빈칸을 허용하지 않습니다.")
 	private String name;
 
@@ -24,11 +20,9 @@ public class AddItemRequest {
 	@NotNull(message = "금액 정보는 필수입니다.")
 	private CostRequest costRequest;
 
-	@JsonProperty("introduction")
 	@NotBlank(message = "상품 설명은 빈칸을 허용하지 않습니다.")
 	private String introduction;
 
-	@JsonProperty("type")
 	@NotNull(message = "상품 타입은 none, pre_order, normal_order 중 한가지를 택해야합니다.")
 	private ItemTypeRequest type;
 
@@ -52,13 +46,11 @@ public class AddItemRequest {
 
 	public AddItemServiceDto toServiceDto() {
 		return AddItemServiceDto.builder()
-			.name(this.name)
-			.cost(Cost.of(costRequest.getPrice(), costRequest.getDiscount()))
+			.name(name)
+			.cost(costRequest.toVo())
 			.introduction(introduction)
-			.type(ItemType.fromString(type.name()))
-			.preOrderSchedule(
-				PreOrderSchedule.of(preOrderSchedule.getYear(), preOrderSchedule.getMonth(), preOrderSchedule.getDate(),
-					preOrderSchedule.getHour(), preOrderSchedule.getHour()))
+			.type(type.toVo())
+			.preOrderSchedule(preOrderSchedule.toVo())
 			.categoryId(categoryId)
 			.build();
 	}

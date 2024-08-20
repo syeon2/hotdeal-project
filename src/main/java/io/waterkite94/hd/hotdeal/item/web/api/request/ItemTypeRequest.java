@@ -14,7 +14,7 @@ public enum ItemTypeRequest {
 		return ItemTypeRequest.valueOf(value.toUpperCase());
 	}
 
-	public ItemType toItemType() {
+	public ItemType toVo() {
 		return switch (this) {
 			case PRE_ORDER -> ItemType.PRE_ORDER;
 			case NORMAL_ORDER -> ItemType.NORMAL_ORDER;

@@ -35,7 +35,7 @@ public class ItemController {
 		Pageable pageable
 	) {
 		Page<SearchItemListDto> findItems =
-			itemService.searchPreOrderItems(categoryId, itemType.toItemType(), search, pageable);
+			itemService.searchPreOrderItems(categoryId, itemType.toVo(), search, pageable);
 		List<SearchItemBoardResponse> convertedItems = findItems.getContent().stream()
 			.map(SearchItemBoardResponse::of)
 			.toList();

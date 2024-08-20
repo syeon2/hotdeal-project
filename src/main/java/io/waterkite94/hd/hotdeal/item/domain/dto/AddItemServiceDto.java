@@ -36,10 +36,6 @@ public class AddItemServiceDto {
 	}
 
 	public AddItemServiceDto initialize(String memberId, String createdUuid) {
-		if (!cost.isCorrectCost()) {
-			throw new IllegalArgumentException("할인 금액은 정상 금액보다 낮아야합니다.");
-		}
-
 		return this
 			.withUuid(createdUuid)
 			.withStatus(ItemStatus.ACTIVE)

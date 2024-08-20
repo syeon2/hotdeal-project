@@ -2,6 +2,7 @@ package io.waterkite94.hd.hotdeal.item.web.api.request.vo;
 
 import java.time.LocalDateTime;
 
+import io.waterkite94.hd.hotdeal.item.domain.vo.PreOrderSchedule;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Builder;
@@ -39,7 +40,11 @@ public class PreOrderScheduleRequest {
 		this.minute = minute;
 	}
 
-	public static PreOrderScheduleRequest convertLocalDateTimeToPreOrderScheduleRequest(LocalDateTime localDateTime) {
+	public PreOrderSchedule toVo() {
+		return PreOrderSchedule.of(year, month, date, hour, minute);
+	}
+
+	public static PreOrderScheduleRequest fromLocalDateTime(LocalDateTime localDateTime) {
 		return new PreOrderScheduleRequest(
 			localDateTime.getYear(),
 			localDateTime.getMonthValue(),
