@@ -5,15 +5,15 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
 import io.waterkite94.hd.hotdeal.item.web.api.request.ItemTypeRequest;
-import io.waterkite94.hd.hotdeal.item.web.api.request.vo.CostRequest;
-import io.waterkite94.hd.hotdeal.item.web.api.request.vo.PreOrderScheduleRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.response.vo.CostResponse;
+import io.waterkite94.hd.hotdeal.item.web.api.response.vo.PreOrderScheduleResponse;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class FindAdminItemResponse {
+public class RetrieveRegisteredItemResponse {
 
 	@JsonProperty("item_id")
 	private Long itemId;
@@ -25,13 +25,13 @@ public class FindAdminItemResponse {
 	private String name;
 
 	@JsonProperty("cost")
-	private CostRequest cost;
+	private CostResponse cost;
 
 	@JsonProperty("item_type")
 	private ItemTypeRequest itemType;
 
 	@JsonProperty("pre_order_schedule")
-	private PreOrderScheduleRequest preOrderSchedule;
+	private PreOrderScheduleResponse preOrderSchedule;
 
 	@JsonProperty("created_at")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -44,8 +44,9 @@ public class FindAdminItemResponse {
 	private String categoryName;
 
 	@Builder
-	private FindAdminItemResponse(Long itemId, String uuid, String name, CostRequest cost, ItemTypeRequest itemType,
-		PreOrderScheduleRequest preOrderSchedule, LocalDateTime createdAt, Long categoryId, String categoryName) {
+	private RetrieveRegisteredItemResponse(Long itemId, String uuid, String name, CostResponse cost,
+		ItemTypeRequest itemType, PreOrderScheduleResponse preOrderSchedule, LocalDateTime createdAt, Long categoryId,
+		String categoryName) {
 		this.itemId = itemId;
 		this.uuid = uuid;
 		this.name = name;
@@ -57,19 +58,14 @@ public class FindAdminItemResponse {
 		this.categoryName = categoryName;
 	}
 
-	public static FindAdminItemResponse of(FindAdminItemDto itemDto) {
-		return FindAdminItemResponse.builder()
-			.itemId(itemDto.getItemId())
-			.uuid(itemDto.getItemUuid())
+	public static RetrieveRegisteredItemResponse of(RetrieveRegisteredItemDto itemDto) {
+		return RetrieveRegisteredItemResponse.builder()
+			.itemId(itemDto.getItemId().getId())
+			.uuid(itemDto.getItemId().getUuid())
 			.name(itemDto.getItemName())
-			.cost(CostRequest.builder()
-				.price(itemDto.getPrice())
-				.discount(itemDto.getDiscount())
-				.build()
-			)
+			.cost(CostResponse.of(itemDto.getCost()))
 			.itemType(ItemTypeRequest.from(itemDto.getItemType().name()))
-			.preOrderSchedule(
-				PreOrderScheduleRequest.fromLocalDateTime(itemDto.getPreOrderSchedule()))
+			.preOrderSchedule(PreOrderScheduleResponse.fromLocalDateTime(itemDto.getPreOrderSchedule()))
 			.createdAt(itemDto.getCreatedAt())
 			.categoryId(itemDto.getCategoryId())
 			.categoryName(itemDto.getCategoryName())

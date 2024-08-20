@@ -26,7 +26,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
-import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemRequest;
@@ -131,11 +131,11 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 		String memberId = "memberId";
 		PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "createdAt"));
 
-		FindAdminItemDto findAdminItemDto = createFindAdminItemDto();
+		RetrieveRegisteredItemDto retrieveRegisteredItemDto = createFindAdminItemDto();
 		long totalCount = 1L;
 
 		given(itemAdminService.findAdminItems(any(), any()))
-			.willReturn(new PageImpl<>(List.of(findAdminItemDto), pageRequest, totalCount));
+			.willReturn(new PageImpl<>(List.of(retrieveRegisteredItemDto), pageRequest, totalCount));
 
 		// when // then
 		mockMvc.perform(
@@ -206,8 +206,8 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 			));
 	}
 
-	private FindAdminItemDto createFindAdminItemDto() {
-		return FindAdminItemDto.builder()
+	private RetrieveRegisteredItemDto createFindAdminItemDto() {
+		return RetrieveRegisteredItemDto.builder()
 			.itemId(1L)
 			.itemUuid("uuid")
 			.itemName("itemName")

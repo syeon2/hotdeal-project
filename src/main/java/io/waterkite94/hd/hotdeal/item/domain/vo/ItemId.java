@@ -10,7 +10,7 @@ public class ItemId {
 	private String uuid;
 
 	@Builder
-	private ItemId(Long id, String uuid) {
+	public ItemId(Long id, String uuid) {
 		this.id = id;
 		this.uuid = uuid;
 	}

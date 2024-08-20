@@ -18,7 +18,7 @@ import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
-import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemStatus;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
@@ -84,7 +84,7 @@ class ItemAdminServiceTest extends IntegrationTestSupport {
 		PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "createdAt"));
 
 		// when
-		Page<FindAdminItemDto> findItems = itemAdminService.findAdminItems(memberId, pageRequest);
+		Page<RetrieveRegisteredItemDto> findItems = itemAdminService.findAdminItems(memberId, pageRequest);
 
 		// then
 		assertThat(findItems.getContent()).hasSize(1);

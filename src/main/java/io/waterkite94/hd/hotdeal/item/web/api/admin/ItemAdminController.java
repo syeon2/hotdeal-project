@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.common.wrapper.CustomPage;
-import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
 import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.ChangeItemInfoRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.response.AddItemResponse;
-import io.waterkite94.hd.hotdeal.item.web.api.response.FindAdminItemResponse;
 import io.waterkite94.hd.hotdeal.item.web.api.response.ItemSuccessResponse;
+import io.waterkite94.hd.hotdeal.item.web.api.response.RetrieveRegisteredItemResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -51,12 +51,12 @@ public class ItemAdminController {
 	}
 
 	@GetMapping
-	public ApiResponse<CustomPage<FindAdminItemResponse>> retrieveRegisteredItems(
+	public ApiResponse<CustomPage<RetrieveRegisteredItemResponse>> retrieveRegisteredItems(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		Pageable pageable
 	) {
-		Page<FindAdminItemDto> findItemsWithPage = itemAdminService.findAdminItems(memberId, pageable);
-		CustomPage<FindAdminItemResponse> convertResponseDto = convertDtoToResponse(findItemsWithPage);
+		Page<RetrieveRegisteredItemDto> findItemsWithPage = itemAdminService.findAdminItems(memberId, pageable);
+		CustomPage<RetrieveRegisteredItemResponse> convertResponseDto = convertDtoToResponse(findItemsWithPage);
 
 		return ApiResponse.ok(convertResponseDto);
 	}
@@ -72,9 +72,10 @@ public class ItemAdminController {
 		return ApiResponse.ok(new ItemSuccessResponse("update item successfully"));
 	}
 
-	private CustomPage<FindAdminItemResponse> convertDtoToResponse(Page<FindAdminItemDto> findItemsWithPage) {
+	private CustomPage<RetrieveRegisteredItemResponse> convertDtoToResponse(
+		Page<RetrieveRegisteredItemDto> findItemsWithPage) {
 		return CustomPage.of(
-			findItemsWithPage.stream().map(FindAdminItemResponse::of).toList(),
+			findItemsWithPage.stream().map(RetrieveRegisteredItemResponse::of).toList(),
 			findItemsWithPage.getTotalElements());
 	}
 }

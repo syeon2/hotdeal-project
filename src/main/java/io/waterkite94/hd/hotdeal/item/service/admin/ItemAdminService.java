@@ -16,7 +16,7 @@ import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ChangeItemInfoDto;
-import io.waterkite94.hd.hotdeal.item.domain.dto.FindAdminItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -46,8 +46,8 @@ public class ItemAdminService {
 	}
 
 	@Transactional
-	public Page<FindAdminItemDto> findAdminItems(String memberId, Pageable pageable) {
-		return itemRepository.findAdminItems(memberId, pageable);
+	public Page<RetrieveRegisteredItemDto> findAdminItems(String memberId, Pageable pageable) {
+		return itemRepository.findAdminItemsByMemberId(memberId, pageable);
 	}
 
 	@Transactional
