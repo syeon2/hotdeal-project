@@ -1,0 +1,15 @@
+[[Item]]
+=== Item API
+
+==== Retrieve Item API
+
+===== Request
+
+include::{snippets}/item-retrieve/http-request.adoc[]
+include::{snippets}/item-retrieve/query-parameters.adoc[]
+
+===== Response
+
+include::{snippets}/item-retrieve/http-response.adoc[]
+include::{snippets}/item-retrieve/response-body.adoc[]
+include::{snippets}/item-retrieve/response-fields.adoc[]

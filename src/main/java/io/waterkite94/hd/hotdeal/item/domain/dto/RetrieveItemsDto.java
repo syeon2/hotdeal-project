@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class SearchItemListDto {
+public class RetrieveItemsDto {
 
 	private Long itemId;
 	private String itemName;
@@ -18,7 +18,7 @@ public class SearchItemListDto {
 	private String sellerName;
 
 	@Builder
-	public SearchItemListDto(Long itemId, String itemName, Integer price, Integer discount, Boolean isPreOrderItem,
+	public RetrieveItemsDto(Long itemId, String itemName, Integer price, Integer discount, Boolean isPreOrderItem,
 		LocalDateTime preOrderTime, String sellerId, String sellerName) {
 		this.itemId = itemId;
 		this.itemName = itemName;

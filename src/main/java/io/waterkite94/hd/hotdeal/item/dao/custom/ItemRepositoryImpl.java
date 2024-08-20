@@ -17,8 +17,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.waterkite94.hd.hotdeal.item.dao.entity.QCategoryEntity;
 import io.waterkite94.hd.hotdeal.item.dao.entity.QItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemsDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
-import io.waterkite94.hd.hotdeal.item.domain.dto.SearchItemListDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemId;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemStatus;
@@ -77,14 +77,14 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	}
 
 	@Override
-	public Page<SearchItemListDto> searchItemsByCategoryId(Long categoryId, ItemType type, String search,
+	public Page<RetrieveItemsDto> searchItemsByCategoryId(Long categoryId, ItemType type, String search,
 		Pageable pageable) {
 		BooleanExpression itemTypeCondition = new CaseBuilder()
 			.when(QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)).then(true)
 			.otherwise(false);
 
-		JPAQuery<SearchItemListDto> contentQuery = queryFactory.select(
-				Projections.constructor(SearchItemListDto.class,
+		JPAQuery<RetrieveItemsDto> contentQuery = queryFactory.select(
+				Projections.constructor(RetrieveItemsDto.class,
 					QItemEntity.itemEntity.id.as("itemId"),
 					QItemEntity.itemEntity.name.as("itemName"),
 					QItemEntity.itemEntity.price,

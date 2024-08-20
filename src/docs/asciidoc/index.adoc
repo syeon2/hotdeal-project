@@ -22,3 +22,4 @@ include::member/member-access.adoc[]
 
 include::item/category.adoc[]
 include::item/item-admin.adoc[]
+include::item/item.adoc[]

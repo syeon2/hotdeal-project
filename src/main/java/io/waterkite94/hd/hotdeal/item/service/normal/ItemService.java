@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
-import io.waterkite94.hd.hotdeal.item.domain.dto.SearchItemListDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemsDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +16,7 @@ public class ItemService {
 
 	private final ItemRepository itemRepository;
 
-	public Page<SearchItemListDto> searchPreOrderItems(Long categoryId, ItemType type, String search,
+	public Page<RetrieveItemsDto> findItems(Long categoryId, ItemType type, String search,
 		Pageable pageable) {
 		return itemRepository.searchItemsByCategoryId(categoryId, type, search, pageable);
 	}

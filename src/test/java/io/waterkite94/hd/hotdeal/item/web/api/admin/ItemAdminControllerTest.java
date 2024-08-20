@@ -145,7 +145,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 				get("/api/v1/admin/items")
 					.with(csrf())
 					.header("X-MEMBER-ID", memberId)
-					.param("offset", "0")
+					.param("page", "0")
 					.param("size", "10")
 					.param("sort", "createdAt,desc")
 					.contentType(MediaType.APPLICATION_JSON)
@@ -174,7 +174,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 					headerWithName("X-MEMBER-ID").description("회원 아이디")
 				),
 				queryParameters(
-					parameterWithName("offset").description("페이지 순서"),
+					parameterWithName("page").description("페이지 순서"),
 					parameterWithName("size").description("페이지 컨텐츠 개수"),
 					parameterWithName("sort").description("페이지 정렬 기준 [(name, createdAt),(asc, desc)]"),
 					parameterWithName("_csrf").description("")
