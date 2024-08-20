@@ -61,7 +61,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 			).andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.data.item_id").isNumber())
-			.andDo(document("item-add",
+			.andDo(document("item-register",
 				preprocessRequest(prettyPrint()),
 				preprocessResponse(prettyPrint()),
 				requestHeaders(
