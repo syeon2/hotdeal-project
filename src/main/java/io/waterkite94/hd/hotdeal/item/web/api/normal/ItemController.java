@@ -30,22 +30,16 @@ public class ItemController {
 	public ApiResponse<CustomPage<SearchItemBoardResponse>> searchItemsApi(
 		@RequestParam Long categoryId,
 		@RequestParam(value = "type") ItemTypeRequest itemType,
+		@RequestParam(required = false) String search,
 		Pageable pageable
 	) {
 		Page<SearchItemListDto> findItems =
-			itemService.searchPreOrderItems(categoryId, itemType.toItemType(), pageable);
+			itemService.searchPreOrderItems(categoryId, itemType.toItemType(), search, pageable);
 		List<SearchItemBoardResponse> convertedItems = findItems.getContent().stream()
 			.map(SearchItemBoardResponse::of)
 			.toList();
 
 		return ApiResponse.ok(CustomPage.of(convertedItems, findItems.getTotalElements()));
-	}
-
-	@GetMapping("/search")
-	public ApiResponse<List<FindItemDto>> searchItems(@RequestParam String word, @RequestParam Long offset) {
-		List<FindItemDto> findItems = itemService.searchItemsToWord(word, offset);
-
-		return ApiResponse.ok(findItems);
 	}
 
 	@GetMapping("/item/{itemId}")

@@ -1,7 +1,5 @@
 package io.waterkite94.hd.hotdeal.item.dao.custom;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +30,8 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public Page<SearchItemListDto> searchItemsByCategoryId(Long categoryId, ItemType type, Pageable pageable) {
+	public Page<SearchItemListDto> searchItemsByCategoryId(Long categoryId, ItemType type, String search,
+		Pageable pageable) {
 		BooleanExpression itemTypeCondition = new CaseBuilder()
 			.when(QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)).then(true)
 			.otherwise(false);
@@ -55,7 +54,8 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 				QItemEntity.itemEntity.status.eq(ItemStatus.ACTIVE),
 				type.equals(ItemType.PRE_ORDER) ? QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)
 					: type.equals(ItemType.NORMAL_ORDER) ? QItemEntity.itemEntity.type.eq(ItemType.NORMAL_ORDER)
-					: null
+					: null,
+				search != null ? QItemEntity.itemEntity.name.contains(search) : null
 			)
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize());
@@ -70,32 +70,6 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 		});
 
 		return new PageImpl<>(contentQuery.fetch(), pageable, 0L);
-	}
-
-	@Override
-	public List<FindItemDto> searchItemsContainsWord(String word, Long itemOffset) {
-		BooleanExpression itemTypeCondition = new CaseBuilder()
-			.when(QItemEntity.itemEntity.type.eq(ItemType.PRE_ORDER)).then(true)
-			.otherwise(false);
-
-		return queryFactory.select(Projections.constructor(FindItemDto.class,
-				QItemEntity.itemEntity.id,
-				QItemEntity.itemEntity.name,
-				QItemEntity.itemEntity.price,
-				QItemEntity.itemEntity.discount,
-				QItemEntity.itemEntity.introduction,
-				itemTypeCondition.as("isPreOrderItem"),
-				QItemEntity.itemEntity.preOrderTime,
-				QMemberEntity.memberEntity.name.as("sellerName"),
-				QMemberEntity.memberEntity.memberId.as("sellerId")
-			)).from(QItemEntity.itemEntity)
-			.leftJoin(QMemberEntity.memberEntity)
-			.on(QItemEntity.itemEntity.memberId.eq(QMemberEntity.memberEntity.memberId))
-			.where(QItemEntity.itemEntity.name.contains(word))
-			.offset(itemOffset)
-			.limit(10)
-			.orderBy(QItemEntity.itemEntity.id.desc())
-			.fetch();
 	}
 
 	@Override

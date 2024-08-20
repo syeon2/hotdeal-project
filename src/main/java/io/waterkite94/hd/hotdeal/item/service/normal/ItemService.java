@@ -1,7 +1,5 @@
 package io.waterkite94.hd.hotdeal.item.service.normal;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,12 +16,9 @@ public class ItemService {
 
 	private final ItemRepository itemRepository;
 
-	public Page<SearchItemListDto> searchPreOrderItems(Long categoryId, ItemType type, Pageable pageable) {
-		return itemRepository.searchItemsByCategoryId(categoryId, type, pageable);
-	}
-
-	public List<FindItemDto> searchItemsToWord(String word, Long itemOffset) {
-		return itemRepository.searchItemsContainsWord(word, itemOffset);
+	public Page<SearchItemListDto> searchPreOrderItems(Long categoryId, ItemType type, String search,
+		Pageable pageable) {
+		return itemRepository.searchItemsByCategoryId(categoryId, type, search, pageable);
 	}
 
 	public FindItemDto findItemDetail(Long itemId) {
