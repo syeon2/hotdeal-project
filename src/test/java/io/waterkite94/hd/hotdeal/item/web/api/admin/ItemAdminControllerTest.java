@@ -32,6 +32,7 @@ import io.waterkite94.hd.hotdeal.item.domain.vo.ItemId;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.item.service.admin.ItemAdminService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.request.ChangeItemInfoRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.ItemTypeRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.vo.CostRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.vo.PreOrderScheduleRequest;
@@ -208,6 +209,51 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 			));
 	}
 
+	@Test
+	@WithMockUser(value = "USER")
+	@DisplayName(value = "상품 정보를 수정하는 API를 호출합니다.")
+	void editItemInfo() throws Exception {
+		// given
+		String memberId = "memberId";
+		Long itemId = 1L;
+		ChangeItemInfoRequest request = createChangeItemInfoRequest();
+
+		// when // then
+		mockMvc.perform(
+				put("/api/v1/admin/items/{itemId}/info", itemId)
+					.with(csrf())
+					.header("X-MEMBER-ID", memberId)
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(objectMapper.writeValueAsString(request))
+			).andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.data.message").isString())
+			.andDo(document("item-admin-edit",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestHeaders(
+					headerWithName("X-MEMBER-ID").description("회원 아이디")
+				),
+				requestFields(
+					fieldWithPath("name").type(JsonFieldType.STRING).description("상품 이름"),
+					fieldWithPath("introduction").type(JsonFieldType.STRING).description("상품 세부 소개"),
+					fieldWithPath("cost.price").type(JsonFieldType.NUMBER).description("상품 가격"),
+					fieldWithPath("cost.discount").type(JsonFieldType.NUMBER).description("상품 할인 금액"),
+					fieldWithPath("pre_order_schedule.year").type(JsonFieldType.NUMBER).description("예약 주문 연도"),
+					fieldWithPath("pre_order_schedule.month").type(JsonFieldType.NUMBER).description("예약 주문 월"),
+					fieldWithPath("pre_order_schedule.date").type(JsonFieldType.NUMBER).description("예약 주문 일"),
+					fieldWithPath("pre_order_schedule.hour").type(JsonFieldType.NUMBER).description("예약 주문 시간"),
+					fieldWithPath("pre_order_schedule.minute").type(JsonFieldType.NUMBER).description("예약 주문 분"),
+					fieldWithPath("category_id").type(JsonFieldType.NUMBER).description("카테고리 아이디")
+				),
+				responseFields(
+					fieldWithPath("status").type(JsonFieldType.NUMBER).description("요청 상태 코드"),
+					fieldWithPath("message").type(JsonFieldType.NULL).description("요청 결과 메시지"),
+					fieldWithPath("data.message").description("요청 성공 메시지")
+				)
+			));
+	}
+
 	private RetrieveRegisteredItemDto createFindAdminItemDto() {
 		return RetrieveRegisteredItemDto.builder()
 			.itemId(new ItemId(1L, "member-uuid"))
@@ -230,6 +276,25 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 				.build())
 			.introduction("introduction")
 			.type(ItemTypeRequest.PRE_ORDER)
+			.preOrderSchedule(PreOrderScheduleRequest.builder()
+				.year(2024)
+				.month(10)
+				.date(15)
+				.hour(20)
+				.minute(25)
+				.build())
+			.categoryId(1L)
+			.build();
+	}
+
+	private ChangeItemInfoRequest createChangeItemInfoRequest() {
+		return ChangeItemInfoRequest.builder()
+			.name("name")
+			.introduction("introduction")
+			.cost(CostRequest.builder()
+				.price(10000)
+				.discount(1000)
+				.build())
 			.preOrderSchedule(PreOrderScheduleRequest.builder()
 				.year(2024)
 				.month(10)
