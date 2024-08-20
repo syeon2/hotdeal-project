@@ -87,8 +87,10 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 				Projections.constructor(RetrieveItemsDto.class,
 					QItemEntity.itemEntity.id.as("itemId"),
 					QItemEntity.itemEntity.name.as("itemName"),
-					QItemEntity.itemEntity.price,
-					QItemEntity.itemEntity.discount,
+					Projections.constructor(Cost.class,
+						QItemEntity.itemEntity.price,
+						QItemEntity.itemEntity.discount
+					),
 					itemTypeCondition.as("isPreOrderItem"),
 					QItemEntity.itemEntity.preOrderTime,
 					QMemberEntity.memberEntity.memberId.as("sellerId"),
@@ -109,14 +111,21 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 
 		pageable.getSort().stream().forEach(sort -> {
 			Order order = sort.isAscending() ? Order.ASC : Order.DESC;
-			String property = sort.getProperty();
+			String property =
+				(sort.getProperty().equals("name") || sort.getProperty().equals("createdAt") || sort.getProperty()
+					.equals("price")) ? sort.getProperty() : "createdAt";
 
 			Path<Object> target = Expressions.path(Object.class, QItemEntity.itemEntity, property);
 			OrderSpecifier<?> orderSpecifier = new OrderSpecifier(order, target);
 			contentQuery.orderBy(orderSpecifier);
 		});
 
-		return new PageImpl<>(contentQuery.fetch(), pageable, 0L);
+		Long totalItemCount = queryFactory.select(QItemEntity.itemEntity.count())
+			.from(QItemEntity.itemEntity)
+			.where(QItemEntity.itemEntity.categoryId.eq(categoryId))
+			.fetchOne();
+
+		return new PageImpl<>(contentQuery.fetch(), pageable, totalItemCount);
 	}
 
 	@Override

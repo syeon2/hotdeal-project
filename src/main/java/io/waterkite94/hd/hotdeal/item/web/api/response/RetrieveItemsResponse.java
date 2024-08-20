@@ -48,11 +48,7 @@ public class RetrieveItemsResponse {
 		return RetrieveItemsResponse.builder()
 			.itemId(retrieveItemsDto.getItemId())
 			.itemName(retrieveItemsDto.getItemName())
-			.cost(CostResponse.builder()
-				.price(retrieveItemsDto.getPrice())
-				.discount(retrieveItemsDto.getDiscount())
-				.build()
-			)
+			.cost(CostResponse.of(retrieveItemsDto.getCost()))
 			.isPreOrderItem(retrieveItemsDto.getIsPreOrderItem())
 			.preOrderSchedule(PreOrderScheduleResponse.fromLocalDateTime(
 				retrieveItemsDto.getPreOrderTime()))

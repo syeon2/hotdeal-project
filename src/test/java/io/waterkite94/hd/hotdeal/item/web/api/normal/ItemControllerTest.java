@@ -26,6 +26,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemsDto;
+import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
 import io.waterkite94.hd.hotdeal.item.service.normal.ItemService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.ItemTypeRequest;
 
@@ -120,8 +121,7 @@ class ItemControllerTest extends ControllerTestSupport {
 		return RetrieveItemsDto.builder()
 			.itemId(1L)
 			.itemName("hello")
-			.price(10000)
-			.discount(1000)
+			.cost(Cost.of(10000, 1000))
 			.isPreOrderItem(true)
 			.preOrderTime(LocalDateTime.now())
 			.sellerId("sellerId")
