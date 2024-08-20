@@ -137,8 +137,10 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 		return queryFactory.select(Projections.constructor(ItemDetailDto.class,
 				QItemEntity.itemEntity.id.as("itemId"),
 				QItemEntity.itemEntity.name.as("itemName"),
-				QItemEntity.itemEntity.price,
-				QItemEntity.itemEntity.discount,
+				Projections.constructor(Cost.class,
+					QItemEntity.itemEntity.price,
+					QItemEntity.itemEntity.discount
+				),
 				QItemEntity.itemEntity.introduction,
 				itemTypeCondition.as("isPreOrderItem"),
 				QItemEntity.itemEntity.preOrderTime,

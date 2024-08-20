@@ -2,6 +2,7 @@ package io.waterkite94.hd.hotdeal.item.domain.dto;
 
 import java.time.LocalDateTime;
 
+import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,8 +11,7 @@ public class ItemDetailDto {
 
 	private Long itemId;
 	private String itemName;
-	private Integer price;
-	private Integer discount;
+	private Cost cost;
 	private String introduction;
 	private Boolean isPreOrderItem;
 	private LocalDateTime preOrderTime;
@@ -20,13 +20,12 @@ public class ItemDetailDto {
 	private String sellerId;
 
 	@Builder
-	public ItemDetailDto(Long itemId, String itemName, Integer price, Integer discount, String introduction,
+	public ItemDetailDto(Long itemId, String itemName, Cost cost, String introduction,
 		Boolean isPreOrderItem, LocalDateTime preOrderTime, LocalDateTime createdAt, String sellerName,
 		String sellerId) {
 		this.itemId = itemId;
 		this.itemName = itemName;
-		this.price = price;
-		this.discount = discount;
+		this.cost = cost;
 		this.introduction = introduction;
 		this.isPreOrderItem = isPreOrderItem;
 		this.preOrderTime = preOrderTime;

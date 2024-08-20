@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
-import io.waterkite94.hd.hotdeal.item.web.api.request.vo.CostRequest;
-import io.waterkite94.hd.hotdeal.item.web.api.request.vo.PreOrderScheduleRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.response.vo.CostResponse;
+import io.waterkite94.hd.hotdeal.item.web.api.response.vo.PreOrderScheduleResponse;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -21,7 +21,7 @@ public class ItemDetailResponse {
 	private String itemName;
 
 	@JsonProperty("cost")
-	private CostRequest cost;
+	private CostResponse cost;
 
 	@JsonProperty("is_pre_order_item")
 	private Boolean isPreOrderItem;
@@ -29,8 +29,8 @@ public class ItemDetailResponse {
 	@JsonProperty("introduction")
 	private String introduction;
 
-	@JsonProperty("pre_order_time")
-	private PreOrderScheduleRequest preOrderTime;
+	@JsonProperty("pre_order_schedule")
+	private PreOrderScheduleResponse preOrderTime;
 
 	@JsonProperty("created_at")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -43,8 +43,8 @@ public class ItemDetailResponse {
 	private String sellerName;
 
 	@Builder
-	public ItemDetailResponse(Long itemId, String itemName, CostRequest cost, Boolean isPreOrderItem,
-		String introduction, PreOrderScheduleRequest preOrderTime, LocalDateTime createdAt, String sellerId,
+	public ItemDetailResponse(Long itemId, String itemName, CostResponse cost, Boolean isPreOrderItem,
+		String introduction, PreOrderScheduleResponse preOrderTime, LocalDateTime createdAt, String sellerId,
 		String sellerName) {
 		this.itemId = itemId;
 		this.itemName = itemName;
@@ -61,15 +61,10 @@ public class ItemDetailResponse {
 		return ItemDetailResponse.builder()
 			.itemId(itemDetailDto.getItemId())
 			.itemName(itemDetailDto.getItemName())
-			.cost(CostRequest.builder()
-				.price(itemDetailDto.getPrice())
-				.discount(itemDetailDto.getDiscount())
-				.build()
-			)
+			.cost(CostResponse.of(itemDetailDto.getCost()))
 			.introduction(itemDetailDto.getIntroduction())
 			.isPreOrderItem(itemDetailDto.getIsPreOrderItem())
-			.preOrderTime(
-				PreOrderScheduleRequest.fromLocalDateTime(itemDetailDto.getPreOrderTime()))
+			.preOrderTime(PreOrderScheduleResponse.fromLocalDateTime(itemDetailDto.getPreOrderTime()))
 			.createdAt(itemDetailDto.getCreatedAt())
 			.sellerId(itemDetailDto.getSellerId())
 			.sellerName(itemDetailDto.getSellerName())

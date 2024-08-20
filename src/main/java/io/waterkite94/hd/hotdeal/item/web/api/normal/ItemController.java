@@ -43,7 +43,7 @@ public class ItemController {
 		return ApiResponse.ok(CustomPage.of(convertedItems, findItems.getTotalElements()));
 	}
 
-	@GetMapping("/item/{itemId}")
+	@GetMapping("/{itemId}")
 	public ApiResponse<ItemDetailResponse> retrieveItemDetail(@PathVariable Long itemId) {
 		ItemDetailDto findItemDetail = itemService.findItemDetail(itemId);
 
