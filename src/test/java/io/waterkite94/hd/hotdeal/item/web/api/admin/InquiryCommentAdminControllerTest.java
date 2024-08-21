@@ -1,6 +1,5 @@
 package io.waterkite94.hd.hotdeal.item.web.api.admin;
 
-import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
@@ -37,9 +36,6 @@ class InquiryCommentAdminControllerTest extends ControllerTestSupport {
 		String memberId = "memberId";
 		AddInquiryCommentRequest request = createAddInquiryCommentRequest();
 
-		given(inquiryCommentService.addInquiryComment(memberId, request.toServiceDto()))
-			.willReturn(1L);
-
 		// when // then
 		mockMvc.perform(
 				post("/api/v1/admin/inquiry-comment")
@@ -49,7 +45,7 @@ class InquiryCommentAdminControllerTest extends ControllerTestSupport {
 					.contentType(MediaType.APPLICATION_JSON)
 			).andDo(print())
 			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.data.inquiry_comment_id").isNumber())
+			.andExpect(jsonPath("$.data.message").isString())
 			.andDo(document("inquiry-comment-add",
 				preprocessRequest(prettyPrint()),
 				preprocessResponse(prettyPrint()),
@@ -63,7 +59,7 @@ class InquiryCommentAdminControllerTest extends ControllerTestSupport {
 				responseFields(
 					fieldWithPath("status").type(JsonFieldType.NUMBER).description("요청 상태 코드"),
 					fieldWithPath("message").type(JsonFieldType.NULL).description("요청 결과 메시지"),
-					fieldWithPath("data.inquiry_comment_id").type(JsonFieldType.NUMBER).description("문의 답글 아이디")
+					fieldWithPath("data.message").type(JsonFieldType.STRING).description("문의 결과 메시지")
 				)));
 		;
 	}

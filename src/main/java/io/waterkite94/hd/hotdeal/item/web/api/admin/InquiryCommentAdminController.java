@@ -11,7 +11,6 @@ import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.item.service.admin.InquiryCommentService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddInquiryCommentRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.DeleteInquiryCommentRequest;
-import io.waterkite94.hd.hotdeal.item.web.api.response.AddInquiryCommentResponse;
 import io.waterkite94.hd.hotdeal.item.web.api.response.ItemSuccessResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -23,13 +22,13 @@ public class InquiryCommentAdminController {
 	private final InquiryCommentService inquiryCommentService;
 
 	@PostMapping
-	public ApiResponse<AddInquiryCommentResponse> addInquiryComment(
+	public ApiResponse<ItemSuccessResponse> addInquiryComment(
 		@RequestHeader("X-MEMBER-ID") String memberId,
 		@RequestBody AddInquiryCommentRequest request
 	) {
-		Long savedInquiryCommentId = inquiryCommentService.addInquiryComment(memberId, request.toServiceDto());
+		inquiryCommentService.addInquiryComment(memberId, request.toServiceDto());
 
-		return ApiResponse.ok(new AddInquiryCommentResponse(savedInquiryCommentId));
+		return ApiResponse.ok(new ItemSuccessResponse("Save Inquiry Comment Successfully"));
 	}
 
 	@DeleteMapping
