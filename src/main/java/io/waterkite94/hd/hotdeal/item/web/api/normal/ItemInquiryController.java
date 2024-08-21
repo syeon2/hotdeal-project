@@ -15,18 +15,19 @@ import io.waterkite94.hd.hotdeal.item.domain.dto.ItemInquiryBoardDto;
 import io.waterkite94.hd.hotdeal.item.service.normal.ItemInquiryService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemInquiryRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.DeleteItemInquiryRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/items/item-inquiry")
+@RequestMapping("/api/v1/item-inquiry")
 @RequiredArgsConstructor
 public class ItemInquiryController {
 
 	private final ItemInquiryService itemInquiryService;
 
 	@PostMapping
-	public ApiResponse<Long> addItemInquiry(@RequestBody AddItemInquiryRequest request) {
-		Long savedItemInquiryId = itemInquiryService.addItemInquiry(request.toDomain());
+	public ApiResponse<Long> addItemInquiry(@RequestBody @Valid AddItemInquiryRequest request) {
+		Long savedItemInquiryId = itemInquiryService.addItemInquiry(request.toServiceDto());
 
 		return ApiResponse.ok(savedItemInquiryId);
 	}

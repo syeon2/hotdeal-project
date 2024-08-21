@@ -7,11 +7,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import io.waterkite94.hd.hotdeal.common.error.exception.TooManyRequestException;
 import io.waterkite94.hd.hotdeal.common.error.exception.UnauthorizedMemberException;
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 
 @RestControllerAdvice
 public class ErrorController {
+
+	@ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+	@ExceptionHandler(TooManyRequestException.class)
+	public ApiResponse<Void> handleTooManyRequestException(TooManyRequestException exception) {
+		return ApiResponse.error(HttpStatus.TOO_MANY_REQUESTS, exception.getMessage());
+	}
 
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	@ExceptionHandler(UnauthorizedMemberException.class)

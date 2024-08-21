@@ -7,4 +7,6 @@ import io.waterkite94.hd.hotdeal.item.domain.dto.ItemInquiryBoardDto;
 public interface ItemInquiryRepositoryCustom {
 
 	List<ItemInquiryBoardDto> findItemInquiries(Long itemId, Long offset);
+
+	List<Long> findItemInquiriesForToday(String memberId, Long itemId);
 }

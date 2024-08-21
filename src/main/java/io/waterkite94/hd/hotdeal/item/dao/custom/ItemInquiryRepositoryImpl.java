@@ -1,5 +1,8 @@
 package io.waterkite94.hd.hotdeal.item.dao.custom;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.querydsl.core.types.Projections;
@@ -33,6 +36,22 @@ public class ItemInquiryRepositoryImpl implements ItemInquiryRepositoryCustom {
 			)
 			.limit(10)
 			.orderBy(QItemInquiryEntity.itemInquiryEntity.createdAt.desc())
+			.fetch();
+	}
+
+	@Override
+	public List<Long> findItemInquiriesForToday(String memberId, Long itemId) {
+
+		LocalDate today = LocalDate.now();
+		LocalDateTime startOfDay = today.atStartOfDay();
+		LocalDateTime endOfDay = today.atTime(LocalTime.MAX);
+
+		return queryFactory.select(QItemInquiryEntity.itemInquiryEntity.id)
+			.from(QItemInquiryEntity.itemInquiryEntity)
+			.where(
+				QItemInquiryEntity.itemInquiryEntity.memberId.eq(memberId),
+				QItemInquiryEntity.itemInquiryEntity.item.id.eq(itemId),
+				QItemInquiryEntity.itemInquiryEntity.createdAt.between(startOfDay, endOfDay))
 			.fetch();
 	}
 }
