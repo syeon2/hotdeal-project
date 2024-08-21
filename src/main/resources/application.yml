@@ -5,3 +5,4 @@ server:
 spring:
   profiles:
     default: prod
+

@@ -2,14 +2,16 @@
 === Category API
 
 ==== Category Add API
+
 include::{snippets}/category-add/http-request.adoc[]
 include::{snippets}/category-add/request-fields.adoc[]
 
-include::{snippets}/category-add/http-response.adoc[]
+include::{snippets}/category-add/response-body.adoc[]
 include::{snippets}/category-add/response-fields.adoc[]
 
 ==== Category Find All API
+
 include::{snippets}/category-find-all/http-request.adoc[]
 
-include::{snippets}/category-find-all/http-response.adoc[]
+include::{snippets}/category-find-all/response-body.adoc[]
 include::{snippets}/category-find-all/response-fields.adoc[]
