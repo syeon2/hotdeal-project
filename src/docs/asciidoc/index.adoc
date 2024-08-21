@@ -19,4 +19,13 @@ include::member/member-access.adoc[]
 
 [[Item-API]]
 == Item API
+
 include::item/category.adoc[]
+include::item/item-admin.adoc[]
+include::item/item.adoc[]
+
+[[Item-Inquiry-API]]
+== Item Inquiry API
+
+include::item/item-inquiry.adoc[]
+include::item/inquiry-comment.adoc[]
