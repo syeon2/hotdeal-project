@@ -10,7 +10,6 @@ include::{snippets}/item-retrieve/query-parameters.adoc[]
 
 ===== Response
 
-include::{snippets}/item-retrieve/http-response.adoc[]
 include::{snippets}/item-retrieve/response-body.adoc[]
 include::{snippets}/item-retrieve/response-fields.adoc[]
 
@@ -23,6 +22,5 @@ include::{snippets}/item-retrieve-detail/httpie-request.adoc[]
 
 ===== Response
 
-include::{snippets}/item-retrieve-detail/http-response.adoc[]
 include::{snippets}/item-retrieve-detail/response-body.adoc[]
 include::{snippets}/item-retrieve-detail/response-fields.adoc[]

@@ -13,7 +13,7 @@ import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.dao.entity.ItemInquiryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.ItemInquiry;
-import io.waterkite94.hd.hotdeal.item.domain.dto.ItemInquiryBoardDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemInquiriesDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -51,8 +51,8 @@ public class ItemInquiryService {
 	}
 
 	@Transactional
-	public List<ItemInquiryBoardDto> searchItemInquiries(Long itemId, Long offset) {
-		return itemInquiryRepository.findItemInquiries(itemId, offset);
+	public List<RetrieveItemInquiriesDto> findItemInquiries(Long itemId, Long offset) {
+		return itemInquiryRepository.findItemInquiriesByItemId(itemId, offset);
 	}
 
 	private void checkMaximumAddedInquiries(ItemInquiry itemInquiry) {

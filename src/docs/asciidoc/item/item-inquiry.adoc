@@ -11,7 +11,6 @@ include::{snippets}/item-inquiry-add/request-fields.adoc[]
 
 ===== Response
 
-include::{snippets}/item-inquiry-add/http-response.adoc[]
 include::{snippets}/item-inquiry-add/response-body.adoc[]
 include::{snippets}/item-inquiry-add/response-fields.adoc[]
 
@@ -25,6 +24,17 @@ include::{snippets}/item-inquiry-delete/request-fields.adoc[]
 
 ===== Response
 
-include::{snippets}/item-inquiry-delete/http-response.adoc[]
 include::{snippets}/item-inquiry-delete/response-body.adoc[]
 include::{snippets}/item-inquiry-delete/response-fields.adoc[]
+
+==== Retrieve Item Inquiry API
+
+===== Request
+
+include::{snippets}/item-inquiry-retrieve-all/http-request.adoc[]
+include::{snippets}/item-inquiry-retrieve-all/query-parameters.adoc[]
+
+===== Response
+
+include::{snippets}/item-inquiry-retrieve-all/response-body.adoc[]
+include::{snippets}/item-inquiry-retrieve-all/response-fields.adoc[]

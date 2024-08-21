@@ -6,28 +6,22 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class ItemInquiryBoardDto {
+public class RetrieveItemInquiriesDto {
 
 	private Long itemInquiryId;
-
 	private String comment;
-
 	private LocalDateTime createdAt;
-
 	private LocalDateTime updatedAt;
-
-	private String memberId;
-
 	private String memberName;
 
 	@Builder
-	public ItemInquiryBoardDto(Long itemInquiryId, String comment, LocalDateTime createdAt, LocalDateTime updatedAt,
-		String memberId, String memberName) {
+	public RetrieveItemInquiriesDto(Long itemInquiryId, String comment, LocalDateTime createdAt,
+		LocalDateTime updatedAt,
+		String memberName) {
 		this.itemInquiryId = itemInquiryId;
 		this.comment = comment;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.memberId = memberId;
 		this.memberName = memberName;
 	}
 }

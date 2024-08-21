@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
-import io.waterkite94.hd.hotdeal.item.domain.dto.ItemInquiryBoardDto;
 import io.waterkite94.hd.hotdeal.item.service.normal.ItemInquiryService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemInquiryRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.DeleteItemInquiryRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.response.AddItemInquiryResponse;
 import io.waterkite94.hd.hotdeal.item.web.api.response.ItemSuccessResponse;
+import io.waterkite94.hd.hotdeal.item.web.api.response.RetrieveItemInquiriesResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -42,11 +42,14 @@ public class ItemInquiryController {
 	}
 
 	@GetMapping
-	public ApiResponse<List<ItemInquiryBoardDto>> findItemInquiriesApi(
-		@RequestParam Long itemId,
+	public ApiResponse<List<RetrieveItemInquiriesResponse>> findItemInquiriesApi(
+		@RequestParam(value = "item-id") Long itemId,
 		@RequestParam Long offset
 	) {
-		List<ItemInquiryBoardDto> findItemInquiries = itemInquiryService.searchItemInquiries(itemId, offset);
+		List<RetrieveItemInquiriesResponse> findItemInquiries = itemInquiryService.findItemInquiries(itemId, offset)
+			.stream()
+			.map(RetrieveItemInquiriesResponse::of)
+			.toList();
 
 		return ApiResponse.ok(findItemInquiries);
 	}

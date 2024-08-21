@@ -12,7 +12,6 @@ include::{snippets}/item-register/request-fields.adoc[]
 
 ===== Response
 
-include::{snippets}/item-register/http-response.adoc[]
 include::{snippets}/item-register/response-body.adoc[]
 include::{snippets}/item-register/response-fields.adoc[]
 
@@ -26,7 +25,6 @@ include::{snippets}/item-deactivate/request-headers.adoc[]
 
 ===== Response
 
-include::{snippets}/item-deactivate/http-response.adoc[]
 include::{snippets}/item-deactivate/response-body.adoc[]
 include::{snippets}/item-deactivate/response-fields.adoc[]
 
@@ -40,7 +38,6 @@ include::{snippets}/item-admin-retrieve-items/query-parameters.adoc[]
 
 ===== Response
 
-include::{snippets}/item-admin-retrieve-items/http-response.adoc[]
 include::{snippets}/item-admin-retrieve-items/response-body.adoc[]
 include::{snippets}/item-admin-retrieve-items/response-fields.adoc[]
 
@@ -55,6 +52,5 @@ include::{snippets}/item-admin-edit/request-fields.adoc[]
 
 ===== Response
 
-include::{snippets}/item-admin-retrieve-items/http-response.adoc[]
 include::{snippets}/item-admin-retrieve-items/response-body.adoc[]
 include::{snippets}/item-admin-retrieve-items/response-fields.adoc[]
