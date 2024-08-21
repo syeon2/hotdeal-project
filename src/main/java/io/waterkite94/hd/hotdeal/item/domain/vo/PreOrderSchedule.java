@@ -1,5 +1,6 @@
 package io.waterkite94.hd.hotdeal.item.domain.vo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.Builder;
@@ -31,6 +32,12 @@ public class PreOrderSchedule {
 			.hour(hour)
 			.minute(minute)
 			.build();
+	}
+
+	public boolean isBetweenStartTimeAndEndTime(LocalDateTime startTime, LocalDate endTime) {
+		LocalDateTime inputTime = LocalDateTime.of(year, month, date, hour, minute);
+		
+		return startTime.isBefore(inputTime) && endTime.isAfter(inputTime.toLocalDate());
 	}
 
 	public LocalDateTime toLocalDateTime() {

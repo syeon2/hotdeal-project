@@ -17,6 +17,8 @@ import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ChangeItemInfoDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
+import io.waterkite94.hd.hotdeal.item.domain.vo.PreOrderSchedule;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -55,6 +57,16 @@ public class ItemAdminService {
 		ItemEntity findItem = itemRepository.findById(itemId)
 			.orElseThrow(() -> new IllegalArgumentException("Item not found"));
 
+		ItemType itemType = findItem.getType();
+		if (itemType.equals(PRE_ORDER)
+			&& !isBetweenNowTimeAndAfterCreateDateForSevenDate(
+			changeItemInfoDto.getPreOrderSchedule(),
+			findItem.getCreatedAt())
+		) {
+			throw new IllegalArgumentException(
+				"Pre order time can only be registered within 7 days from the create item time");
+		}
+
 		validateMemberId(memberId, findItem.getMemberId());
 
 		changeItemInfoDto.changeInfo(findItem);
@@ -71,7 +83,28 @@ public class ItemAdminService {
 	}
 
 	private LocalDateTime convertPreOrderSchedule(AddItemServiceDto serviceDto) {
-		return serviceDto.getType().equals(PRE_ORDER) ? serviceDto.getPreOrderSchedule().toLocalDateTime() :
+		ItemType itemType = serviceDto.getType();
+
+		if (itemType.equals(PRE_ORDER) && !isBetweenNowTimeAndAfterSevenDate(serviceDto.getPreOrderSchedule())) {
+			throw new IllegalArgumentException(
+				"Pre order time can only be registered within 7 days from the current time");
+		}
+
+		return itemType.equals(PRE_ORDER) ? serviceDto.getPreOrderSchedule().toLocalDateTime() :
 			LocalDateTime.now();
 	}
+
+	private boolean isBetweenNowTimeAndAfterSevenDate(PreOrderSchedule preOrderSchedule) {
+		return preOrderSchedule.isBetweenStartTimeAndEndTime(
+			LocalDateTime.now().plusHours(2),
+			LocalDateTime.now().plusDays(7).toLocalDate()
+		);
+	}
+
+	private boolean isBetweenNowTimeAndAfterCreateDateForSevenDate(PreOrderSchedule preOrderSchedule,
+		LocalDateTime createdDate) {
+		return preOrderSchedule.isBetweenStartTimeAndEndTime(LocalDateTime.now().plusHours(2),
+			createdDate.plusDays(7).toLocalDate());
+	}
+
 }
