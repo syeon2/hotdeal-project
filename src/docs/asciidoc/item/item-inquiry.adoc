@@ -14,3 +14,17 @@ include::{snippets}/item-inquiry-add/request-fields.adoc[]
 include::{snippets}/item-inquiry-add/http-response.adoc[]
 include::{snippets}/item-inquiry-add/response-body.adoc[]
 include::{snippets}/item-inquiry-add/response-fields.adoc[]
+
+==== Delete Item Inquiry API
+
+===== Request
+
+include::{snippets}/item-inquiry-delete/http-request.adoc[]
+include::{snippets}/item-inquiry-delete/request-body.adoc[]
+include::{snippets}/item-inquiry-delete/request-fields.adoc[]
+
+===== Response
+
+include::{snippets}/item-inquiry-delete/http-response.adoc[]
+include::{snippets}/item-inquiry-delete/response-body.adoc[]
+include::{snippets}/item-inquiry-delete/response-fields.adoc[]

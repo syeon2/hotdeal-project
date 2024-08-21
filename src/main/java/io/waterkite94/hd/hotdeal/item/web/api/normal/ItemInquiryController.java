@@ -35,7 +35,7 @@ public class ItemInquiryController {
 	}
 
 	@DeleteMapping
-	public ApiResponse<ItemSuccessResponse> deleteItemInquiry(@RequestBody DeleteItemInquiryRequest request) {
+	public ApiResponse<ItemSuccessResponse> deleteItemInquiry(@RequestBody @Valid DeleteItemInquiryRequest request) {
 		itemInquiryService.deleteItemInquiry(request.getItemInquiryId(), request.getMemberId());
 
 		return ApiResponse.ok(new ItemSuccessResponse("Delete Item Inquiry successfully"));

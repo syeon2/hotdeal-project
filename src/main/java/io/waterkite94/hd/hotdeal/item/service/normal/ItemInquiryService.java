@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.common.error.exception.TooManyRequestException;
+import io.waterkite94.hd.hotdeal.common.error.exception.UnauthorizedMemberException;
 import io.waterkite94.hd.hotdeal.item.dao.ItemInquiryMapper;
 import io.waterkite94.hd.hotdeal.item.dao.ItemInquiryRepository;
 import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
@@ -40,8 +41,10 @@ public class ItemInquiryService {
 		ItemInquiryEntity findItemInquiry = itemInquiryRepository.findById(itemInquiryId).orElseThrow(() ->
 			new IllegalArgumentException("ItemInquiry not found"));
 
-		if (!findItemInquiry.getMemberId().equals(memberId)) {
-			throw new IllegalArgumentException("Unauthorized access");
+		if (!findItemInquiry.getMemberId().equals(memberId)
+			&& !findItemInquiry.getItem().getMemberId().equals(memberId)
+		) {
+			throw new UnauthorizedMemberException("Unauthorized Member Id");
 		}
 
 		itemInquiryRepository.deleteById(itemInquiryId);

@@ -20,6 +20,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
 import io.waterkite94.hd.hotdeal.item.service.normal.ItemInquiryService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemInquiryRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.request.DeleteItemInquiryRequest;
 
 @WebMvcTest(controllers = ItemInquiryController.class)
 class ItemInquiryControllerTest extends ControllerTestSupport {
@@ -60,6 +61,43 @@ class ItemInquiryControllerTest extends ControllerTestSupport {
 					fieldWithPath("message").type(JsonFieldType.NULL).description("요청 결과 메시지"),
 					fieldWithPath("data.item_inquiry_id").type(JsonFieldType.NUMBER).description("문의 글 아이디")
 				)));
+	}
+
+	@Test
+	@WithMockUser(value = "USER")
+	@DisplayName(value = "문의 글을 삭제합니다.")
+	void deleteItemInquiry() throws Exception {
+		// given
+		DeleteItemInquiryRequest request = createDeleteItemInquiryRequest();
+
+		// when // then
+		mockMvc.perform(
+				delete("/api/v1/item-inquiry")
+					.with(csrf())
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(objectMapper.writeValueAsString(request))
+			).andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.data.message").isString())
+			.andDo(document("item-inquiry-delete",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestFields(
+					fieldWithPath("item_inquiry_id").type(JsonFieldType.NUMBER).description("문의 상품 아이디"),
+					fieldWithPath("member_id").type(JsonFieldType.STRING).description("회원 아이디")
+				),
+				responseFields(
+					fieldWithPath("status").type(JsonFieldType.NUMBER).description("요청 상태 코드"),
+					fieldWithPath("message").type(JsonFieldType.NULL).description("요청 결과 메시지"),
+					fieldWithPath("data.message").type(JsonFieldType.STRING).description("요청 결과 메시지")
+				)));
+	}
+
+	private DeleteItemInquiryRequest createDeleteItemInquiryRequest() {
+		return DeleteItemInquiryRequest.builder()
+			.itemInquiryId(1L)
+			.memberId("memberId")
+			.build();
 	}
 
 	private AddItemInquiryRequest createAddItemInquiryRequest() {
