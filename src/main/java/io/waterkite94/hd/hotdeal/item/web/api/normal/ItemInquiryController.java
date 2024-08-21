@@ -15,6 +15,8 @@ import io.waterkite94.hd.hotdeal.item.domain.dto.ItemInquiryBoardDto;
 import io.waterkite94.hd.hotdeal.item.service.normal.ItemInquiryService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemInquiryRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.DeleteItemInquiryRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.response.AddItemInquiryResponse;
+import io.waterkite94.hd.hotdeal.item.web.api.response.ItemSuccessResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -26,17 +28,17 @@ public class ItemInquiryController {
 	private final ItemInquiryService itemInquiryService;
 
 	@PostMapping
-	public ApiResponse<Long> addItemInquiry(@RequestBody @Valid AddItemInquiryRequest request) {
+	public ApiResponse<AddItemInquiryResponse> addItemInquiry(@RequestBody @Valid AddItemInquiryRequest request) {
 		Long savedItemInquiryId = itemInquiryService.addItemInquiry(request.toServiceDto());
 
-		return ApiResponse.ok(savedItemInquiryId);
+		return ApiResponse.ok(new AddItemInquiryResponse(savedItemInquiryId));
 	}
 
 	@DeleteMapping
-	public ApiResponse<String> deleteItemInquiry(@RequestBody DeleteItemInquiryRequest request) {
+	public ApiResponse<ItemSuccessResponse> deleteItemInquiry(@RequestBody DeleteItemInquiryRequest request) {
 		itemInquiryService.deleteItemInquiry(request.getItemInquiryId(), request.getMemberId());
 
-		return ApiResponse.ok("success");
+		return ApiResponse.ok(new ItemSuccessResponse("Delete Item Inquiry successfully"));
 	}
 
 	@GetMapping
