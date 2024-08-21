@@ -29,18 +29,14 @@ public class InquiryCommentEntity extends BaseEntity {
 	@Column(name = "comment", columnDefinition = "varchar(255)", nullable = false)
 	private String comment;
 
-	@Column(name = "member_id", columnDefinition = "varchar(60)", nullable = false)
-	private String memberId;
-
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_inquiry_id", referencedColumnName = "id", columnDefinition = "bigint")
 	private ItemInquiryEntity itemInquiry;
 
 	@Builder
-	private InquiryCommentEntity(Long id, String comment, String memberId, ItemInquiryEntity itemInquiry) {
+	private InquiryCommentEntity(Long id, String comment, ItemInquiryEntity itemInquiry) {
 		this.id = id;
 		this.comment = comment;
-		this.memberId = memberId;
 		this.itemInquiry = itemInquiry;
 	}
 }

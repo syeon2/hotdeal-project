@@ -8,26 +8,19 @@ import lombok.Getter;
 @Getter
 public class InquiryCommentDto {
 
-	private Long inquiryCommentId;
-
-	private String comment;
-
-	private LocalDateTime createdAt;
-
-	private LocalDateTime updatedAt;
-
-	private String memberId;
-
-	private String memberName;
+	private final Long inquiryCommentId;
+	private final String comment;
+	private final LocalDateTime createdAt;
+	private final LocalDateTime updatedAt;
+	private final Long itemInquiryId;
 
 	@Builder
 	public InquiryCommentDto(Long inquiryCommentId, String comment, LocalDateTime createdAt, LocalDateTime updatedAt,
-		String memberId, String memberName) {
+		Long itemInquiryId) {
 		this.inquiryCommentId = inquiryCommentId;
 		this.comment = comment;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.memberId = memberId;
-		this.memberName = memberName;
+		this.itemInquiryId = itemInquiryId;
 	}
 }
