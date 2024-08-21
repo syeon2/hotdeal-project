@@ -1,0 +1,16 @@
+[[Item-Inquiry]]
+=== Item Inquiry API
+
+==== Add Item Inquiry API
+
+===== Request
+
+include::{snippets}/item-inquiry-add/http-request.adoc[]
+include::{snippets}/item-inquiry-add/request-body.adoc[]
+include::{snippets}/item-inquiry-add/request-fields.adoc[]
+
+===== Response
+
+include::{snippets}/item-inquiry-add/http-response.adoc[]
+include::{snippets}/item-inquiry-add/response-body.adoc[]
+include::{snippets}/item-inquiry-add/response-fields.adoc[]
