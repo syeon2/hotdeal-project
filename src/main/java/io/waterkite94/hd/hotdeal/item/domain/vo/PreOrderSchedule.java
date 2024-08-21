@@ -36,7 +36,7 @@ public class PreOrderSchedule {
 
 	public boolean isBetweenStartTimeAndEndTime(LocalDateTime startTime, LocalDate endTime) {
 		LocalDateTime inputTime = LocalDateTime.of(year, month, date, hour, minute);
-		
+
 		return startTime.isBefore(inputTime) && endTime.isAfter(inputTime.toLocalDate());
 	}
 
