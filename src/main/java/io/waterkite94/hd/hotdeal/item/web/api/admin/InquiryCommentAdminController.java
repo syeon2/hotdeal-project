@@ -1,16 +1,13 @@
 package io.waterkite94.hd.hotdeal.item.web.api.admin;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
-import io.waterkite94.hd.hotdeal.item.domain.dto.InquiryCommentDto;
 import io.waterkite94.hd.hotdeal.item.service.admin.InquiryCommentService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddInquiryCommentRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.DeleteInquiryCommentRequest;
@@ -21,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/admin/inquiry-comment")
 @RequiredArgsConstructor
-public class InquiryCommentController {
+public class InquiryCommentAdminController {
 
 	private final InquiryCommentService inquiryCommentService;
 
@@ -43,13 +40,5 @@ public class InquiryCommentController {
 		inquiryCommentService.deleteInquiryComment(memberId, request.getInquiryCommentId());
 
 		return ApiResponse.ok(new ItemSuccessResponse("Delete Inquiry Comment Successfully"));
-	}
-
-	@GetMapping
-	public ApiResponse<InquiryCommentDto> findInquiryComment(@RequestParam Long itemInquiryId) {
-		InquiryCommentDto findInquiryCommentDto = inquiryCommentService.searchInquiryCommentByItemInquiryId(
-			itemInquiryId);
-
-		return ApiResponse.ok(findInquiryCommentDto);
 	}
 }

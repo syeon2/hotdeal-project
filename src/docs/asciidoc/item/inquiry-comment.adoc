@@ -1,0 +1,42 @@
+[[Inquiry-Comment]]
+=== Inquiry Comment API
+
+==== Add Inquiry API
+
+===== Request
+
+include::{snippets}/inquiry-comment-add/http-request.adoc[]
+include::{snippets}/inquiry-comment-add/request-headers.adoc[]
+include::{snippets}/inquiry-comment-add/request-body.adoc[]
+include::{snippets}/inquiry-comment-add/request-fields.adoc[]
+
+===== Response
+
+include::{snippets}/inquiry-comment-add/response-body.adoc[]
+include::{snippets}/inquiry-comment-add/response-fields.adoc[]
+
+==== Delete Item Inquiry API
+
+===== Request
+
+include::{snippets}/inquiry-comment-delete/http-request.adoc[]
+include::{snippets}/inquiry-comment-delete/request-headers.adoc[]
+include::{snippets}/inquiry-comment-delete/request-body.adoc[]
+include::{snippets}/inquiry-comment-delete/request-fields.adoc[]
+
+===== Response
+
+include::{snippets}/inquiry-comment-delete/response-body.adoc[]
+include::{snippets}/inquiry-comment-delete/response-fields.adoc[]
+
+==== Retrieve Inquiry Comment API
+
+===== Request
+
+include::{snippets}/inquiry-comment-retrieve/http-request.adoc[]
+include::{snippets}/inquiry-comment-retrieve/path-parameters.adoc[]
+
+===== Response
+
+include::{snippets}/inquiry-comment-retrieve/response-body.adoc[]
+include::{snippets}/inquiry-comment-retrieve/response-fields.adoc[]

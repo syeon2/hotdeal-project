@@ -21,9 +21,10 @@ import org.springframework.security.test.context.support.WithMockUser;
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
 import io.waterkite94.hd.hotdeal.item.service.admin.InquiryCommentService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddInquiryCommentRequest;
+import io.waterkite94.hd.hotdeal.item.web.api.request.DeleteInquiryCommentRequest;
 
-@WebMvcTest(InquiryCommentController.class)
-class InquiryCommentControllerTest extends ControllerTestSupport {
+@WebMvcTest(InquiryCommentAdminController.class)
+class InquiryCommentAdminControllerTest extends ControllerTestSupport {
 
 	@MockBean
 	private InquiryCommentService inquiryCommentService;
@@ -63,6 +64,41 @@ class InquiryCommentControllerTest extends ControllerTestSupport {
 					fieldWithPath("status").type(JsonFieldType.NUMBER).description("요청 상태 코드"),
 					fieldWithPath("message").type(JsonFieldType.NULL).description("요청 결과 메시지"),
 					fieldWithPath("data.inquiry_comment_id").type(JsonFieldType.NUMBER).description("문의 답글 아이디")
+				)));
+		;
+	}
+
+	@Test
+	@WithMockUser(value = "USER")
+	@DisplayName(value = "문의 답글을 삭제하는 API를 호출합니다.")
+	void deleteInquiryComment() throws Exception {
+		// given
+		String memberId = "memberId";
+		DeleteInquiryCommentRequest request = new DeleteInquiryCommentRequest(1L);
+
+		// when // then
+		mockMvc.perform(
+				delete("/api/v1/admin/inquiry-comment")
+					.with(csrf())
+					.header("X-MEMBER-ID", memberId)
+					.content(objectMapper.writeValueAsString(request))
+					.contentType(MediaType.APPLICATION_JSON)
+			).andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.data.message").isString())
+			.andDo(document("inquiry-comment-delete",
+				preprocessRequest(prettyPrint()),
+				preprocessResponse(prettyPrint()),
+				requestHeaders(
+					headerWithName("X-MEMBER-ID").description("상품 등록 회원 아이디")
+				),
+				requestFields(
+					fieldWithPath("inquiry_comment_id").type(JsonFieldType.NUMBER).description("문의 답글 아이디")
+				),
+				responseFields(
+					fieldWithPath("status").type(JsonFieldType.NUMBER).description("요청 상태 코드"),
+					fieldWithPath("message").type(JsonFieldType.NULL).description("요청 결과 메시지"),
+					fieldWithPath("data.message").type(JsonFieldType.STRING).description("요청 결과 메시지")
 				)));
 		;
 	}

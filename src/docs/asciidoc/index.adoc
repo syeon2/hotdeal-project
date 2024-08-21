@@ -28,3 +28,4 @@ include::item/item.adoc[]
 == Item Inquiry API
 
 include::item/item-inquiry.adoc[]
+include::item/inquiry-comment.adoc[]

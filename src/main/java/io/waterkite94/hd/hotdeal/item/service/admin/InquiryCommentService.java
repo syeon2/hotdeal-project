@@ -48,9 +48,10 @@ public class InquiryCommentService {
 	}
 
 	@Transactional
-	public InquiryCommentDto searchInquiryCommentByItemInquiryId(Long itemInquiryId) {
-		// return inquiryCommentRepository.findInquiryCommentDto(itemInquiryId)
-		// 	.orElseThrow(() -> new IllegalArgumentException("Inquiry Comment Not Found"));
-		return null;
+	public InquiryCommentDto findInquiryComment(Long itemInquiryId) {
+		InquiryCommentEntity findInquiryComment = inquiryCommentRepository.findByItemInquiryId(itemInquiryId)
+			.orElseThrow(() -> new IllegalArgumentException("Inquiry Comment Not Found"));
+
+		return inquiryCommentMapper.toDomain(findInquiryComment);
 	}
 }
