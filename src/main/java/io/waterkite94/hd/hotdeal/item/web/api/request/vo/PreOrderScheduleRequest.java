@@ -24,11 +24,11 @@ public class PreOrderScheduleRequest {
 	private Integer date;
 
 	@Min(value = 0, message = "예약 스케줄 시간은 0 미만이 될 수 없습니다.")
-	@Max(value = 24, message = "예약 스케줄 시간은 24 초과가 될 수 없습니다.")
+	@Max(value = 23, message = "예약 스케줄 시간은 24 초과가 될 수 없습니다.")
 	private Integer hour;
 
 	@Min(value = 0, message = "예약 스케줄 분은 0 미만이 될 수 없습니다.")
-	@Max(value = 60, message = "예약 스케줄 분은 60 초과가 될 수 없습니다.")
+	@Max(value = 59, message = "예약 스케줄 분은 60 초과가 될 수 없습니다.")
 	private Integer minute;
 
 	@Builder
