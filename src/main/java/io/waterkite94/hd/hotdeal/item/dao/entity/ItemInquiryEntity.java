@@ -1,6 +1,7 @@
 package io.waterkite94.hd.hotdeal.item.dao.entity;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.BaseEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -36,11 +38,26 @@ public class ItemInquiryEntity extends BaseEntity {
 	@JoinColumn(name = "item_id", referencedColumnName = "id", columnDefinition = "bigint")
 	private ItemEntity item;
 
+	@OneToOne(
+		mappedBy = "itemInquiry",
+		cascade = CascadeType.ALL,
+		orphanRemoval = true
+	)
+	private InquiryCommentEntity inquiryComment;
+
 	@Builder
 	private ItemInquiryEntity(Long id, String comment, String memberId, ItemEntity item) {
 		this.id = id;
 		this.comment = comment;
 		this.memberId = memberId;
 		this.item = item;
+	}
+
+	public void addInquiryComment(InquiryCommentEntity inquiryComment) {
+		this.inquiryComment = inquiryComment;
+	}
+
+	public void deleteInquiryComment() {
+		this.inquiryComment = null;
 	}
 }

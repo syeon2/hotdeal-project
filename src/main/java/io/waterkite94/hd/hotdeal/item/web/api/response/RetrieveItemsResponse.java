@@ -23,6 +23,8 @@ public class RetrieveItemsResponse {
 	@JsonProperty("is_pre_order_item")
 	private Boolean isPreOrderItem;
 
+	private Integer quantity;
+
 	@JsonProperty("pre_order_schedule")
 	private PreOrderScheduleResponse preOrderSchedule;
 
@@ -33,11 +35,12 @@ public class RetrieveItemsResponse {
 	private String sellerName;
 
 	@Builder
-	private RetrieveItemsResponse(Long itemId, String itemName, CostResponse cost, Boolean isPreOrderItem,
-		PreOrderScheduleResponse preOrderSchedule, String sellerId, String sellerName) {
+	private RetrieveItemsResponse(Long itemId, String itemName, CostResponse cost, Integer quantity,
+		Boolean isPreOrderItem, PreOrderScheduleResponse preOrderSchedule, String sellerId, String sellerName) {
 		this.itemId = itemId;
 		this.itemName = itemName;
 		this.cost = cost;
+		this.quantity = quantity;
 		this.isPreOrderItem = isPreOrderItem;
 		this.preOrderSchedule = preOrderSchedule;
 		this.sellerId = sellerId;
@@ -49,6 +52,7 @@ public class RetrieveItemsResponse {
 			.itemId(retrieveItemsDto.getItemId())
 			.itemName(retrieveItemsDto.getItemName())
 			.cost(CostResponse.of(retrieveItemsDto.getCost()))
+			.quantity(retrieveItemsDto.getQuantity())
 			.isPreOrderItem(retrieveItemsDto.getIsPreOrderItem())
 			.preOrderSchedule(PreOrderScheduleResponse.fromLocalDateTime(
 				retrieveItemsDto.getPreOrderTime()))
