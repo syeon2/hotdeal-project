@@ -15,6 +15,7 @@ public class AddItemServiceDto {
 	private String name;
 	private Cost cost;
 	private String introduction;
+	private Integer quantity;
 	private ItemType type;
 	private PreOrderSchedule preOrderSchedule;
 	private ItemStatus status;
@@ -22,12 +23,13 @@ public class AddItemServiceDto {
 	private Long categoryId;
 
 	@Builder
-	private AddItemServiceDto(ItemId itemId, String name, Cost cost, String introduction, ItemType type,
-		PreOrderSchedule preOrderSchedule, ItemStatus status, String memberId, Long categoryId) {
+	private AddItemServiceDto(ItemId itemId, String name, Cost cost, String introduction, Integer quantity,
+		ItemType type, PreOrderSchedule preOrderSchedule, ItemStatus status, String memberId, Long categoryId) {
 		this.itemId = itemId;
 		this.name = name;
 		this.cost = cost;
 		this.introduction = introduction;
+		this.quantity = quantity;
 		this.type = type;
 		this.preOrderSchedule = preOrderSchedule;
 		this.status = status;
@@ -36,6 +38,10 @@ public class AddItemServiceDto {
 	}
 
 	public AddItemServiceDto initialize(String memberId, String createdUuid) {
+		if (type.equals(ItemType.NORMAL_ORDER)) {
+			this.quantity = 0;
+		}
+
 		return this
 			.withUuid(createdUuid)
 			.withStatus(ItemStatus.ACTIVE)
@@ -45,18 +51,18 @@ public class AddItemServiceDto {
 	private AddItemServiceDto withUuid(String uuid) {
 		ItemId createdItemId = ItemId.of(null, uuid);
 
-		return new AddItemServiceDto(createdItemId, name, cost, introduction, type, preOrderSchedule, status, memberId,
-			categoryId);
+		return new AddItemServiceDto(createdItemId, name, cost, introduction, quantity, type, preOrderSchedule, status,
+			memberId, categoryId);
 	}
 
 	private AddItemServiceDto withMemberId(String memberId) {
-		return new AddItemServiceDto(itemId, name, cost, introduction, type, preOrderSchedule, status, memberId,
-			categoryId);
+		return new AddItemServiceDto(itemId, name, cost, introduction, quantity, type, preOrderSchedule, status,
+			memberId, categoryId);
 	}
 
 	private AddItemServiceDto withStatus(ItemStatus status) {
-		return new AddItemServiceDto(itemId, name, cost, introduction, type, preOrderSchedule, status, memberId,
-			categoryId);
+		return new AddItemServiceDto(itemId, name, cost, introduction, quantity, type, preOrderSchedule, status,
+			memberId, categoryId);
 	}
 
 }

@@ -46,6 +46,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 				),
 				QItemEntity.itemEntity.type.as("itemType"),
 				QItemEntity.itemEntity.preOrderTime.as("preOrderSchedule"),
+				QItemEntity.itemEntity.quantity,
 				QItemEntity.itemEntity.createdAt,
 				QCategoryEntity.categoryEntity.id.as("categoryId"),
 				QCategoryEntity.categoryEntity.name.as("categoryName")
@@ -92,6 +93,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 						QItemEntity.itemEntity.discount
 					),
 					itemTypeCondition.as("isPreOrderItem"),
+					QItemEntity.itemEntity.quantity,
 					QItemEntity.itemEntity.preOrderTime,
 					QMemberEntity.memberEntity.memberId.as("sellerId"),
 					QMemberEntity.memberEntity.name.as("sellerName")

@@ -29,7 +29,7 @@ public class ItemController {
 
 	@GetMapping
 	public ApiResponse<CustomPage<RetrieveItemsResponse>> retrieveItems(
-		@RequestParam Long categoryId,
+		@RequestParam(value = "category-id") Long categoryId,
 		@RequestParam(value = "type") ItemTypeRequest itemType,
 		@RequestParam(required = false) String search,
 		Pageable pageable

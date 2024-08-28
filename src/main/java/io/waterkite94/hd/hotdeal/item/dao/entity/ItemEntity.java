@@ -43,6 +43,9 @@ public class ItemEntity extends BaseEntity {
 	@Column(name = "discount", columnDefinition = "int", nullable = false)
 	private Integer discount;
 
+	@Column(name = "quantity", columnDefinition = "int", nullable = false)
+	private Integer quantity;
+
 	@Column(name = "introduction", columnDefinition = "varchar(255)", nullable = false)
 	private String introduction;
 
@@ -65,13 +68,15 @@ public class ItemEntity extends BaseEntity {
 	private String memberId;
 
 	@Builder
-	private ItemEntity(Long id, String uuid, String name, Integer price, Integer discount, String introduction,
-		ItemType type, LocalDateTime preOrderTime, ItemStatus status, Long categoryId, String memberId) {
+	private ItemEntity(Long id, String uuid, String name, Integer price, Integer discount, Integer quantity,
+		String introduction, ItemType type, LocalDateTime preOrderTime, ItemStatus status, Long categoryId,
+		String memberId) {
 		this.id = id;
 		this.uuid = uuid;
 		this.name = name;
 		this.price = price;
 		this.discount = discount;
+		this.quantity = quantity;
 		this.introduction = introduction;
 		this.type = type;
 		this.preOrderTime = preOrderTime;
@@ -106,5 +111,9 @@ public class ItemEntity extends BaseEntity {
 
 	public void changeCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public Integer deductionQuantity(Integer quantity) {
+		return this.quantity -= quantity;
 	}
 }
