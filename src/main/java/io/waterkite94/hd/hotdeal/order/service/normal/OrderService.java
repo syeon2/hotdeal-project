@@ -76,4 +76,16 @@ public class OrderService {
 		return createdOrderUuid;
 	}
 
+	@Transactional
+	public void changeOrderStatusToCancel(String orderUuid) {
+		OrderEntity orderEntity = orderRepository.findByUuid(orderUuid)
+			.orElseThrow(() -> new IllegalArgumentException("잘못된 주문 아이디입니다."));
+
+		if (!orderEntity.getStatus().equals(OrderStatus.PAYMENT_COMPLETED)) {
+			throw new IllegalArgumentException("주문 취소할 수 있는 단계가 아닙니다.");
+		}
+
+		orderEntity.changeStatus(OrderStatus.ORDER_CANCELLED);
+	}
+
 }
