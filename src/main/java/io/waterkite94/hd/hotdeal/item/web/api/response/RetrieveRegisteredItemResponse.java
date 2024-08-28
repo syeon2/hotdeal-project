@@ -33,6 +33,8 @@ public class RetrieveRegisteredItemResponse {
 	@JsonProperty("pre_order_schedule")
 	private PreOrderScheduleResponse preOrderSchedule;
 
+	private Integer quantity;
+
 	@JsonProperty("created_at")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDateTime createdAt;
@@ -45,14 +47,15 @@ public class RetrieveRegisteredItemResponse {
 
 	@Builder
 	private RetrieveRegisteredItemResponse(Long itemId, String uuid, String name, CostResponse cost,
-		ItemTypeRequest itemType, PreOrderScheduleResponse preOrderSchedule, LocalDateTime createdAt, Long categoryId,
-		String categoryName) {
+		ItemTypeRequest itemType, PreOrderScheduleResponse preOrderSchedule, Integer quantity, LocalDateTime createdAt,
+		Long categoryId, String categoryName) {
 		this.itemId = itemId;
 		this.uuid = uuid;
 		this.name = name;
 		this.cost = cost;
 		this.itemType = itemType;
 		this.preOrderSchedule = preOrderSchedule;
+		this.quantity = quantity;
 		this.createdAt = createdAt;
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -66,6 +69,7 @@ public class RetrieveRegisteredItemResponse {
 			.cost(CostResponse.of(itemDto.getCost()))
 			.itemType(ItemTypeRequest.from(itemDto.getItemType().name()))
 			.preOrderSchedule(PreOrderScheduleResponse.fromLocalDateTime(itemDto.getPreOrderSchedule()))
+			.quantity(itemDto.getQuantity())
 			.createdAt(itemDto.getCreatedAt())
 			.categoryId(itemDto.getCategoryId())
 			.categoryName(itemDto.getCategoryName())

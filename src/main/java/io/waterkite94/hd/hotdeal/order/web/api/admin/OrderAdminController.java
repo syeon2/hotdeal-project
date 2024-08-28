@@ -21,13 +21,13 @@ public class OrderAdminController {
 	public ApiResponse<SuccessResponse> completeDeliveryOrder(@PathVariable("orderId") String orderId) {
 		orderService.changeOrderStatusToCompleteDelivery(orderId);
 
-		return ApiResponse.ok(new SuccessResponse("Cancel order successfully"));
+		return ApiResponse.ok(new SuccessResponse("Complete Delivery Order successfully"));
 	}
 
 	@PostMapping("/order/{orderId}/comp-return")
 	public ApiResponse<SuccessResponse> completeReturnOrder(@PathVariable("orderId") String orderId) {
 		orderService.changeOrderStatusToCompleteReturn(orderId);
 
-		return ApiResponse.ok(new SuccessResponse("Return order successfully"));
+		return ApiResponse.ok(new SuccessResponse("Complete Return Order successfully"));
 	}
 }

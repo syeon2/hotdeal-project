@@ -16,6 +16,7 @@ public class ItemMapper {
 			.name(addItemServiceDto.getName())
 			.price(addItemServiceDto.getCost().getPrice())
 			.discount(addItemServiceDto.getCost().getDiscount())
+			.quantity(addItemServiceDto.getQuantity())
 			.introduction(addItemServiceDto.getIntroduction())
 			.type(addItemServiceDto.getType())
 			.preOrderTime(preOrderSchedule)
