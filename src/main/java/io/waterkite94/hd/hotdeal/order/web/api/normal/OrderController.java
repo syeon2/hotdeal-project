@@ -10,6 +10,7 @@ import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.order.service.normal.OrderService;
 import io.waterkite94.hd.hotdeal.order.web.api.request.OrderItemRequest;
 import io.waterkite94.hd.hotdeal.order.web.api.request.OrderItemsRequest;
+import io.waterkite94.hd.hotdeal.order.web.api.request.PreOrderItemRequest;
 import io.waterkite94.hd.hotdeal.order.web.api.response.OrderItemsResponse;
 import io.waterkite94.hd.hotdeal.order.web.api.response.SuccessResponse;
 import jakarta.validation.Valid;
@@ -23,7 +24,7 @@ public class OrderController {
 	private final OrderService orderService;
 
 	@PostMapping("/normal")
-	public ApiResponse<OrderItemsResponse> orderItems(@RequestBody @Valid OrderItemsRequest request) {
+	public ApiResponse<OrderItemsResponse> orderNormalItems(@RequestBody @Valid OrderItemsRequest request) {
 
 		String savedOrderUuid = orderService.addOrderWithOrderDetail(
 			request.getMemberId(),
@@ -31,6 +32,18 @@ public class OrderController {
 			request.getOrderItems().stream()
 				.map(OrderItemRequest::toServiceDto)
 				.toList()
+		);
+
+		return ApiResponse.ok(new OrderItemsResponse(savedOrderUuid));
+	}
+
+	@PostMapping("/pre-order")
+	public ApiResponse<OrderItemsResponse> orderPreOrderItems(@RequestBody @Valid PreOrderItemRequest request) {
+
+		String savedOrderUuid = orderService.addPreOrderItemWithOrderDetail(
+			request.getMemberId(),
+			request.getAddress().toServiceDto(),
+			request.getOrderItems().toServiceDto()
 		);
 
 		return ApiResponse.ok(new OrderItemsResponse(savedOrderUuid));
