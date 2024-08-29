@@ -84,6 +84,52 @@ public class OrderService {
 	}
 
 	@Transactional
+	public String addPreOrderItemWithOrderDetail(String memberId, AddAddressDto addAddressDto,
+		AddOrderItemDto orderItem) {
+		ItemEntity itemEntity = itemRepository.findItemEntityForQuantityUpdate(orderItem.getItemId())
+			.orElseThrow(() -> new IllegalArgumentException("잘못된 상품 아이디입니다."));
+
+		if (itemEntity.getType().equals(ItemType.NORMAL_ORDER)) {
+			throw new IllegalArgumentException("일반 구매 상품은 예약 구매로 구매할 수 없습니다.");
+		}
+
+		if (itemEntity.getQuantity() - orderItem.getQuantity() < 0) {
+			throw new IllegalArgumentException("재고가 부족합니다.");
+		}
+
+		itemEntity.deductQuantity(orderItem.getQuantity());
+
+		String convertedAddress = addAddressDto.getCity()
+			.concat(addAddressDto.getState())
+			.concat(addAddressDto.getAddress())
+			.concat(addAddressDto.getZipcode());
+
+		String createdUuid = UuidUtil.createUuid();
+		OrderEntity orderEntity = orderMapper.toEntity(AddOrderDto.builder()
+			.uuid(createdUuid)
+			.status(OrderStatus.PAYMENT_COMPLETED)
+			.address(convertedAddress)
+			.memberId(memberId)
+			.build()
+		);
+
+		OrderEntity savedOrderEntity = orderRepository.save(orderEntity);
+
+		savedOrderEntity.addOrderDetail(
+			orderDetailMapper.toEntity(
+				OrderDetailDto.builder()
+					.itemId(orderItem.getItemId())
+					.quantity(orderItem.getQuantity())
+					.totalPrice(orderItem.getQuantity() * itemEntity.getPrice())
+					.totalDiscount(orderItem.getQuantity() * itemEntity.getDiscount())
+					.build()
+			)
+		);
+
+		return createdUuid;
+	}
+
+	@Transactional
 	public void changeOrderStatusToCancel(String orderUuid) {
 		OrderEntity orderEntity = orderRepository.findByUuid(orderUuid)
 			.orElseThrow(() -> new IllegalArgumentException("잘못된 주문 아이디입니다."));

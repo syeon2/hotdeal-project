@@ -113,7 +113,7 @@ public class ItemEntity extends BaseEntity {
 		this.categoryId = categoryId;
 	}
 
-	public Integer deductionQuantity(Integer quantity) {
-		return this.quantity -= quantity;
+	public void deductQuantity(Integer quantity) {
+		this.quantity -= quantity;
 	}
 }
