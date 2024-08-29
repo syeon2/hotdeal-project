@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.web.api.normal;
+package io.waterkite94.hd.hotdeal.item.web.api.user;
 
 import java.util.List;
 

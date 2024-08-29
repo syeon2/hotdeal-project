@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.web.api.normal;
+package io.waterkite94.hd.hotdeal.item.web.api.user;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;

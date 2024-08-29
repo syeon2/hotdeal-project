@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.order.web.api.normal;
+package io.waterkite94.hd.hotdeal.order.web.api.user;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
