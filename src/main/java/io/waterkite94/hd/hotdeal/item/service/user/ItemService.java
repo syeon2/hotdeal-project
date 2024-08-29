@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.service.normal;
+package io.waterkite94.hd.hotdeal.item.service.user;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

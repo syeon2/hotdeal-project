@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.order.service.normal;
+package io.waterkite94.hd.hotdeal.order.service.user;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

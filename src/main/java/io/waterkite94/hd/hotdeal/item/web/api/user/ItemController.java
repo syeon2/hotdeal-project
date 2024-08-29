@@ -14,7 +14,7 @@ import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.common.wrapper.CustomPage;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemsDto;
-import io.waterkite94.hd.hotdeal.item.service.normal.ItemService;
+import io.waterkite94.hd.hotdeal.item.service.user.ItemService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.ItemTypeRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.response.ItemDetailResponse;
 import io.waterkite94.hd.hotdeal.item.web.api.response.RetrieveItemsResponse;

@@ -28,7 +28,7 @@ import io.waterkite94.hd.hotdeal.ControllerTestSupport;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemsDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
-import io.waterkite94.hd.hotdeal.item.service.normal.ItemService;
+import io.waterkite94.hd.hotdeal.item.service.user.ItemService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.ItemTypeRequest;
 
 @WebMvcTest(ItemController.class)
