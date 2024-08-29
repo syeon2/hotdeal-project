@@ -14,10 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
 import io.waterkite94.hd.hotdeal.item.dao.CategoryRepository;
 import io.waterkite94.hd.hotdeal.item.dao.entity.CategoryEntity;
+import io.waterkite94.hd.hotdeal.item.domain.dto.AddCategoryDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.FindCategoryDto;
 import io.waterkite94.hd.hotdeal.item.service.admin.CategoryService;
 
-class FindCategoryDtoServiceTest extends IntegrationTestSupport {
+class CategoryServiceTest extends IntegrationTestSupport {
 
 	@Autowired
 	private CategoryService categoryService;
@@ -36,10 +37,10 @@ class FindCategoryDtoServiceTest extends IntegrationTestSupport {
 	void saveCategory() {
 		// given
 		String name = "name";
-		FindCategoryDto findCategoryDto = createCategoryDomain(name);
+		AddCategoryDto addCategoryDto = createAddCategoryDto(name);
 
 		// when
-		Long savedCategoryId = categoryService.saveCategory(findCategoryDto);
+		Long savedCategoryId = categoryService.saveCategory(addCategoryDto);
 
 		// then
 		Optional<CategoryEntity> findCategoryOptional = categoryRepository.findById(savedCategoryId);
@@ -52,7 +53,7 @@ class FindCategoryDtoServiceTest extends IntegrationTestSupport {
 	@DisplayName(value = "카테고리들을 조회합니다.")
 	void findAllCategory() {
 		// given
-		FindCategoryDto findCategoryDto = createCategoryDomain("name");
+		AddCategoryDto findCategoryDto = createAddCategoryDto("name");
 		categoryService.saveCategory(findCategoryDto);
 
 		// when
@@ -66,5 +67,9 @@ class FindCategoryDtoServiceTest extends IntegrationTestSupport {
 		return FindCategoryDto.builder()
 			.name(name)
 			.build();
+	}
+
+	private AddCategoryDto createAddCategoryDto(String name) {
+		return AddCategoryDto.of(name);
 	}
 }

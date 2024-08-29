@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 public class FindCategoryDto {
 
-	private Long id;
+	private final Long id;
 
-	private String name;
+	private final String name;
 
 	@Builder
 	private FindCategoryDto(Long id, String name) {

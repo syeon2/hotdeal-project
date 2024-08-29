@@ -23,6 +23,6 @@ public class CategoryAdminController {
 	public ApiResponse<AddCategoryResponse> addCategory(@RequestBody @Valid AddCategoryRequest request) {
 		Long savedCategoryId = categoryService.saveCategory(request.toServiceDto());
 
-		return ApiResponse.ok(new AddCategoryResponse(savedCategoryId));
+		return ApiResponse.ok(AddCategoryResponse.of(savedCategoryId));
 	}
 }

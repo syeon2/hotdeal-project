@@ -22,7 +22,7 @@ import io.waterkite94.hd.hotdeal.item.service.admin.CategoryService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddCategoryRequest;
 
 @WebMvcTest(CategoryAdminController.class)
-class FindCategoryDtoAdminControllerTest extends ControllerTestSupport {
+class CategoryAdminControllerTest extends ControllerTestSupport {
 
 	@MockBean
 	private CategoryService categoryService;
@@ -59,8 +59,6 @@ class FindCategoryDtoAdminControllerTest extends ControllerTestSupport {
 	}
 
 	private AddCategoryRequest createRequest() {
-		return AddCategoryRequest.builder()
-			.name("name")
-			.build();
+		return AddCategoryRequest.of("name");
 	}
 }

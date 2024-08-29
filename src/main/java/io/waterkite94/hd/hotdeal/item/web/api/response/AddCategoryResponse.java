@@ -10,7 +10,11 @@ public class AddCategoryResponse {
 	@JsonProperty("category_id")
 	private Long categoryId;
 
-	public AddCategoryResponse(Long categoryId) {
+	private AddCategoryResponse(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public static AddCategoryResponse of(Long categoryId) {
+		return new AddCategoryResponse(categoryId);
 	}
 }

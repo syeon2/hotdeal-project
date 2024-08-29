@@ -24,7 +24,7 @@ import io.waterkite94.hd.hotdeal.item.domain.dto.FindCategoryDto;
 import io.waterkite94.hd.hotdeal.item.service.admin.CategoryService;
 
 @WebMvcTest(CategoryController.class)
-class FindCategoryDtoControllerTest extends ControllerTestSupport {
+class CategoryControllerTest extends ControllerTestSupport {
 
 	@MockBean
 	private CategoryService categoryService;
