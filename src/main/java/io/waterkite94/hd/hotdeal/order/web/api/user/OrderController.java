@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
-import io.waterkite94.hd.hotdeal.order.service.normal.OrderService;
+import io.waterkite94.hd.hotdeal.order.service.user.OrderService;
 import io.waterkite94.hd.hotdeal.order.web.api.request.OrderItemRequest;
 import io.waterkite94.hd.hotdeal.order.web.api.request.OrderItemsRequest;
 import io.waterkite94.hd.hotdeal.order.web.api.request.PreOrderItemRequest;
