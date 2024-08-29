@@ -1,6 +1,6 @@
 package io.waterkite94.hd.hotdeal.item.web.api.request;
 
-import io.waterkite94.hd.hotdeal.item.domain.Category;
+import io.waterkite94.hd.hotdeal.item.domain.dto.FindCategoryDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,8 +18,8 @@ public class AddCategoryRequest {
 		this.name = name;
 	}
 
-	public Category toServiceDto() {
-		return Category.builder()
+	public FindCategoryDto toServiceDto() {
+		return FindCategoryDto.builder()
 			.name(name)
 			.build();
 	}

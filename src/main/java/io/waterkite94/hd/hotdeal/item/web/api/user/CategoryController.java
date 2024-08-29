@@ -20,9 +20,8 @@ public class CategoryController {
 
 	@GetMapping
 	public ApiResponse<List<FindCategoriesResponse>> retrieveAllCategories() {
-		List<FindCategoriesResponse> findCategories = categoryService.findAllCategories().stream()
-			.map(FindCategoriesResponse::of)
-			.toList();
+		List<FindCategoriesResponse> findCategories =
+			FindCategoriesResponse.listOf(categoryService.findAllCategories());
 
 		return ApiResponse.ok(findCategories);
 	}

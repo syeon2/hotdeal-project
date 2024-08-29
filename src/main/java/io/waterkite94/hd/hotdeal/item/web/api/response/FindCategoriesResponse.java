@@ -1,6 +1,8 @@
 package io.waterkite94.hd.hotdeal.item.web.api.response;
 
-import io.waterkite94.hd.hotdeal.item.domain.Category;
+import java.util.List;
+
+import io.waterkite94.hd.hotdeal.item.domain.dto.FindCategoryDto;
 import lombok.Getter;
 
 @Getter
@@ -14,7 +16,13 @@ public class FindCategoriesResponse {
 		this.name = name;
 	}
 
-	public static FindCategoriesResponse of(Category category) {
-		return new FindCategoriesResponse(category.getId(), category.getName());
+	public static FindCategoriesResponse of(FindCategoryDto findCategoryDto) {
+		return new FindCategoriesResponse(findCategoryDto.getId(), findCategoryDto.getName());
+	}
+
+	public static List<FindCategoriesResponse> listOf(List<FindCategoryDto> categories) {
+		return categories.stream()
+			.map(FindCategoriesResponse::of)
+			.toList();
 	}
 }
