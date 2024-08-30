@@ -7,7 +7,6 @@ import lombok.Getter;
 public class FindCategoryDto {
 
 	private final Long id;
-
 	private final String name;
 
 	@Builder

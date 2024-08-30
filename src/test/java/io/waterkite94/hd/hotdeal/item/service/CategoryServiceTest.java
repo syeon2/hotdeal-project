@@ -70,6 +70,6 @@ class CategoryServiceTest extends IntegrationTestSupport {
 	}
 
 	private AddCategoryDto createAddCategoryDto(String name) {
-		return AddCategoryDto.of(name);
+		return new AddCategoryDto(name);
 	}
 }

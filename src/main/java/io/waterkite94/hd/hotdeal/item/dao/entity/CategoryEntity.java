@@ -23,7 +23,7 @@ public class CategoryEntity extends BaseEntity {
 	@Column(name = "id", columnDefinition = "bigint", nullable = false)
 	private Long id;
 
-	@Column(name = "name", columnDefinition = "varchar(60)", nullable = false)
+	@Column(name = "name", columnDefinition = "varchar(60)", nullable = false, unique = true)
 	private String name;
 
 	@Builder

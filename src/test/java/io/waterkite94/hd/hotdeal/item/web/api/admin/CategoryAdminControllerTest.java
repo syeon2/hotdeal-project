@@ -59,6 +59,6 @@ class CategoryAdminControllerTest extends ControllerTestSupport {
 	}
 
 	private AddCategoryRequest createRequest() {
-		return AddCategoryRequest.of("name");
+		return new AddCategoryRequest("name");
 	}
 }

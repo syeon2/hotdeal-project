@@ -15,7 +15,7 @@ public class CategoryMapper {
 			.build();
 	}
 
-	public FindCategoryDto toDomain(CategoryEntity category) {
+	public FindCategoryDto toServiceDto(CategoryEntity category) {
 		return FindCategoryDto.builder()
 			.id(category.getId())
 			.name(category.getName())

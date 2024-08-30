@@ -12,15 +12,11 @@ public class AddCategoryRequest {
 	@NotBlank(message = "카테고리 이름은 빈칸을 허용하지 않습니다.")
 	private String name;
 
-	private AddCategoryRequest(String name) {
+	public AddCategoryRequest(String name) {
 		this.name = name;
 	}
 
-	public static AddCategoryRequest of(String name) {
-		return new AddCategoryRequest(name);
-	}
-
 	public AddCategoryDto toServiceDto() {
-		return AddCategoryDto.of(name);
+		return new AddCategoryDto(name);
 	}
 }
