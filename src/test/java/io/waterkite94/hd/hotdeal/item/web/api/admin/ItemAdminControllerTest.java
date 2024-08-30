@@ -160,6 +160,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 			.andExpect(jsonPath("$.data.content[0].cost.price").isNumber())
 			.andExpect(jsonPath("$.data.content[0].cost.discount").isNumber())
 			.andExpect(jsonPath("$.data.content[0].item_type").isString())
+			.andExpect(jsonPath("$.data.content[0].quantity").isNumber())
 			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.year").isNumber())
 			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.month").isNumber())
 			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.date").isNumber())
@@ -203,6 +204,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 						.description("상품 예약 구매 분"),
 					fieldWithPath("data.content[0].pre_order_schedule.minute").type(JsonFieldType.NUMBER)
 						.description("상품 예약 구매 분"),
+					fieldWithPath("data.content[0].quantity").type(JsonFieldType.NUMBER).description("상품 재고"),
 					fieldWithPath("data.content[0].created_at").type(JsonFieldType.STRING).description("상품 등록일"),
 					fieldWithPath("data.content[0].category_id").type(JsonFieldType.NUMBER).description("상품 카테고리 아이디"),
 					fieldWithPath("data.content[0].category_name").type(JsonFieldType.STRING).description("상품 카테고리 이름")
@@ -262,6 +264,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 			.cost(Cost.of(10000, 1000))
 			.itemType(ItemType.PRE_ORDER)
 			.preOrderSchedule(LocalDateTime.now())
+			.quantity(10)
 			.createdAt(LocalDateTime.now())
 			.categoryId(1L)
 			.categoryName("categoryName")

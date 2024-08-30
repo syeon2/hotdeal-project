@@ -53,7 +53,7 @@ public class ItemAdminService {
 		findItem.changeStatusInactive();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Page<RetrieveRegisteredItemDto> findAdminItems(String memberId, Pageable pageable) {
 		return itemRepository.findAdminItemsByMemberId(memberId, pageable);
 	}

@@ -33,6 +33,7 @@ public class RetrieveRegisteredItemResponse {
 	@JsonProperty("pre_order_schedule")
 	private PreOrderScheduleResponse preOrderSchedule;
 
+	@JsonProperty("quantity")
 	private Integer quantity;
 
 	@JsonProperty("created_at")
