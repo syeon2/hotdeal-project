@@ -47,7 +47,7 @@ public class ItemAdminController {
 	) {
 		itemAdminService.changeItemStatusInactive(memberId, itemId);
 
-		return ApiResponse.ok(new ItemSuccessResponse("The Item Status changed to inactive successfully"));
+		return ApiResponse.ok(new ItemSuccessResponse("상품의 상태를 비활성화로 변경하였습니다."));
 	}
 
 	@GetMapping

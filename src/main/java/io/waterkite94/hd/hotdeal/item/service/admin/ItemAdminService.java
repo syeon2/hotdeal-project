@@ -46,7 +46,7 @@ public class ItemAdminService {
 	@Transactional
 	public void changeItemStatusInactive(String memberId, Long itemId) {
 		ItemEntity findItem = itemRepository.findById(itemId)
-			.orElseThrow(() -> new IllegalArgumentException("Item not found"));
+			.orElseThrow(() -> new IllegalArgumentException("상품 아이디에 해당하는 상품을 찾을 수 없습니다."));
 
 		validateMemberId(memberId, findItem.getMemberId());
 
@@ -91,7 +91,7 @@ public class ItemAdminService {
 
 	private void validateMemberId(String memberId, String storedMemberId) {
 		if (!storedMemberId.equals(memberId)) {
-			throw new UnauthorizedMemberException("Unauthorized Member Id");
+			throw new UnauthorizedMemberException("상품을 등록한 회원과 입력받은 회원의 아이디가 일치하지 않습니다.");
 		}
 	}
 
