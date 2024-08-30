@@ -75,6 +75,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 					fieldWithPath("cost.price").type(JsonFieldType.NUMBER).description("가격"),
 					fieldWithPath("cost.discount").type(JsonFieldType.NUMBER).description("할인 금액"),
 					fieldWithPath("introduction").type(JsonFieldType.STRING).description("상품 소개"),
+					fieldWithPath("quantity").type(JsonFieldType.NUMBER).description("상품 수량"),
 					fieldWithPath("type").type(JsonFieldType.STRING).description("상품 타입"),
 					fieldWithPath("pre_order_schedule.year").type(JsonFieldType.NUMBER).description("예약 주문 (연도)"),
 					fieldWithPath("pre_order_schedule.month").type(JsonFieldType.NUMBER).description("예약 주문 (월)"),
@@ -275,6 +276,7 @@ class ItemAdminControllerTest extends ControllerTestSupport {
 				.discount(1000)
 				.build())
 			.introduction("introduction")
+			.quantity(10)
 			.type(ItemTypeRequest.PRE_ORDER)
 			.preOrderSchedule(PreOrderScheduleRequest.builder()
 				.year(2024)
