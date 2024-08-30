@@ -37,30 +37,24 @@ public class AddItemServiceDto {
 		this.categoryId = categoryId;
 	}
 
-	public AddItemServiceDto initialize(String memberId, String createdUuid) {
-		if (type.equals(ItemType.NORMAL_ORDER)) {
-			this.quantity = 0;
-		}
-
-		return this
-			.withUuid(createdUuid)
-			.withStatus(ItemStatus.ACTIVE)
-			.withMemberId(memberId);
+	public AddItemServiceDto withQuantity(Integer quantity) {
+		return new AddItemServiceDto(itemId, name, cost, introduction, quantity, type, preOrderSchedule, status,
+			memberId, categoryId);
 	}
 
-	private AddItemServiceDto withUuid(String uuid) {
+	public AddItemServiceDto withUuid(String uuid) {
 		ItemId createdItemId = ItemId.of(null, uuid);
 
 		return new AddItemServiceDto(createdItemId, name, cost, introduction, quantity, type, preOrderSchedule, status,
 			memberId, categoryId);
 	}
 
-	private AddItemServiceDto withMemberId(String memberId) {
+	public AddItemServiceDto withMemberId(String memberId) {
 		return new AddItemServiceDto(itemId, name, cost, introduction, quantity, type, preOrderSchedule, status,
 			memberId, categoryId);
 	}
 
-	private AddItemServiceDto withStatus(ItemStatus status) {
+	public AddItemServiceDto withStatus(ItemStatus status) {
 		return new AddItemServiceDto(itemId, name, cost, introduction, quantity, type, preOrderSchedule, status,
 			memberId, categoryId);
 	}
