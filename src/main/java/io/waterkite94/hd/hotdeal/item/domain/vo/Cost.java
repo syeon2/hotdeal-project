@@ -10,7 +10,7 @@ public class Cost {
 	private final Integer discount;
 
 	@Builder
-	public Cost(Integer price, Integer discount) {
+	private Cost(Integer price, Integer discount) {
 		validateCost(price, discount);
 
 		this.price = price;
