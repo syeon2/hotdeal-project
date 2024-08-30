@@ -22,4 +22,8 @@ public class AddAddressDto {
 	public static AddAddressDto of(String city, String state, String zipcode, String address) {
 		return new AddAddressDto(city, state, zipcode, address);
 	}
+
+	public String convertAddress() {
+		return city + " " + state + " " + address + " " + zipcode;
+	}
 }

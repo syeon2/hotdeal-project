@@ -35,7 +35,7 @@ public class ItemAdminService {
 
 		ItemEntity savedItem = itemRepository.save(
 			itemMapper.toEntity(
-				initializeDto(memberId, serviceDto),
+				initializeItemDto(memberId, serviceDto),
 				convertPreOrderSchedule(serviceDto)
 			)
 		);
@@ -76,7 +76,7 @@ public class ItemAdminService {
 		}
 	}
 
-	private static AddItemServiceDto initializeDto(String memberId, AddItemServiceDto serviceDto) {
+	private static AddItemServiceDto initializeItemDto(String memberId, AddItemServiceDto serviceDto) {
 		if (serviceDto.getType().equals(ItemType.NORMAL_ORDER)) {
 			serviceDto = serviceDto.withQuantity(0);
 		}

@@ -26,7 +26,7 @@ public class OrderController {
 	@PostMapping("/normal")
 	public ApiResponse<OrderItemsResponse> orderNormalItems(@RequestBody @Valid OrderItemsRequest request) {
 
-		String savedOrderUuid = orderService.addOrderWithOrderDetail(
+		String savedOrderUuid = orderService.addNormalOrderWithOrderDetail(
 			request.getMemberId(),
 			request.getAddress().toServiceDto(),
 			request.getOrderItems().stream()
