@@ -56,7 +56,7 @@ class ItemControllerTest extends ControllerTestSupport {
 		mockMvc.perform(
 				get("/api/v1/items")
 					.with(csrf())
-					.param("categoryId", "1")
+					.param("category-id", "1")
 					.param("type", typeRequest.toString())
 					.param("page", "0")
 					.param("size", "10")
@@ -71,6 +71,7 @@ class ItemControllerTest extends ControllerTestSupport {
 			.andExpect(jsonPath("$.data.content[0].cost.price").isNumber())
 			.andExpect(jsonPath("$.data.content[0].cost.discount").isNumber())
 			.andExpect(jsonPath("$.data.content[0].is_pre_order_item").isBoolean())
+			.andExpect(jsonPath("$.data.content[0].quantity").isNumber())
 			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.year").isNumber())
 			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.month").isNumber())
 			.andExpect(jsonPath("$.data.content[0].pre_order_schedule.date").isNumber())
@@ -83,7 +84,7 @@ class ItemControllerTest extends ControllerTestSupport {
 				preprocessRequest(prettyPrint()),
 				preprocessResponse(prettyPrint()),
 				queryParameters(
-					parameterWithName("categoryId").description("카테고리 아이디"),
+					parameterWithName("category-id").description("카테고리 아이디"),
 					parameterWithName("type").description("상품 타입 (none, pre_order, normal_order)"),
 					parameterWithName("page").description("페이지 순서"),
 					parameterWithName("size").description("페이지 컨텐츠 개수"),
@@ -98,6 +99,7 @@ class ItemControllerTest extends ControllerTestSupport {
 					fieldWithPath("data.content[0].item_name").type(JsonFieldType.STRING).description("상품 이름"),
 					fieldWithPath("data.content[0].cost.price").type(JsonFieldType.NUMBER).description("상품 가격"),
 					fieldWithPath("data.content[0].cost.discount").type(JsonFieldType.NUMBER).description("상품 할인 금액"),
+					fieldWithPath("data.content[0].quantity").type(JsonFieldType.NUMBER).description("상품 재고"),
 					fieldWithPath("data.content[0].is_pre_order_item").type(JsonFieldType.BOOLEAN)
 						.description("예약 주문 상품 확인"),
 					fieldWithPath("data.content[0].pre_order_schedule.year").type(JsonFieldType.NUMBER)
@@ -201,6 +203,7 @@ class ItemControllerTest extends ControllerTestSupport {
 			.itemName("hello")
 			.cost(Cost.of(10000, 1000))
 			.isPreOrderItem(true)
+			.quantity(10)
 			.preOrderTime(LocalDateTime.now())
 			.sellerId("sellerId")
 			.sellerName("sellerName")

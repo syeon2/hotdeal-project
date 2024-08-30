@@ -1,8 +1,5 @@
 package io.waterkite94.hd.hotdeal.item.web.api.user;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 import io.waterkite94.hd.hotdeal.common.wrapper.CustomPage;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
-import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemsDto;
 import io.waterkite94.hd.hotdeal.item.service.user.ItemService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.ItemTypeRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.response.ItemDetailResponse;
@@ -34,13 +30,12 @@ public class ItemController {
 		@RequestParam(required = false) String search,
 		Pageable pageable
 	) {
-		Page<RetrieveItemsDto> findItems =
-			itemService.findItems(categoryId, itemType.toVo(), search, pageable);
-		List<RetrieveItemsResponse> convertedItems = findItems.getContent().stream()
-			.map(RetrieveItemsResponse::of)
-			.toList();
+		CustomPage<RetrieveItemsResponse> convertedItems = CustomPage.convertDtoToResponse(
+			itemService.findItems(categoryId, itemType.toVo(), search, pageable),
+			RetrieveItemsResponse::of
+		);
 
-		return ApiResponse.ok(CustomPage.of(convertedItems, findItems.getTotalElements()));
+		return ApiResponse.ok(convertedItems);
 	}
 
 	@GetMapping("/{itemId}")

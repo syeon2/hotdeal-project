@@ -23,6 +23,7 @@ public class RetrieveItemsResponse {
 	@JsonProperty("is_pre_order_item")
 	private Boolean isPreOrderItem;
 
+	@JsonProperty("quantity")
 	private Integer quantity;
 
 	@JsonProperty("pre_order_schedule")
