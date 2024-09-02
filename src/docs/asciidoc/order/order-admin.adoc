@@ -1,0 +1,42 @@
+[[Admin-Order]]
+=== Admin Order APIs
+
+==== In Delivery Order
+
+===== Request
+
+include::{snippets}/order-indelivery-item/path-parameters.adoc[]
+include::{snippets}/order-indelivery-item/http-request.adoc[]
+
+===== Response
+
+include::{snippets}/order-indelivery-item/response-body.adoc[]
+include::{snippets}/order-indelivery-item/response-fields.adoc[]
+
+
+==== Complete Delivery Order
+
+===== Request
+
+include::{snippets}/order-compdelivery-item/path-parameters.adoc[]
+include::{snippets}/order-compdelivery-item/http-request.adoc[]
+
+===== Response
+
+include::{snippets}/order-compdelivery-item/response-body.adoc[]
+include::{snippets}/order-compdelivery-item/response-fields.adoc[]
+
+
+==== Complete Return Order
+
+===== Request
+
+include::{snippets}/order-compreturn-item/path-parameters.adoc[]
+include::{snippets}/order-compreturn-item/http-request.adoc[]
+
+===== Response
+
+include::{snippets}/order-compreturn-item/response-body.adoc[]
+include::{snippets}/order-compreturn-item/response-fields.adoc[]
+
+

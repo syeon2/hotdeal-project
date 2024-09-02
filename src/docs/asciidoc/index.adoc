@@ -20,7 +20,7 @@ include::member/member-access.adoc[]
 [[Item-API]]
 == Item API
 
-include::item/findCategoryDto.adoc[]
+include::item/category.adoc[]
 include::item/item-admin.adoc[]
 include::item/item.adoc[]
 
@@ -29,3 +29,9 @@ include::item/item.adoc[]
 
 include::item/item-inquiry.adoc[]
 include::item/inquiry-comment.adoc[]
+
+[[Order-API]]
+== Order Item API
+
+include::order/order-user.adoc[]
+include::order/order-admin.adoc[]

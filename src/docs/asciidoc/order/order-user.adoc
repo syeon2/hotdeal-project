@@ -1,0 +1,57 @@
+[[User-Order]]
+=== User Order APIs
+
+==== Add Normal Items Order
+
+===== Request
+
+include::{snippets}/order-add-normal-item/http-request.adoc[]
+include::{snippets}/order-add-normal-item/request-body.adoc[]
+include::{snippets}/order-add-normal-item/request-fields.adoc[]
+
+===== Response
+
+include::{snippets}/order-add-normal-item/response-body.adoc[]
+include::{snippets}/order-add-normal-item/response-fields.adoc[]
+
+
+==== Add Pre Order Item Order
+
+===== Request
+
+include::{snippets}/order-add-preorder-item/http-request.adoc[]
+include::{snippets}/order-add-preorder-item/request-body.adoc[]
+include::{snippets}/order-add-preorder-item/request-fields.adoc[]
+
+===== Response
+
+include::{snippets}/order-add-preorder-item/response-body.adoc[]
+include::{snippets}/order-add-preorder-item/response-fields.adoc[]
+
+
+==== Cancel Order
+
+===== Request
+
+include::{snippets}/order-cancel-item/path-parameters.adoc[]
+include::{snippets}/order-cancel-item/http-request.adoc[]
+
+===== Response
+
+include::{snippets}/order-cancel-item/response-body.adoc[]
+include::{snippets}/order-cancel-item/response-fields.adoc[]
+
+
+==== In Return Order
+
+===== Request
+
+include::{snippets}/order-inreturn-item/path-parameters.adoc[]
+include::{snippets}/order-inreturn-item/http-request.adoc[]
+
+===== Response
+
+include::{snippets}/order-inreturn-item/response-body.adoc[]
+include::{snippets}/order-inreturn-item/response-fields.adoc[]
+
+

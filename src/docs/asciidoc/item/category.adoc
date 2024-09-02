@@ -3,15 +3,15 @@
 
 ==== Category Add API
 
-include::{snippets}/findCategoryDto-add/http-request.adoc[]
-include::{snippets}/findCategoryDto-add/request-fields.adoc[]
+include::{snippets}/category-add/http-request.adoc[]
+include::{snippets}/category-add/request-fields.adoc[]
 
-include::{snippets}/findCategoryDto-add/response-body.adoc[]
-include::{snippets}/findCategoryDto-add/response-fields.adoc[]
+include::{snippets}/category-add/response-body.adoc[]
+include::{snippets}/category-add/response-fields.adoc[]
 
 ==== Category Find All API
 
-include::{snippets}/findCategoryDto-find-all/http-request.adoc[]
+include::{snippets}/category-find-all/http-request.adoc[]
 
-include::{snippets}/findCategoryDto-find-all/response-body.adoc[]
-include::{snippets}/findCategoryDto-find-all/response-fields.adoc[]
+include::{snippets}/category-find-all/response-body.adoc[]
+include::{snippets}/category-find-all/response-fields.adoc[]
