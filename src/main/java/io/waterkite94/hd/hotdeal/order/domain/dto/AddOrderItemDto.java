@@ -18,4 +18,5 @@ public class AddOrderItemDto {
 	public static AddOrderItemDto of(Long itemId, Integer quantity) {
 		return new AddOrderItemDto(itemId, quantity);
 	}
+
 }

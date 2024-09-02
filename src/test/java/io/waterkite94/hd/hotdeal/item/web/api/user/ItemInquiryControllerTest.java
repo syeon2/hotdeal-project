@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.web.api.normal;
+package io.waterkite94.hd.hotdeal.item.web.api.user;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
@@ -23,7 +23,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemInquiriesDto;
-import io.waterkite94.hd.hotdeal.item.service.normal.ItemInquiryService;
+import io.waterkite94.hd.hotdeal.item.service.user.ItemInquiryService;
 import io.waterkite94.hd.hotdeal.item.web.api.request.AddItemInquiryRequest;
 import io.waterkite94.hd.hotdeal.item.web.api.request.DeleteItemInquiryRequest;
 

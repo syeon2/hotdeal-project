@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.web.api.normal;
+package io.waterkite94.hd.hotdeal.item.web.api.user;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
@@ -20,7 +20,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import io.waterkite94.hd.hotdeal.ControllerTestSupport;
-import io.waterkite94.hd.hotdeal.item.domain.Category;
+import io.waterkite94.hd.hotdeal.item.domain.dto.FindCategoryDto;
 import io.waterkite94.hd.hotdeal.item.service.admin.CategoryService;
 
 @WebMvcTest(CategoryController.class)
@@ -34,8 +34,8 @@ class CategoryControllerTest extends ControllerTestSupport {
 	@DisplayName(value = "카테고리를 조회하는 API를 호출합니다.")
 	void retrieveAllCategories() throws Exception {
 		// given
-		Category category = createCategory();
-		given(categoryService.findAllCategories()).willReturn(List.of(category));
+		FindCategoryDto findCategoryDto = createCategory();
+		given(categoryService.findAllCategories()).willReturn(List.of(findCategoryDto));
 
 		// when // then
 		mockMvc.perform(
@@ -47,8 +47,8 @@ class CategoryControllerTest extends ControllerTestSupport {
 			.andExpect(jsonPath("$.status").isNumber())
 			.andExpect(jsonPath("$.message").isEmpty())
 			.andExpect(jsonPath("$.data").isArray())
-			.andExpect(jsonPath("$.data[0].id").value(category.getId()))
-			.andExpect(jsonPath("$.data[0].name").value(category.getName()))
+			.andExpect(jsonPath("$.data[0].id").value(findCategoryDto.getId()))
+			.andExpect(jsonPath("$.data[0].name").value(findCategoryDto.getName()))
 			.andDo(document("category-find-all",
 				preprocessRequest(prettyPrint()),
 				preprocessResponse(prettyPrint()),
@@ -61,8 +61,8 @@ class CategoryControllerTest extends ControllerTestSupport {
 			));
 	}
 
-	private Category createCategory() {
-		return Category.builder()
+	private FindCategoryDto createCategory() {
+		return FindCategoryDto.builder()
 			.id(1L)
 			.name("name")
 			.build();

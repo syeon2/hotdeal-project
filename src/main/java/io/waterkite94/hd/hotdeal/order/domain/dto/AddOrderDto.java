@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 public class AddOrderDto {
 
-	private String uuid;
-	private OrderStatus status;
-	private String address;
-	private String memberId;
+	private final String uuid;
+	private final OrderStatus status;
+	private final String address;
+	private final String memberId;
 
 	@Builder
 	private AddOrderDto(String uuid, OrderStatus status, String address, String memberId) {
@@ -18,6 +18,10 @@ public class AddOrderDto {
 		this.status = status;
 		this.address = address;
 		this.memberId = memberId;
+	}
+
+	public static AddOrderDto of(String uuid, OrderStatus status, String address, String memberId) {
+		return new AddOrderDto(uuid, status, address, memberId);
 	}
 
 }

@@ -20,7 +20,7 @@ include::member/member-access.adoc[]
 [[Item-API]]
 == Item API
 
-include::item/category.adoc[]
+include::item/findCategoryDto.adoc[]
 include::item/item-admin.adoc[]
 include::item/item.adoc[]
 

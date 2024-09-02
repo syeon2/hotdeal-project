@@ -18,4 +18,16 @@ public class OrderDetailDto {
 		this.totalDiscount = totalDiscount;
 		this.itemId = itemId;
 	}
+
+	public static OrderDetailDto from(AddOrderItemDto addOrderItemDto, Integer price, Integer discount) {
+		Integer totalPrice = price * addOrderItemDto.getQuantity();
+		Integer totalDiscount = discount * addOrderItemDto.getQuantity();
+
+		return OrderDetailDto.builder()
+			.itemId(addOrderItemDto.getItemId())
+			.quantity(addOrderItemDto.getQuantity())
+			.totalPrice(totalPrice)
+			.totalDiscount(totalDiscount)
+			.build();
+	}
 }

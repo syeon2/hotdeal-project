@@ -3,19 +3,20 @@ package io.waterkite94.hd.hotdeal.item.dao;
 import org.springframework.stereotype.Component;
 
 import io.waterkite94.hd.hotdeal.item.dao.entity.CategoryEntity;
-import io.waterkite94.hd.hotdeal.item.domain.Category;
+import io.waterkite94.hd.hotdeal.item.domain.dto.AddCategoryDto;
+import io.waterkite94.hd.hotdeal.item.domain.dto.FindCategoryDto;
 
 @Component
 public class CategoryMapper {
 
-	public CategoryEntity toEntity(Category category) {
+	public CategoryEntity toEntity(AddCategoryDto addCategoryDto) {
 		return CategoryEntity.builder()
-			.name(category.getName())
+			.name(addCategoryDto.getName())
 			.build();
 	}
 
-	public Category toDomain(CategoryEntity category) {
-		return Category.builder()
+	public FindCategoryDto toServiceDto(CategoryEntity category) {
+		return FindCategoryDto.builder()
 			.id(category.getId())
 			.name(category.getName())
 			.build();

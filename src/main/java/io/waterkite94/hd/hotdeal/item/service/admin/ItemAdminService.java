@@ -17,6 +17,7 @@ import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ChangeItemInfoDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
+import io.waterkite94.hd.hotdeal.item.domain.vo.ItemStatus;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.item.domain.vo.PreOrderSchedule;
 import lombok.RequiredArgsConstructor;
@@ -30,80 +31,96 @@ public class ItemAdminService {
 
 	@Transactional
 	public Long addItemWithMemberId(String memberId, AddItemServiceDto serviceDto) {
-		AddItemServiceDto initializeDto = createInitializedDto(memberId, serviceDto);
+		validatePreOrderSchedule(serviceDto);
 
-		LocalDateTime preOrderSchedule = convertPreOrderSchedule(serviceDto);
+		ItemEntity savedItem = itemRepository.save(
+			itemMapper.toEntity(
+				initializeItemDto(memberId, serviceDto),
+				convertPreOrderSchedule(serviceDto)
+			)
+		);
 
-		return itemRepository.save(itemMapper.toEntity(initializeDto, preOrderSchedule)).getId();
+		return savedItem.getId();
 	}
 
 	@Transactional
 	public void changeItemStatusInactive(String memberId, Long itemId) {
-		ItemEntity findItem = itemRepository.findById(itemId)
-			.orElseThrow(() -> new IllegalArgumentException("Item not found"));
+		ItemEntity findItem = findItemWithValidation(itemId);
 
 		validateMemberId(memberId, findItem.getMemberId());
 
 		findItem.changeStatusInactive();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Page<RetrieveRegisteredItemDto> findAdminItems(String memberId, Pageable pageable) {
 		return itemRepository.findAdminItemsByMemberId(memberId, pageable);
 	}
 
 	@Transactional
 	public void changeItemInfo(String memberId, Long itemId, ChangeItemInfoDto changeItemInfoDto) {
-		ItemEntity findItem = itemRepository.findById(itemId)
-			.orElseThrow(() -> new IllegalArgumentException("Item not found"));
+		ItemEntity findItem = findItemWithValidation(itemId);
 
-		ItemType itemType = findItem.getType();
-		if (itemType.equals(PRE_ORDER)
-			&& !isBetweenNowTimeAndAfterCreateDateForSevenDate(
-			changeItemInfoDto.getPreOrderSchedule(),
-			findItem.getCreatedAt())
-		) {
-			throw new IllegalArgumentException(
-				"Pre order time can only be registered within 7 days from the create item time");
-		}
-
+		validatePreOrderScheduleAfterCreation(changeItemInfoDto, findItem);
 		validateMemberId(memberId, findItem.getMemberId());
 
 		changeItemInfoDto.changeInfo(findItem);
 	}
 
-	private static AddItemServiceDto createInitializedDto(String memberId, AddItemServiceDto serviceDto) {
-		return serviceDto.initialize(memberId, UuidUtil.createUuid());
+	private void validatePreOrderSchedule(AddItemServiceDto serviceDto) {
+		if (serviceDto.getType().equals(PRE_ORDER)
+			&& isNotWithinNextSevenDays(serviceDto.getPreOrderSchedule())
+		) {
+			throw new IllegalArgumentException(
+				"예약 구매 상품은 '현재 시간으로부터 2시간 이후' ~ 현재 시간으로부터 7일 이후' 사이의 시간으로 설정 가능합니다.");
+		}
+	}
+
+	private static AddItemServiceDto initializeItemDto(String memberId, AddItemServiceDto serviceDto) {
+		if (serviceDto.getType().equals(ItemType.NORMAL_ORDER)) {
+			serviceDto = serviceDto.withQuantity(0);
+		}
+
+		return serviceDto
+			.withUuid(UuidUtil.createUuid())
+			.withStatus(ItemStatus.ACTIVE)
+			.withMemberId(memberId);
+	}
+
+	private LocalDateTime convertPreOrderSchedule(AddItemServiceDto serviceDto) {
+		return serviceDto.getType().equals(PRE_ORDER) ? serviceDto.getPreOrderSchedule().toLocalDateTime() :
+			LocalDateTime.now();
+	}
+
+	private ItemEntity findItemWithValidation(Long itemId) {
+		return itemRepository.findById(itemId)
+			.orElseThrow(() -> new IllegalArgumentException("상품 아이디에 해당하는 상품을 찾을 수 없습니다."));
 	}
 
 	private void validateMemberId(String memberId, String storedMemberId) {
 		if (!storedMemberId.equals(memberId)) {
-			throw new UnauthorizedMemberException("Unauthorized Member Id");
+			throw new UnauthorizedMemberException("상품을 등록한 회원과 입력받은 회원의 아이디가 일치하지 않습니다.");
 		}
 	}
 
-	private LocalDateTime convertPreOrderSchedule(AddItemServiceDto serviceDto) {
-		ItemType itemType = serviceDto.getType();
-
-		if (itemType.equals(PRE_ORDER) && !isBetweenNowTimeAndAfterSevenDate(serviceDto.getPreOrderSchedule())) {
-			throw new IllegalArgumentException(
-				"Pre order time can only be registered within 7 days from the current time");
+	private void validatePreOrderScheduleAfterCreation(ChangeItemInfoDto changeItemInfoDto, ItemEntity findItem) {
+		if (findItem.getType().equals(PRE_ORDER)
+			&& isNotWithinSevenDaysAfterCreation(changeItemInfoDto.getPreOrderSchedule(), findItem.getCreatedAt())
+		) {
+			throw new IllegalArgumentException("예약 구매 시간은 상품 등록 시간으로부터 7일 이내의 시간만 등록이 가능합니다.");
 		}
-
-		return itemType.equals(PRE_ORDER) ? serviceDto.getPreOrderSchedule().toLocalDateTime() :
-			LocalDateTime.now();
 	}
 
-	private boolean isBetweenNowTimeAndAfterSevenDate(PreOrderSchedule preOrderSchedule) {
-		return preOrderSchedule.isBetweenStartTimeAndEndTime(
+	private boolean isNotWithinNextSevenDays(PreOrderSchedule preOrderSchedule) {
+		return !preOrderSchedule.isBetweenStartTimeAndEndTime(
 			LocalDateTime.now().plusHours(2),
 			LocalDateTime.now().plusDays(7).toLocalDate()
 		);
 	}
 
-	private boolean isBetweenNowTimeAndAfterCreateDateForSevenDate(PreOrderSchedule preOrderSchedule,
+	private boolean isNotWithinSevenDaysAfterCreation(PreOrderSchedule preOrderSchedule,
 		LocalDateTime createdDate) {
-		return preOrderSchedule.isBetweenStartTimeAndEndTime(LocalDateTime.now().plusHours(2),
+		return !preOrderSchedule.isBetweenStartTimeAndEndTime(LocalDateTime.now().plusHours(2),
 			createdDate.plusDays(7).toLocalDate());
 	}
 
