@@ -51,13 +51,13 @@
 
 ### 🌱 Architecture
 
-<img src="https://i.ibb.co/R2XFpWc/architecture.jpg" alt="architecture" border="0">
+<img src="https://i.ibb.co/RBgcQZ8/developer.jpg" alt="developer" border="0" />
 
 ---
 
 ### 🌱 ERD
 
-<img src="https://i.ibb.co/2qVLfRj/hotdeal-erd.png" alt="hotdeal-erd" border="0">
+<img src="https://i.ibb.co/Sw5BrvP/Screenshot-2024-09-02-at-21-13-42.png" alt="Screenshot-2024-09-02-at-21-13-42" border="0" />
 
 ---
 
@@ -70,6 +70,7 @@
 
 ### 🌱 문제 및 트러블슈팅
 
+- [각 레이어 간 사용되는 도메인 객체를 DTO와 VO 개념을 활용하여 설계한 사례](https://syeon2.github.io/devlog/hotdeal-domain.html)
 - 예약 구매 상품 주문 시 재고 차감 동시성 이슈를 Pessimistic Lock으로 해결
 - 장바구니 조회 및 수정 속도 개선
 - 일반 상품 구매시 여러 상품 정보 조회 속도 개선
