@@ -2,6 +2,7 @@ package io.waterkite94.hd.hotdeal.order.web.api.user;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,21 +50,14 @@ public class OrderController {
 		return ApiResponse.ok(new OrderItemsResponse(savedOrderUuid));
 	}
 
-	@PostMapping("/order/{orderId}/cancel")
+	@PutMapping("/order/{orderId}/cancel")
 	public ApiResponse<SuccessResponse> cancelOrder(@PathVariable("orderId") String orderId) {
 		orderService.changeOrderStatusToCancel(orderId);
 
 		return ApiResponse.ok(new SuccessResponse("Cancel Order successfully"));
 	}
 
-	@PostMapping("/order/{orderId}/in-delivery")
-	public ApiResponse<SuccessResponse> startDeliveryOrder(@PathVariable("orderId") String orderId) {
-		orderService.changeOrderStatusToInDelivery(orderId);
-
-		return ApiResponse.ok(new SuccessResponse("Start Delivery Order successfully"));
-	}
-
-	@PostMapping("/order/{orderId}/in-return")
+	@PutMapping("/order/{orderId}/in-return")
 	public ApiResponse<SuccessResponse> inReturnOrder(@PathVariable("orderId") String orderId) {
 		orderService.changeOrderStatusToInReturn(orderId);
 

@@ -1,7 +1,7 @@
 package io.waterkite94.hd.hotdeal.order.web.api.admin;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,14 +17,21 @@ public class OrderAdminController {
 
 	private final OrderService orderService;
 
-	@PostMapping("/order/{orderId}/comp-delivery")
+	@PutMapping("/order/{orderId}/in-delivery")
+	public ApiResponse<SuccessResponse> startDeliveryOrder(@PathVariable("orderId") String orderId) {
+		orderService.changeOrderStatusToInDelivery(orderId);
+
+		return ApiResponse.ok(new SuccessResponse("Start Delivery Order successfully"));
+	}
+
+	@PutMapping("/order/{orderId}/comp-delivery")
 	public ApiResponse<SuccessResponse> completeDeliveryOrder(@PathVariable("orderId") String orderId) {
 		orderService.changeOrderStatusToCompleteDelivery(orderId);
 
 		return ApiResponse.ok(new SuccessResponse("Complete Delivery Order successfully"));
 	}
 
-	@PostMapping("/order/{orderId}/comp-return")
+	@PutMapping("/order/{orderId}/comp-return")
 	public ApiResponse<SuccessResponse> completeReturnOrder(@PathVariable("orderId") String orderId) {
 		orderService.changeOrderStatusToCompleteReturn(orderId);
 
