@@ -47,11 +47,7 @@ public class ChangeItemInfoRequest {
 		return ChangeItemInfoDto.builder()
 			.name(name)
 			.introduction(introduction)
-			.cost(Cost.builder()
-				.price(cost.getPrice())
-				.discount(cost.getDiscount())
-				.build()
-			)
+			.cost(Cost.of(cost.getPrice(), cost.getDiscount()))
 			.preOrderSchedule(PreOrderSchedule.of(
 				preOrderSchedule.getYear(),
 				preOrderSchedule.getMonth(),

@@ -36,13 +36,13 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 		JPAQuery<RetrieveRegisteredItemDto> contentQuery = queryFactory.select(Projections.constructor(
 				RetrieveRegisteredItemDto.class,
 				Projections.constructor(ItemId.class,
-					QItemEntity.itemEntity.id.as("id"),
-					QItemEntity.itemEntity.uuid.as("uuid")
+					QItemEntity.itemEntity.id,
+					QItemEntity.itemEntity.uuid
 				),
 				QItemEntity.itemEntity.name.as("itemName"),
 				Projections.constructor(Cost.class,
-					QItemEntity.itemEntity.price.as("price"),
-					QItemEntity.itemEntity.discount.as("discount")
+					QItemEntity.itemEntity.price,
+					QItemEntity.itemEntity.discount
 				),
 				QItemEntity.itemEntity.type.as("itemType"),
 				QItemEntity.itemEntity.preOrderTime.as("preOrderSchedule"),

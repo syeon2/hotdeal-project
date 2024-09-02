@@ -7,12 +7,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import io.waterkite94.hd.hotdeal.common.error.exception.OutOfStockException;
 import io.waterkite94.hd.hotdeal.common.error.exception.TooManyRequestException;
 import io.waterkite94.hd.hotdeal.common.error.exception.UnauthorizedMemberException;
 import io.waterkite94.hd.hotdeal.common.wrapper.ApiResponse;
 
 @RestControllerAdvice
 public class ErrorController {
+
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ExceptionHandler(OutOfStockException.class)
+	public ApiResponse<Void> handleOutOfStockException(OutOfStockException exception) {
+		return ApiResponse.error(HttpStatus.CONFLICT, exception.getMessage());
+	}
 
 	@ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
 	@ExceptionHandler(TooManyRequestException.class)
