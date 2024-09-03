@@ -72,6 +72,10 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter'
 
     testImplementation("org.springframework.security:spring-security-test")
+
+    // Monitoring
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 }
 
 jar {
