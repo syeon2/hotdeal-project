@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.dao.custom;
+package io.waterkite94.hd.hotdeal.item.dao.persistence.custom;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemsDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;

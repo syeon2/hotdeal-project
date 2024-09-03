@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.dao.entity;
+package io.waterkite94.hd.hotdeal.item.dao.persistence.entity;
 
 import io.waterkite94.hd.hotdeal.common.wrapper.BaseEntity;
 import jakarta.persistence.CascadeType;

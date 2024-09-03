@@ -1,6 +1,6 @@
 package io.waterkite94.hd.hotdeal.item.domain.dto;
 
-import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.vo.Cost;
 import io.waterkite94.hd.hotdeal.item.domain.vo.PreOrderSchedule;
 import lombok.Builder;
