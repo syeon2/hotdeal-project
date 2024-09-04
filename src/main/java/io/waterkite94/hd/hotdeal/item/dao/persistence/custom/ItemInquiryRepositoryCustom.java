@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.dao.custom;
+package io.waterkite94.hd.hotdeal.item.dao.persistence.custom;
 
 import java.util.List;
 

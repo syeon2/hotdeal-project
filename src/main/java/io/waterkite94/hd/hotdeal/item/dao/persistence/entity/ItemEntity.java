@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.dao.entity;
+package io.waterkite94.hd.hotdeal.item.dao.persistence.entity;
 
 import java.time.LocalDateTime;
 
@@ -111,9 +111,5 @@ public class ItemEntity extends BaseEntity {
 
 	public void changeCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
-	}
-
-	public void deductQuantity(Integer quantity) {
-		this.quantity -= quantity;
 	}
 }

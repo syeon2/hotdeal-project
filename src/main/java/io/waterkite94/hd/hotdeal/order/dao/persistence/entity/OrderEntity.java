@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.order.dao.entity;
+package io.waterkite94.hd.hotdeal.order.dao.persistence.entity;
 
 import java.util.ArrayList;
 import java.util.List;

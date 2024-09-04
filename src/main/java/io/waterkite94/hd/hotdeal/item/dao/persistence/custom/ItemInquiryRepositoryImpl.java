@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.dao.custom;
+package io.waterkite94.hd.hotdeal.item.dao.persistence.custom;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,7 +8,7 @@ import java.util.List;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import io.waterkite94.hd.hotdeal.item.dao.entity.QItemInquiryEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.QItemInquiryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemInquiriesDto;
 import io.waterkite94.hd.hotdeal.member.dao.persistence.entity.QMemberEntity;
 import lombok.RequiredArgsConstructor;

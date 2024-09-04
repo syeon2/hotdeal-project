@@ -7,11 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.common.error.exception.TooManyRequestException;
 import io.waterkite94.hd.hotdeal.common.error.exception.UnauthorizedMemberException;
-import io.waterkite94.hd.hotdeal.item.dao.ItemInquiryMapper;
-import io.waterkite94.hd.hotdeal.item.dao.ItemInquiryRepository;
-import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
-import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
-import io.waterkite94.hd.hotdeal.item.dao.entity.ItemInquiryEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.ItemInquiryMapper;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.ItemInquiryRepository;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.ItemRepository;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.ItemEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.ItemInquiryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.ItemInquiry;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemInquiriesDto;
 import lombok.RequiredArgsConstructor;

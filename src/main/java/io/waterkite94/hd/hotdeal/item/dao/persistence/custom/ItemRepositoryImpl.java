@@ -1,4 +1,4 @@
-package io.waterkite94.hd.hotdeal.item.dao.custom;
+package io.waterkite94.hd.hotdeal.item.dao.persistence.custom;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,8 +14,8 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import io.waterkite94.hd.hotdeal.item.dao.entity.QCategoryEntity;
-import io.waterkite94.hd.hotdeal.item.dao.entity.QItemEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.QCategoryEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.QItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemsDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;

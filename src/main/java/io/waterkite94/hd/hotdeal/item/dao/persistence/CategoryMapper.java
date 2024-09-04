@@ -1,8 +1,8 @@
-package io.waterkite94.hd.hotdeal.item.dao;
+package io.waterkite94.hd.hotdeal.item.dao.persistence;
 
 import org.springframework.stereotype.Component;
 
-import io.waterkite94.hd.hotdeal.item.dao.entity.CategoryEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.CategoryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddCategoryDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.FindCategoryDto;
 

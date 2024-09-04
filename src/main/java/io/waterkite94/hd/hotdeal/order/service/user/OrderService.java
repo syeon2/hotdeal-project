@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.common.error.exception.OutOfStockException;
 import io.waterkite94.hd.hotdeal.common.util.UuidUtil;
-import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
-import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.ItemRepository;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
-import io.waterkite94.hd.hotdeal.order.dao.OrderDetailMapper;
-import io.waterkite94.hd.hotdeal.order.dao.OrderMapper;
-import io.waterkite94.hd.hotdeal.order.dao.OrderRepository;
-import io.waterkite94.hd.hotdeal.order.dao.entity.OrderEntity;
+import io.waterkite94.hd.hotdeal.order.dao.persistence.OrderDetailMapper;
+import io.waterkite94.hd.hotdeal.order.dao.persistence.OrderMapper;
+import io.waterkite94.hd.hotdeal.order.dao.persistence.OrderRepository;
+import io.waterkite94.hd.hotdeal.order.dao.persistence.entity.OrderEntity;
 import io.waterkite94.hd.hotdeal.order.domain.OrderStatus;
 import io.waterkite94.hd.hotdeal.order.domain.dto.AddAddressDto;
 import io.waterkite94.hd.hotdeal.order.domain.dto.AddOrderDto;
@@ -56,8 +56,6 @@ public class OrderService {
 	public String addPreOrderItemWithOrderDetail(String memberId, AddAddressDto addAddressDto,
 		AddOrderItemDto orderItem) {
 		ItemEntity itemEntity = validateItemForPreOrder(orderItem);
-
-		itemEntity.deductQuantity(orderItem.getQuantity());
 
 		OrderEntity savedOrderEntity = orderRepository.save(
 			orderMapper.toEntity(initializeOrderDto(memberId, addAddressDto))
