@@ -1,9 +1,9 @@
-package io.waterkite94.hd.hotdeal.item.dao;
+package io.waterkite94.hd.hotdeal.item.dao.persistence;
 
 import org.springframework.stereotype.Component;
 
-import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
-import io.waterkite94.hd.hotdeal.item.dao.entity.ItemInquiryEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.ItemEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.ItemInquiryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.ItemInquiry;
 
 @Component

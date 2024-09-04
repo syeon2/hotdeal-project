@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.common.error.exception.DuplicatedCategoryNameException;
-import io.waterkite94.hd.hotdeal.item.dao.CategoryMapper;
-import io.waterkite94.hd.hotdeal.item.dao.CategoryRepository;
-import io.waterkite94.hd.hotdeal.item.dao.entity.CategoryEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.CategoryMapper;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.CategoryRepository;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.CategoryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddCategoryDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.FindCategoryDto;
 import lombok.RequiredArgsConstructor;

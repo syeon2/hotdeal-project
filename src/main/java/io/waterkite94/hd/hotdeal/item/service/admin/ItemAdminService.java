@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.common.error.exception.UnauthorizedMemberException;
 import io.waterkite94.hd.hotdeal.common.util.UuidUtil;
-import io.waterkite94.hd.hotdeal.item.dao.ItemMapper;
-import io.waterkite94.hd.hotdeal.item.dao.ItemRepository;
-import io.waterkite94.hd.hotdeal.item.dao.entity.ItemEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.ItemMapper;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.ItemRepository;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.ItemEntity;
+import io.waterkite94.hd.hotdeal.item.dao.redis.ItemQuantityRedisAdapter;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddItemServiceDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ChangeItemInfoDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveRegisteredItemDto;
@@ -28,6 +29,7 @@ public class ItemAdminService {
 
 	private final ItemRepository itemRepository;
 	private final ItemMapper itemMapper;
+	private final ItemQuantityRedisAdapter itemQuantityRedisAdapter;
 
 	@Transactional
 	public Long addItemWithMemberId(String memberId, AddItemServiceDto serviceDto) {
@@ -39,6 +41,8 @@ public class ItemAdminService {
 				convertPreOrderSchedule(serviceDto)
 			)
 		);
+
+		itemQuantityRedisAdapter.saveItemQuantity(savedItem.getId(), serviceDto.getQuantity());
 
 		return savedItem.getId();
 	}

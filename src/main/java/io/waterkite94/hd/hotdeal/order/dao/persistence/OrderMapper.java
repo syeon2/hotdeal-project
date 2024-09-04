@@ -1,8 +1,8 @@
-package io.waterkite94.hd.hotdeal.order.dao;
+package io.waterkite94.hd.hotdeal.order.dao.persistence;
 
 import org.springframework.stereotype.Component;
 
-import io.waterkite94.hd.hotdeal.order.dao.entity.OrderEntity;
+import io.waterkite94.hd.hotdeal.order.dao.persistence.entity.OrderEntity;
 import io.waterkite94.hd.hotdeal.order.domain.dto.AddOrderDto;
 
 @Component

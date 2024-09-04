@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.IntegrationTestSupport;
-import io.waterkite94.hd.hotdeal.item.dao.CategoryRepository;
-import io.waterkite94.hd.hotdeal.item.dao.entity.CategoryEntity;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.CategoryRepository;
+import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.CategoryEntity;
 import io.waterkite94.hd.hotdeal.item.domain.dto.AddCategoryDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.FindCategoryDto;
 import io.waterkite94.hd.hotdeal.item.service.admin.CategoryService;
