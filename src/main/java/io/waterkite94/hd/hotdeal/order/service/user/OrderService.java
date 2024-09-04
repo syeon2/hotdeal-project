@@ -57,8 +57,6 @@ public class OrderService {
 		AddOrderItemDto orderItem) {
 		ItemEntity itemEntity = validateItemForPreOrder(orderItem);
 
-		itemEntity.deductQuantity(orderItem.getQuantity());
-
 		OrderEntity savedOrderEntity = orderRepository.save(
 			orderMapper.toEntity(initializeOrderDto(memberId, addAddressDto))
 		);

@@ -112,8 +112,4 @@ public class ItemEntity extends BaseEntity {
 	public void changeCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
-
-	public void deductQuantity(Integer quantity) {
-		this.quantity -= quantity;
-	}
 }

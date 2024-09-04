@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.waterkite94.hd.hotdeal.item.dao.persistence.ItemRepository;
+import io.waterkite94.hd.hotdeal.item.dao.redis.ItemQuantityRedisAdapter;
 import io.waterkite94.hd.hotdeal.item.domain.dto.ItemDetailDto;
 import io.waterkite94.hd.hotdeal.item.domain.dto.RetrieveItemsDto;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class ItemService {
 
 	private final ItemRepository itemRepository;
+	private final ItemQuantityRedisAdapter itemQuantityRedisAdapter;
 
 	@Transactional(readOnly = true)
 	public Page<RetrieveItemsDto> findItems(Long categoryId, ItemType type, String search,
@@ -26,5 +28,9 @@ public class ItemService {
 	@Transactional(readOnly = true)
 	public ItemDetailDto findItemDetail(Long itemId) {
 		return itemRepository.findItemDetail(itemId);
+	}
+
+	public void deductQuantity(Long itemId, Integer quantity) {
+		itemQuantityRedisAdapter.deductItemQuantity(itemId, quantity);
 	}
 }
