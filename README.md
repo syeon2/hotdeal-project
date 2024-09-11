@@ -51,7 +51,7 @@
 
 ### 🌱 Architecture
 
-<img src="https://i.ibb.co/RBgcQZ8/developer.jpg" alt="developer" border="0" />
+<img src="https://i.ibb.co/NZqvGfw/developer.jpg" alt="developer" border="0">
 
 ---
 
