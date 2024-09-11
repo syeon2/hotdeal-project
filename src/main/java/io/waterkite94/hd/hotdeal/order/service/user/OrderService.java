@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import io.waterkite94.hd.hotdeal.item.dao.persistence.ItemRepository;
 import io.waterkite94.hd.hotdeal.item.dao.persistence.entity.ItemEntity;
 import io.waterkite94.hd.hotdeal.item.domain.vo.ItemType;
 import io.waterkite94.hd.hotdeal.order.dao.persistence.OrderDetailMapper;
+import io.waterkite94.hd.hotdeal.order.dao.persistence.OrderDetailRepository;
 import io.waterkite94.hd.hotdeal.order.dao.persistence.OrderMapper;
 import io.waterkite94.hd.hotdeal.order.dao.persistence.OrderRepository;
 import io.waterkite94.hd.hotdeal.order.dao.persistence.entity.OrderEntity;
@@ -32,6 +34,7 @@ public class OrderService {
 	private final ItemRepository itemRepository;
 	private final OrderMapper orderMapper;
 	private final OrderDetailMapper orderDetailMapper;
+	private final OrderDetailRepository orderDetailRepository;
 
 	@Transactional
 	public String addNormalOrderWithOrderDetail(
@@ -45,9 +48,7 @@ public class OrderService {
 			orderMapper.toEntity(initializeOrderDto(memberId, addAddressDto))
 		);
 
-		orderDetails.forEach(orderDetail -> {
-			savedOrderEntity.addOrderDetail(orderDetailMapper.toEntity(orderDetail));
-		});
+		orderDetailRepository.saveAll(orderDetails, savedOrderEntity.getUuid());
 
 		return savedOrderEntity.getUuid();
 	}
@@ -119,25 +120,34 @@ public class OrderService {
 	private List<OrderDetailDto> createOrderDetails(List<AddOrderItemDto> orderItems) {
 		Map<Long, OrderDetailDto> orderDetails = new HashMap<>();
 
-		for (AddOrderItemDto orderItem : orderItems) {
-			ItemEntity itemEntity = itemRepository.findById(orderItem.getItemId())
-				.orElseThrow(() -> new IllegalArgumentException("잘못된 상품 아이디를 압력하였습니다."));
+		List<Long> orderedItemIds = orderItems.stream()
+			.map(AddOrderItemDto::getItemId)
+			.toList();
 
-			if (itemEntity.getType().equals(ItemType.PRE_ORDER)) {
+		Map<Long, ItemEntity> itemMap = itemRepository.findAllById(orderedItemIds).stream()
+			.collect(Collectors.toMap(ItemEntity::getId, itemEntity -> itemEntity));
+
+		for (AddOrderItemDto orderItem : orderItems) {
+			ItemEntity findItem = itemMap.get(orderItem.getItemId());
+
+			if (findItem == null) {
+				throw new IllegalArgumentException("잘못된 상품 아이디를 압력하였습니다.");
+			}
+
+			if (findItem.getType().equals(ItemType.PRE_ORDER)) {
 				throw new IllegalArgumentException("예약 구매 상품은 일반 구매 상품과 함께 결제할 수 없습니다.");
 			}
 
 			OrderDetailDto orderDetail = OrderDetailDto.from(
 				orderItem,
-				itemEntity.getPrice(),
-				itemEntity.getQuantity()
+				findItem.getPrice(),
+				findItem.getDiscount()
 			);
 
-			orderDetails.putIfAbsent(itemEntity.getId(), orderDetail);
+			orderDetails.putIfAbsent(findItem.getId(), orderDetail);
 		}
 
-		return orderDetails.values().stream()
-			.toList();
+		return orderDetails.values().stream().toList();
 	}
 
 	private AddOrderDto initializeOrderDto(String memberId, AddAddressDto addAddressDto) {
