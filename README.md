@@ -70,8 +70,7 @@
 
 ### 🌱 문제 및 트러블슈팅
 
-- [각 레이어 간 사용되는 도메인 객체를 DTO와 VO 개념을 활용하여 설계한 사례](https://syeon2.github.io/devlog/hotdeal-domain.html)
-- 예약 구매 상품 주문 시 재고 차감 동시성 이슈를 Pessimistic Lock으로 해결
-- 장바구니 조회 및 수정 속도 개선
-- 일반 상품 구매시 여러 상품 정보 조회 속도 개선
-- cascade와 orphanRemoval를 활용한 주문 세부 정보 관리
+- [DTO와 VO 개념을 활용한 도메인 객체 설계 사례](https://syeon2.github.io/devlog/hotdeal-domain.html)
+- [Redis를 이용한 재고 관리 및 동시성 이슈 해결 방법](https://syeon2.github.io/devlog/hotdeal-order-speed.html)
+- [Where In 절과 JdbcTemplate을 활용한 주문 기능 성능 최적화](https://syeon2.github.io/devlog/hotdeal-order-query.html)
+- cascade와 orphanRemoval을 이용한 주문 세부 정보 관리
